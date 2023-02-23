@@ -81,7 +81,7 @@ static int cmd_info(char *args) {
     else printf("argument fault! Please enter the right argument!\n");
     return 0;
 }
-/*  
+  
 //dtyy addfuntion
 static int cmd_x(char *args) {
     int i = 0, op_num = 0;//op_num operation number 
@@ -106,13 +106,13 @@ static int cmd_x(char *args) {
         printf("argument fault! Please enter the right argument!\n");
     else 
     {
-        //int j = 0;
-        //for(;j <= op_num; j ++)
-            //printf("0x%x = 0x%x\n", argu_num + j, isa_mmu_check(argu_num,4,8));
-        //}
+        int j = 0;
+        for(;j <= op_num; j ++)
+            printf("0x%x = 0x%x\n", argu_num + j, isa_mmu_check(argu_num,4,8));
+	}
     return 0;
 }
-*/
+
 static int cmd_help(char *args);
 
 static struct {
@@ -127,7 +127,7 @@ static struct {
   /* TODO: Add more commands */
   { "si", "run n step and stop", cmd_si },
   { "info", "printf register", cmd_info },
-//  { "x", "calculate the expression value and output the content", cmd_x },
+  { "x", "calculate the expression value and output the content", cmd_x },
 
 };
 
