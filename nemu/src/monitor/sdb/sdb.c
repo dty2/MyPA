@@ -52,6 +52,67 @@ static int cmd_q(char *args) {
   return -1;
 }
 
+//dtyy addfuntion
+static int cmd_si(char *args) {
+    int i = 0, op_num = 0;//op_num operation number 
+    bool sign = 1;
+    if(args != 0)
+    {
+        for(;*(args + i) != 0; i ++)
+        {
+            if(*(args + i) >= '0' && *(args + i) <= '9')
+                op_num = (int)(*(args + i) - '0') + op_num * 10;
+            else
+            {
+                sign = 0;
+                break;
+            }
+        }
+    }
+    else cpu_exec(1);
+    if(sign == 0)
+        printf("argument fault! Please enter the right argument!\n");
+    else cpu_exec(op_num);
+    return 0;
+}  
+//dtyy addfuntion
+static int cmd_info(char *args) {
+    if(*args == 'r' && *(args + 1) == 0) isa_reg_display();
+    else printf("argument fault! Please enter the right argument!\n");
+    return 0;
+}
+/*  
+//dtyy addfuntion
+static int cmd_x(char *args) {
+    int i = 0, op_num = 0;//op_num operation number 
+    int argu_num = 0;
+    bool sign = 1;
+    if(args != 0)
+    {
+        for(;*(args + i) != ' '; i ++)
+        {
+            if(*(args + i) >= '0' && *(args + i) <= '9')
+                op_num = (int)(*(args + i) - '0') + op_num * 10;
+            else
+            {
+                sign = 0;
+                break;
+            }
+        }
+        argu_num = 0x80000000;
+    }
+    else printf("argument fault! Please enter the argument!\n");
+    if(sign == 0)
+        printf("argument fault! Please enter the right argument!\n");
+    else 
+    {
+        //int j = 0;
+        //for(;j <= op_num; j ++)
+            //printf("0x%x = 0x%x\n", argu_num + j, isa_mmu_check(argu_num,4,8));
+        //}
+    return 0;
+}
+*/
 static int cmd_help(char *args);
 
 static struct {
@@ -64,6 +125,9 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
+  { "si", "run n step and stop", cmd_si },
+  { "info", "printf register", cmd_info },
+//  { "x", "calculate the expression value and output the content", cmd_x },
 
 };
 
