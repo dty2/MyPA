@@ -78,7 +78,7 @@ static int cmd_si(char *args) {
 //dtyy addfuntion
 static int cmd_info(char *args) {
     if(args != 0 && *args == 'r' && *(args + 1) == 0) isa_reg_display();
-	else if(args == 0) printf("argument fault! Please enter the argument!");
+	else if(args == 0) printf("argument fault! Please enter the argument!\n");
     else printf("argument fault! Please enter the right argument!\n");
     return 0;
 }
