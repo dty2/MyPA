@@ -103,7 +103,7 @@ static int cmd_x(char *args) {
                 break;
             }
         }
-        argu_num = 0x100000;
+        argu_num = 0x80000000;
     }
     else printf("argument fault! Please enter the argument!\n");
     if(sign == 0)
