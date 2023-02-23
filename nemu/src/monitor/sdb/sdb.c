@@ -107,7 +107,7 @@ static int cmd_x(char *args) {
     else 
     {
         int j = 0;
-        for(;j <= op_num; j ++)
+        for(;j < op_num; j ++)
             printf("0x%x = 0x%x\n", argu_num + j, isa_mmu_check(argu_num,j, j));
 	}
     return 0;
