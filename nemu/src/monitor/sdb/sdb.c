@@ -89,8 +89,10 @@ static int cmd_info(char *args) {
 //dtyy addfuntion
 static int cmd_x(char *args) {
     int i = 0, op_num = 0;//op_num operation number 
+	char *argument;
     int argu_num = 0;
     bool sign = 1;
+	bool *ss = NULL;
     if(args != 0)
     {
         for(;*(args + i) != ' '; i ++)
@@ -103,7 +105,8 @@ static int cmd_x(char *args) {
                 break;
             }
         }
-        argu_num = 0x80000000;
+		argument = args + i;
+        argu_num = expr(argument, ss);
     }
     else printf("argument fault! Please enter the argument!\n");
     if(sign == 0)
