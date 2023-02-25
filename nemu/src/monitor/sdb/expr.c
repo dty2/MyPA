@@ -24,6 +24,7 @@ enum {
   TK_NOTYPE = 256, TK_EQ,
 
   /* TODO: Add more token types */
+//add code
 	TK_NUM
 };
 
@@ -39,6 +40,7 @@ static struct rule {
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus //by dtyy: '\\' means '\' in regex and '\+' means symbol "+"
   {"==", TK_EQ},        // equal
+//add code 
   {"\\-", '-'},
   {"\\*", '*'},
   {"\\/", '/'},
@@ -101,6 +103,7 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
+//add code
 			case TK_NOTYPE: tokens[nr_token ++].type = TK_NOTYPE; break;
 			case TK_EQ: tokens[nr_token ++].type = TK_EQ; break;
 			case '+': tokens[nr_token ++].type = '+'; break;
@@ -131,13 +134,20 @@ static bool make_token(char *e) {
 
 
 word_t expr(char *e, bool *success) {
+	int i = 0;
   if (!make_token(e)) {
     *success = false;
     return 0;
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
-
+//add code
+  //TODO();
+	for(i = 0; i < 32; i ++)
+	{
+		printf("%d", tokens[i].type);
+		if(tokens[i].type == TK_NUM)
+			printf("%s\n", tokens[i].str);
+	}
   return 0;
 }
