@@ -44,7 +44,7 @@ static struct rule {
   {"\\/", '/'},
   {"\\(", '('},
   {"\\)", ')'},
-  {"[0-9]", TK_NUM},
+  {"[0-9]+", TK_NUM},
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -70,7 +70,7 @@ void init_regex() {
 
 typedef struct token {
   int type;
-  char str[32];
+  char *str;
 } Token;
 
 static Token tokens[32] __attribute__((used)) = {};
@@ -101,6 +101,18 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
+			case TK_NOTYPE: tokens[nr_token ++].type = TK_NOTYPE; break;
+			case TK_EQ: tokens[nr_token ++].type = TK_EQ; break;
+			case '+': tokens[nr_token ++].type = '+'; break;
+			case '-': tokens[nr_token ++].type = '-'; break;
+			case '*': tokens[nr_token ++].type = '*'; break;
+			case '/': tokens[nr_token ++].type = '/'; break;
+			case '(': tokens[nr_token ++].type = '('; break;
+			case ')': tokens[nr_token ++].type = ')'; break;
+			case TK_NUM:
+					  tokens[nr_token].type = TK_NUM;
+					  tokens[nr_token ++].str = substr_start;
+					  break;
           default: TODO();
         }
 
