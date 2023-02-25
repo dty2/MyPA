@@ -144,7 +144,7 @@ word_t expr(char *e, bool *success) {
   /* TODO: Insert codes to evaluate the expression. */
 //add code
   //TODO();
-	for(i = 0; i < 32; i ++)
+	for(i = 0; i < nr_token; i ++)
 	{
 		if(tokens[i].type == TK_NUM)
 			printf("%s\n", tokens[i].str);
