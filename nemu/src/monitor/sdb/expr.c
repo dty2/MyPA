@@ -147,7 +147,11 @@ word_t expr(char *e, bool *success) {
 	{
 		if(tokens[i].type == TK_NUM)
 			printf("%s\n", tokens[i].str);
-		else printf("%d", tokens[i].type);
+		else
+		{
+			if(tokens[i].type != TK_NOTYPE)
+			printf("%c", tokens[i].type);
+		}
 	}
   return 0;
 }
