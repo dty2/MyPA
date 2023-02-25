@@ -153,6 +153,7 @@ word_t expr(char *e, bool *success) {
 			if(tokens[i].type != TK_NOTYPE)
 			printf("%c ", (char)tokens[i].type);
 		}
+		printf("\n");
 	}
   return 0;
 }
