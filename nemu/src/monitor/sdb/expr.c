@@ -39,12 +39,12 @@ static struct rule {
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus //by dtyy: '\\' means '\' in regex and '\+' means symbol "+"
   {"==", TK_EQ},        // equal
-  /*{"\\-", '-'},
+  {"\\-", '-'},
   {"\\*", '*'},
   {"\\/", '/'},
   {"\\(", '('},
   {"\\)", ')'},
-  {"[0-9]+", TK_NUM},*/
+  {"[0-9]+", TK_NUM},
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -104,7 +104,7 @@ static bool make_token(char *e) {
 			case TK_NOTYPE: tokens[nr_token ++].type = TK_NOTYPE; break;
 			case TK_EQ: tokens[nr_token ++].type = TK_EQ; break;
 			case '+': tokens[nr_token ++].type = '+'; break;
-			/*case '-': tokens[nr_token ++].type = '-'; break;
+			case '-': tokens[nr_token ++].type = '-'; break;
 			case '*': tokens[nr_token ++].type = '*'; break;
 			case '/': tokens[nr_token ++].type = '/'; break;
 			case '(': tokens[nr_token ++].type = '('; break;
@@ -112,7 +112,7 @@ static bool make_token(char *e) {
 			case TK_NUM:
 					  tokens[nr_token].type = TK_NUM;
 					  tokens[nr_token ++].str = substr_start;
-					  break;*/
+					  break;
           default: TODO();
         }
 
