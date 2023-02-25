@@ -89,10 +89,10 @@ static int cmd_info(char *args) {
 //dtyy addfuntion
 static int cmd_x(char *args) {
     int i = 0, op_num = 0;//op_num operation number 
-	char *argument;
-    int argu_num = 0;
+//	char *argument;
+    int argu_num = 0x80000000;
     bool sign = 1;
-	bool *ss = NULL;
+//	bool *ss = NULL;
     if(args != 0)
     {
         for(;*(args + i) != ' '; i ++)
@@ -105,8 +105,8 @@ static int cmd_x(char *args) {
                 break;
             }
         }
-		argument = args + i;
-        argu_num = expr(argument, ss);
+//		argument = args + i;
+//      argu_num = expr(argument, ss);
     }
     else printf("argument fault! Please enter the argument!\n");
     if(sign == 0)
@@ -117,6 +117,12 @@ static int cmd_x(char *args) {
         for(;j < op_num; j ++)
             printf("0x%x = 0x%x\n", argu_num + j * 4, paddr_read(argu_num + j * 4, 4));
 	}
+    return 0;
+}
+
+//dtyy addfuntion
+static int cmd_p(char *args) {
+	expr(args, NULL);
     return 0;
 }
 
@@ -135,6 +141,7 @@ static struct {
   { "si", "run n step and stop", cmd_si },
   { "info", "printf register", cmd_info },
   { "x", "calculate the expression value and output the content", cmd_x },
+  { "p", "print value of expression", cmd_p },
 
 };
 
