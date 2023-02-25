@@ -145,9 +145,9 @@ word_t expr(char *e, bool *success) {
   //TODO();
 	for(i = 0; i < 32; i ++)
 	{
-		printf("%d", tokens[i].type);
 		if(tokens[i].type == TK_NUM)
 			printf("%s\n", tokens[i].str);
+		else printf("%d", tokens[i].type);
 	}
   return 0;
 }
