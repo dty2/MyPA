@@ -72,7 +72,7 @@ void init_regex() {
 
 typedef struct token {
   int type;
-  char *str;
+  char str[32];
 } Token;
 
 static Token tokens[32] __attribute__((used)) = {};
@@ -113,8 +113,9 @@ static bool make_token(char *e) {
 			case '(': tokens[nr_token ++].type = '('; break;
 			case ')': tokens[nr_token ++].type = ')'; break;
 			case TK_NUM:
-					  tokens[nr_token].type = TK_NUM;
-					  tokens[nr_token ++].str = substr_start;
+					  for(int j = 0; j < substr_len; j ++)
+						  tokens[nr_token].str[j] = *(substr_start + j);
+					  tokens[nr_token ++].type = TK_NUM;
 					  break;
           default: TODO();
         }
