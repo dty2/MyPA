@@ -194,11 +194,11 @@ void divs(int l, int r)
 	}
 	for(i = 0; i < r; i ++)
 	{
-		if(tokens[i].type == TK_NUM)
+		if(stack[i].type == TK_NUM)
 			printf("%d", stack[i].str);
 		else
 		{
-			if(tokens[i].type != TK_NOTYPE)
+			if(stack[i].type != TK_NOTYPE)
 			printf("%c", (char)stack[i].type);
 		}
 	}
