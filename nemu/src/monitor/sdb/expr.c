@@ -178,6 +178,7 @@ int cal(Token* ex, int r)
 			printf("%c", (char)num[i].type);
 		}
 	}
+	printf("\n");
 	for(i = 0; i < j; i ++)
 	{
 		if(ex[i].type == '+' || ex[i].type == '-')
