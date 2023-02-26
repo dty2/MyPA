@@ -202,7 +202,7 @@ int divs(int l, int r)
 			else stack[j].type = tokens[i].type;
 		}
 	}
-	for(i = 0; i < r; i ++)
+	for(i = 0; i < j; i ++)
 	{
 		if(stack[i].type == TK_NUM)
 			printf("%d", stack[i].str);
@@ -213,7 +213,7 @@ int divs(int l, int r)
 		}
 	}
 	printf("\n");
-	return cal(stack, r);
+	return cal(stack, j);
 }
 
 word_t expr(char *e, bool *success) {
