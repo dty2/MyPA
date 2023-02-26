@@ -238,7 +238,15 @@ int divs(int l, int r)
 	free(stack);
 	return sum;
 }
-
+void init_tokens()
+{
+	int i = 0;
+	for(i = 0; i < 32; i ++)
+	{
+		tokens[i].str = 0;
+		tokens[i].type = 0;
+	}
+}
 word_t expr(char *e, bool *success) {
 	//int i = 0;
   if (!make_token(e)) {
@@ -261,7 +269,9 @@ word_t expr(char *e, bool *success) {
 		}
 	}
 	*/
+	init_tokens();
 	printf("%d", divs(0, nr_token));
 	printf("\n");
-  return 0;
+	init_tokens();
+	return 0;
 }
