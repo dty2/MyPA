@@ -167,7 +167,7 @@ int cal(Token* ex, int r)
 	for(i = 0; i < r; i ++)
 		if(stack[i].type == '+' || stack[i].type == '-')
 		{
-			stack[i + 1].str = rn(ex[i - 1].str, ex[i + 1].str, ex[i].type);
+			stack[i + 1].str = rn(stack[i - 1].str, stack[i + 1].str, stack[i].type);
 			i ++;
 		}
 	return stack[i - 1].str;
