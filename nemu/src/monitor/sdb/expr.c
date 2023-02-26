@@ -150,7 +150,10 @@ int cal(Token* ex, int r)
 	for(; i < r; i ++, j ++)
 	{
 		if(ex[i].type == '*' || ex[i].type == '/')
+		{
 			stack[j - 1].str = rn(ex[i - 1].str, ex[i + 1].str, ex[i].type);
+			i ++;
+		}
 		else
 		{
 			if(ex[i].type == TK_NUM)
