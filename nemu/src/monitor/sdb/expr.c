@@ -173,7 +173,7 @@ int cal(Token* ex, int r)
 	}
 	printf("\n");
 	for(i = 0; i < r; i ++)
-		if(stack[i].type != TK_NUM)
+		if(stack[i].type == '+' || stack[i].type == '-')
 			stack[i + 1].str = rn(ex[i - 1].str, ex[i + 1].str, ex[i].type);
 	return stack[i - 1].str;
 }
