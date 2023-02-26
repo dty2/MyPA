@@ -72,7 +72,7 @@ void init_regex() {
 
 typedef struct token {
   int type;
-  char str[32];
+  char *str;
 } Token;
 
 static Token tokens[32] __attribute__((used)) = {};
@@ -113,8 +113,7 @@ static bool make_token(char *e) {
 			case '(': tokens[nr_token ++].type = '('; break;
 			case ')': tokens[nr_token ++].type = ')'; break;
 			case TK_NUM:
-					  for(int j = 0; j < substr_len; j ++)
-						  tokens[nr_token].str[j] = *(substr_start + j);
+					  tokens[nr_token].str = substr_start;
 					  tokens[nr_token ++].type = TK_NUM;
 					  break;
           default: TODO();
@@ -135,24 +134,22 @@ static bool make_token(char *e) {
 
 int stack[50];
 
-void change()
+/*void change()
 {
-	printf("%d", ARRLEN(tokens[1].str));
 	int i = 0, p = 0, sum = 0;
 	for(i = 0; i < nr_token; i ++)
 		if(tokens[i].type == TK_NUM)
-			for(p = 0; p <= ARRLEN(tokens[i].str); p ++)
-				//printf("%d",tokens[i].str[p] - '0');
-				//sum = (int)(tokens[i].str[p] - '0') + sum * 10;
+			//for(p = 0; p < ARRLEN(tokens[i].str); p ++)
+			//	sum = (int)(tokens[i].str - '0') + sum * 10;
 	printf("%d", sum);
-}
+}*/
 void cal2(int l, int r)
 {
 
 }
 
 word_t expr(char *e, bool *success) {
-	//int i = 0;
+	int i = 0;
   if (!make_token(e)) {
     *success = false;
     return 0;
@@ -161,7 +158,7 @@ word_t expr(char *e, bool *success) {
   /* TODO: Insert codes to evaluate the expression. */
 //add code
   //TODO();
-	/*for(i = 0; i < nr_token; i ++)
+	for(i = 0; i < nr_token; i ++)
 	{
 		if(tokens[i].type == TK_NUM)
 			printf("%s", tokens[i].str);
@@ -170,8 +167,8 @@ word_t expr(char *e, bool *success) {
 			if(tokens[i].type != TK_NOTYPE)
 			printf("%c", (char)tokens[i].type);
 		}
-	}*/
-    change();
+	}
+    //change();
 	printf("\n");
 
   return 0;
