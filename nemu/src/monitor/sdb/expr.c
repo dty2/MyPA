@@ -133,7 +133,7 @@ static bool make_token(char *e) {
 
   return true;
 }
-/*
+
 int rn(int a, int b, int c)
 {
 	if(c == '+') return a + b;	
@@ -142,8 +142,7 @@ int rn(int a, int b, int c)
 	if(c == '/') return a / b;	
 	return 0;
 }
-*/
-/*
+
 int cal(Token* ex)
 {
 	int i = 0, j = 0;
@@ -165,8 +164,8 @@ int cal(Token* ex)
 		stack[i + 1].str = rn(ex[i - 1].str, ex[i + 1].str, ex[i].type);
 	return stack[i - 1].str;
 }
-*/
-void divs(int l, int r)
+
+int divs(int l, int r)
 {
 	int i = 0, j = 0;
 	int p = 0, f = 0, temp = 0;
@@ -181,8 +180,7 @@ void divs(int l, int r)
 				if(tokens[f].type == ')') p --;
 				if(p == 0) temp = f;
 			}
-			//stack[j].str = divs(i + 1, temp);
-			divs(i + 1, temp);
+			stack[j].str = divs(i + 1, temp);
 			stack[j].type = TK_NUM;
 			i = temp;
 		}
@@ -207,7 +205,7 @@ void divs(int l, int r)
 		}
 	}
 	printf("\n");
-	//return cal(stack);
+	return cal(stack);
 }
 
 word_t expr(char *e, bool *success) {
@@ -230,7 +228,6 @@ word_t expr(char *e, bool *success) {
 			printf("%c", (char)tokens[i].type);
 		}
 	}*/
-	//printf("%d", divs(-1, nr_token));
-	divs(0, nr_token);
+	printf("%d", divs(0, nr_token));
   return 0;
 }
