@@ -141,7 +141,8 @@ void change()
 	for(i = 0; i < nr_token; i ++)
 		if(tokens[i].type == TK_NUM)
 			for(p = 0; p < ARRLEN(tokens[i].str); p ++)
-				sum = (int)(tokens[i].str[p] - '0') + sum * 10;
+				printf("%c",tokens[i].str[p]);
+				//sum = (int)(tokens[i].str[p] - '0') + sum * 10;
 	printf("%d", sum);
 }
 void cal2(int l, int r)
