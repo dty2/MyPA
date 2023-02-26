@@ -134,15 +134,15 @@ static bool make_token(char *e) {
 
 int stack[50];
 
-/*void change()
+void change()
 {
 	int i = 0, p = 0, sum = 0;
-	for(i = 0; i < nr_token; i ++)
+	for(; i < nr_token; i ++)
 		if(tokens[i].type == TK_NUM)
-			//for(p = 0; p < ARRLEN(tokens[i].str); p ++)
-			//	sum = (int)(tokens[i].str - '0') + sum * 10;
+			for(p = 0; p < (int)((int)(sizeof(tokens[i].str)) / (int)(sizeof(tokens[i].str[0]))); p ++)
+				sum = (*(tokens[i].str + p) - '0') + sum * 10;
 	printf("%d", sum);
-}*/
+}
 void cal2(int l, int r)
 {
 
