@@ -145,47 +145,37 @@ int rn(int a, int b, int c)
 
 int cal(Token* ex, int r)
 {
-	int i = 0, j = 0;
-	Token stack[32];
-	for(; i < r; i ++)
+	int i = 0, j;
+	Token num[32];
+	for(i = 0; i < r; i ++)
 	{
 		if(ex[i].type == '*' || ex[i].type == '/')
 		{
 			ex[i + 1].str = rn(ex[i - 1].str, ex[i + 1].str, ex[i].type);
-			ex[i].type = TK_NUM;
 			ex[i - 1].type = -1;
-			ex[i + 1].type = -1;
-			i ++;
+			ex[i].type = -1;
 		}
 	}
-	for(i = 0; i < r; i ++, j ++)
+	for(j = 0, i = 0; i < r; i ++, j ++)
+	{
 		if(ex[i].type != -1)
 		{
-			if(stack[i].type != TK_NUM)
-				stack[j].str = ex[i].type;
-			else
+			if(ex[i].type == TK_NUM)
 			{
-				stack[j].type = ex[i].type;
-				stack[j].str = ex[i].type;
+				num[j].str = ex[i].str;
+				num[j].type = ex[i].type;
 			}
-		}
-	for(i = 0; i < j; i ++)
-	{
-		if(stack[i].type == TK_NUM)
-			printf("%d", stack[i].str);
-		else
-		{
-			if(stack[i].type != TK_NOTYPE)
-			printf("%c", (char)stack[i].type);
+			else num[j].type = ex[i].type;
 		}
 	}
 	for(i = 0; i < j; i ++)
-		if(stack[i].type == '+' || stack[i].type == '-')
+	{
+		if(ex[i].type == '+' || ex[i].type == '-')
 		{
-			stack[i + 1].str = rn(stack[i - 1].str, stack[i + 1].str, stack[i].type);
-			i ++;
+			num[i + 1].str = rn(num[i - 1].str, num[i + 1].str, num[i].type);
 		}
-	return stack[i - 1].str;
+	}
+	return num[j - 1].str;
 }
 
 int divs(int l, int r)
