@@ -147,7 +147,7 @@ int cal(Token* ex)
 {
 	int i = 0, j = 0;
 	Token stack[32];
-	for(; i < 32; i ++, j ++)
+	for(; i < (int)(sizeof(*ex) / sizeof(ex[0])); i ++, j ++)
 	{
 		if(ex[i].type == '*' || ex[i].type == '/')
 		{
