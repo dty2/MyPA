@@ -165,6 +165,16 @@ int cal(Token* ex, int r)
 		}
 	}
 	j --;
+	for(i = 0; i < nr_token; i ++)
+	{
+		if(tokens[i].type == TK_NUM)
+			printf("%d", tokens[i].str);
+		else
+		{
+			if(tokens[i].type != TK_NOTYPE)
+			printf("%c", (char)tokens[i].type);
+		}
+	}
 	for(i = 0; i < j; i ++)
 		if(stack[i].type == '+' || stack[i].type == '-')
 		{
