@@ -194,7 +194,7 @@ int divs(int l, int r)
 }
 
 word_t expr(char *e, bool *success) {
-	int i = 0;
+	//int i = 0;
   if (!make_token(e)) {
     *success = false;
     return 0;
@@ -203,7 +203,7 @@ word_t expr(char *e, bool *success) {
   /* TODO: Insert codes to evaluate the expression. */
 //add code
   //TODO();
-	for(i = 0; i < nr_token; i ++)
+	/*for(i = 0; i < nr_token; i ++)
 	{
 		if(tokens[i].type == TK_NUM)
 			printf("%d", tokens[i].str);
@@ -212,7 +212,7 @@ word_t expr(char *e, bool *success) {
 			if(tokens[i].type != TK_NOTYPE)
 			printf("%c", (char)tokens[i].type);
 		}
-	}
+	}*/
 	printf("%d", divs(-1, nr_token));
 	printf("\n");
 
