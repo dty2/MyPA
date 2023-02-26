@@ -269,9 +269,7 @@ word_t expr(char *e, bool *success) {
 		}
 	}
 	*/
-	init_tokens();
 	printf("%d", divs(0, nr_token));
 	printf("\n");
-	init_tokens();
 	return 0;
 }
