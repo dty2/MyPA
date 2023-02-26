@@ -143,11 +143,11 @@ int rn(int a, int b, int c)
 	return 0;
 }
 
-int cal(Token ex[])
+int cal(Token* ex)
 {
 	int i = 0, j = 0;
 	Token stack[32];
-	for(; i < 32; i ++, j ++)
+	for(; i < (int)(sizeof(ex) / (int)sizeof(Token)); i ++, j ++)
 	{
 		if(ex[i].type == '*' || ex[i].type == '/')
 		{
@@ -164,7 +164,7 @@ int cal(Token ex[])
 			else stack[j].type = ex[i].type;
 		}
 	}
-	for(i = 1; i < (int)(sizeof(stack) / sizeof(stack[0])); i ++)
+	for(i = 1; i < (int)(sizeof(stack) / sizeof(Token)); i ++)
 		if(stack[i].type != TK_NUM) stack[i + 1].str = rn(ex[i - 1].str, ex[i + 1].str, ex[i].type);
 	return stack[i].str;
 }
