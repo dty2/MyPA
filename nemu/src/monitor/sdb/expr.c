@@ -137,7 +137,7 @@ int stack[50];
 
 void change()
 {
-	printf("%d", ARRLEN(tokens[0].str));
+	printf("%d", ARRLEN(tokens[1].str));
 	int i = 0, p = 0, sum = 0;
 	for(i = 0; i < nr_token; i ++)
 		if(tokens[i].type == TK_NUM)
