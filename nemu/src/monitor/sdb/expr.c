@@ -143,7 +143,7 @@ int rn(int a, int b, int c)
 	return 0;
 }
 
-int cal(Token* ex)
+int cal(Token ex[])
 {
 	int i = 0, j = 0;
 	Token stack[32];
@@ -173,8 +173,7 @@ int divs(int l, int r)
 {
 	int i = 0, j = 0;
 	int p = 0, f = 0, temp = 0;
-	//Token* stack = (Token*)malloc(sizeof(Token) * 32);
-	Token stack[32];
+	Token* stack = (Token*)malloc(sizeof(Token) * 32);
 	for(i = l, j = 0; i < r; i ++, j ++)
 	{
 		if(tokens[i].type == '(')
