@@ -167,6 +167,7 @@ int cal(Token* ex, int r)
 			}
 			else num[j].type = ex[i].type;
 		}
+		else j --;
 	}
 	/*
 	for(i = 0; i < j; i ++)
