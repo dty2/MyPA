@@ -135,9 +135,14 @@ static bool make_token(char *e) {
 
 int stack[50];
 
-void cal1(int q, int p)
+void change()
 {
-	
+	int i = 0, p = 0, sum = 0;
+	for(i = 0; i < nr_token; i ++)
+		if(tokens[i].type == TK_NUM)
+			for(p = 0; p < ARRLEN(tokens[i].str); p ++)
+				sum = tokens[i].str[p] - '0' + sum * 10;
+	printf("%d", sum);
 }
 void cal2(int l, int r)
 {
@@ -145,7 +150,7 @@ void cal2(int l, int r)
 }
 
 word_t expr(char *e, bool *success) {
-	int i = 0;
+	//int i = 0;
   if (!make_token(e)) {
     *success = false;
     return 0;
@@ -154,7 +159,7 @@ word_t expr(char *e, bool *success) {
   /* TODO: Insert codes to evaluate the expression. */
 //add code
   //TODO();
-	for(i = 0; i < nr_token; i ++)
+	/*for(i = 0; i < nr_token; i ++)
 	{
 		if(tokens[i].type == TK_NUM)
 			printf("%s", tokens[i].str);
@@ -163,7 +168,8 @@ word_t expr(char *e, bool *success) {
 			if(tokens[i].type != TK_NOTYPE)
 			printf("%c", (char)tokens[i].type);
 		}
-	}
+	}*/
+    change();
 	printf("\n");
 
   return 0;
