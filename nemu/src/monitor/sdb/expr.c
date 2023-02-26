@@ -134,20 +134,63 @@ static bool make_token(char *e) {
   return true;
 }
 
-int stack[50];
-
-/*void change()
+int rn(int a, int b, int c)
 {
-	int i = 0, p = 0, sum = 0;
-	for(; i < nr_token; i ++)
-		if(tokens[i].type == TK_NUM)
-			for(p = 0; p < ; p ++)
-				sum = (*(tokens[i].str + p) - '0') + sum * 10;
-	printf("%d", sum);
-}*/
-void cal2(int l, int r)
-{
+	if(c == '+') return a + b;	
+	if(c == '-') return a - b;	
+	if(c == '*') return a * b;	
+	if(c == '/') return a / b;	
+	return 0;
+}
 
+int cal(Token* ex)
+{
+	int i = 0, j = 0;
+	Token stack[32];
+	for(; i < 32/*(int)(sizeof(ex) / sizeof(ex))*/; i ++, j ++)
+	{
+		if(ex[i].type == '*' || ex[i].type == '/')
+		{
+			stack[j].str = rn(ex[i - 1].str, ex[i + 1].str, ex[i].type);
+			stack[j].type = 0;
+		}
+		else
+		{
+			if(tokens[i].type == TK_NUM) stack[j].str = tokens[i].str;
+			else stack[j].type = tokens[i].type;
+		}
+	}
+	for(i = 1; i < (int)(sizeof(stack) / sizeof(stack[0])); i += 2)
+		stack[i + 1].str = rn(ex[i - 1].str, ex[i + 1].str, ex[i].type);
+	return stack[i - 1].str;
+}
+
+int divs(int l, int r)
+{
+	int i = 0, j = 0;
+	int p = 0, f = 0, temp = 0;
+	Token* stack = (Token*)malloc(sizeof(Token) * 32);
+	for(i = l, j = 0; i < r; i ++, j ++)
+	{
+		if(tokens[i].type == '(')
+		{
+			for(f = i + 1, p = 1; f < r; f ++)
+			{
+				if(tokens[f].type == '(') p ++;
+				if(tokens[f].type == ')') p --;
+				if(p == 0) temp = f;
+			}
+			stack[j].str = divs(i + 1, temp);
+			stack[j].type = TK_NUM;
+			i = temp;
+		}
+		else
+		{
+			if(tokens[i].type == TK_NUM) stack[j].str = tokens[i].str;
+			else stack[j].type = tokens[i].type;
+		}
+	}
+	return cal(stack);
 }
 
 word_t expr(char *e, bool *success) {
@@ -170,7 +213,7 @@ word_t expr(char *e, bool *success) {
 			printf("%c", (char)tokens[i].type);
 		}
 	}
-    //change();
+	printf("%d", divs(-1, nr_token));
 	printf("\n");
 
   return 0;
