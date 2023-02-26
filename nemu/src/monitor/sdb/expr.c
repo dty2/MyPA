@@ -227,6 +227,6 @@ word_t expr(char *e, bool *success) {
 		}
 	}*/
 	//printf("%d", divs(-1, nr_token));
-
+	divs(-1, nr_token);
   return 0;
 }
