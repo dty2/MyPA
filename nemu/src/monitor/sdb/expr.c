@@ -175,6 +175,7 @@ int cal(Token* ex, int r)
 			printf("%c", (char)tokens[i].type);
 		}
 	}
+	printf("\n");
 	for(i = 0; i < j; i ++)
 		if(stack[i].type == '+' || stack[i].type == '-')
 		{
