@@ -150,10 +150,7 @@ int cal(Token* ex, int r)
 	for(; i < r; i ++, j ++)
 	{
 		if(ex[i].type == '*' || ex[i].type == '/')
-		{
-			stack[j].str = rn(ex[i - 1].str, ex[i + 1].str, ex[i].type);
-			stack[j].type = 0;
-		}
+			stack[j - 1].str = rn(ex[i - 1].str, ex[i + 1].str, ex[i].type);
 		else
 		{
 			if(ex[i].type == TK_NUM)
@@ -164,8 +161,16 @@ int cal(Token* ex, int r)
 			else stack[j].type = ex[i].type;
 		}
 	}
-	for(i = 1; i < r; i ++)
-		if(stack[i].type != TK_NUM) stack[i + 1].str = rn(ex[i - 1].str, ex[i + 1].str, ex[i].type);
+	for(i = 0; i < r; i ++)
+	{
+		if(stack[i].type == TK_NUM)
+			printf("%d", stack[i].str);
+		else
+			printf("%c", (char)stack[i].type);
+	}
+	for(i = 0; i < r; i ++)
+		if(stack[i].type != TK_NUM)
+			stack[i + 1].str = rn(ex[i - 1].str, ex[i + 1].str, ex[i].type);
 	return stack[i - 1].str;
 }
 
@@ -173,6 +178,7 @@ int divs(int l, int r)
 {
 	int i = 0, j = 0;
 	int p = 0, f = 0, temp = 0;
+	int sum = 0;
 	Token* stack = (Token*)malloc(sizeof(Token) * 32);
 	for(i = l, j = 0; i < r; i ++, j ++)
 	{
@@ -213,7 +219,9 @@ int divs(int l, int r)
 		}
 	}
 	printf("\n");
-	return cal(stack, j);
+	sum = cal(stack, j);
+	free(stack);
+	return sum;
 }
 
 word_t expr(char *e, bool *success) {
