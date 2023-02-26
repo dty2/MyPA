@@ -175,7 +175,7 @@ int cal(Token* ex, int r)
 	for(i = 0; i < r; i ++)
 		if(stack[i].type != TK_NUM)
 			stack[i + 1].str = rn(ex[i - 1].str, ex[i + 1].str, ex[i].type);
-	return stack[i].str;
+	return stack[i - 1].str;
 }
 
 int divs(int l, int r)
