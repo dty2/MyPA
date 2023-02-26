@@ -92,8 +92,8 @@ static bool make_token(char *e) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
 
-        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-            i, rules[i].regex, position, substr_len, substr_len, substr_start);
+        //Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+            //i, rules[i].regex, position, substr_len, substr_len, substr_start);
 
         position += substr_len;
 
@@ -134,6 +134,7 @@ static bool make_token(char *e) {
   return true;
 }
 
+//add funtion
 int rn(int a, int b, int c)
 {
 	if(c == '+') return a + b;	
@@ -142,20 +143,18 @@ int rn(int a, int b, int c)
 	if(c == '/') return a / b;	
 	return 0;
 }
-
+//add funtion
 int cal(Token* ex, int r)
 {
 	int i = 0, j;
 	Token num[32];
 	for(i = 0; i < r; i ++)
-	{
 		if(ex[i].type == '*' || ex[i].type == '/')
 		{
 			ex[i + 1].str = rn(ex[i - 1].str, ex[i + 1].str, ex[i].type);
 			ex[i - 1].type = -1;
 			ex[i].type = -1;
 		}
-	}
 	for(j = 0, i = 0; i < r; i ++, j ++)
 	{
 		if(ex[i].type != -1)
@@ -169,7 +168,7 @@ int cal(Token* ex, int r)
 		}
 		else j --;
 	}
-	
+	/*
 	for(i = 0; i < j; i ++)
 	{
 		if(num[i].type == TK_NUM)
@@ -181,17 +180,13 @@ int cal(Token* ex, int r)
 		}
 	}
 	printf("\n");
-	
+	*/
 	for(i = 0; i < j; i ++)
-	{
 		if(num[i].type == '+' || num[i].type == '-')
-		{
 			num[i + 1].str = rn(num[i - 1].str, num[i + 1].str, num[i].type);
-		}
-	}
 	return num[j - 1].str;
 }
-
+//add funtion
 int divs(int l, int r)
 {
 	int i = 0, j = 0;
@@ -226,6 +221,7 @@ int divs(int l, int r)
 			else stack[j].type = tokens[i].type;
 		}
 	}
+	/*
 	for(i = 0; i < j; i ++)
 	{
 		if(stack[i].type == TK_NUM)
@@ -237,6 +233,7 @@ int divs(int l, int r)
 		}
 	}
 	printf("\n");
+	*/
 	sum = cal(stack, j);
 	free(stack);
 	return sum;
@@ -252,7 +249,8 @@ word_t expr(char *e, bool *success) {
   /* TODO: Insert codes to evaluate the expression. */
 //add code
   //TODO();
-	/*for(i = 0; i < nr_token; i ++)
+	/*
+	for(i = 0; i < nr_token; i ++)
 	{
 		if(tokens[i].type == TK_NUM)
 			printf("%d", tokens[i].str);
@@ -261,7 +259,8 @@ word_t expr(char *e, bool *success) {
 			if(tokens[i].type != TK_NOTYPE)
 			printf("%c", (char)tokens[i].type);
 		}
-	}*/
+	}
+	*/
 	printf("%d", divs(0, nr_token));
 	printf("\n");
   return 0;
