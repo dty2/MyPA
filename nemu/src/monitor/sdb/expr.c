@@ -178,7 +178,11 @@ int divs(int l, int r)
 			{
 				if(tokens[f].type == '(') p ++;
 				if(tokens[f].type == ')') p --;
-				if(p == 0) temp = f;
+				if(p == 0)
+				{
+					temp = f;
+					break;
+				}
 			}
 			stack[j].str = divs(i + 1, temp);
 			stack[j].type = TK_NUM;
