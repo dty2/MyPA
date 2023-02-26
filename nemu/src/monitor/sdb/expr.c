@@ -168,6 +168,7 @@ int cal(Token* ex, int r)
 		else
 			printf("%c", (char)stack[i].type);
 	}
+	printf("\n");
 	for(i = 0; i < r; i ++)
 		if(stack[i].type != TK_NUM)
 			stack[i + 1].str = rn(ex[i - 1].str, ex[i + 1].str, ex[i].type);
