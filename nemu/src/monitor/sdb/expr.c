@@ -147,11 +147,14 @@ int cal(Token* ex, int r)
 {
 	int i = 0, j = 0;
 	Token stack[32];
-	for(; i < r; i ++, j ++)
+	for(; i < r; i ++)
 	{
 		if(ex[i].type == '*' || ex[i].type == '/')
 		{
-			stack[j - 1].str = rn(ex[i - 1].str, ex[i + 1].str, ex[i].type);
+			ex[i + 1].str = rn(ex[i - 1].str, ex[i + 1].str, ex[i].type);
+			ex[i].type = TK_NUM;
+			ex[i - 1].type = -1;
+			ex[i + 1].type = -1;
 			i ++;
 		}
 		else
@@ -164,18 +167,13 @@ int cal(Token* ex, int r)
 			else stack[j].type = ex[i].type;
 		}
 	}
-	j --;
-	for(i = 0; i < nr_token; i ++)
-	{
-		if(tokens[i].type == TK_NUM)
-			printf("%d", tokens[i].str);
-		else
+	for(i = 0; i < r; i ++, j ++)
+		if(ex[i].type != -1)
 		{
-			if(tokens[i].type != TK_NOTYPE)
-			printf("%c", (char)tokens[i].type);
+			stack[j].type = ex[i].type;
+			stack[j].str = ex[i].type;
 		}
-	}
-	printf("\n");
+	j --;
 	for(i = 0; i < j; i ++)
 		if(stack[i].type == '+' || stack[i].type == '-')
 		{
