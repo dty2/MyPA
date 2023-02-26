@@ -168,6 +168,7 @@ int cal(Token* ex, int r)
 			else num[j].type = ex[i].type;
 		}
 	}
+	/*
 	for(i = 0; i < j; i ++)
 	{
 		if(num[i].type == TK_NUM)
@@ -179,6 +180,7 @@ int cal(Token* ex, int r)
 		}
 	}
 	printf("\n");
+	*/
 	for(i = 0; i < j; i ++)
 	{
 		if(ex[i].type == '+' || ex[i].type == '-')
