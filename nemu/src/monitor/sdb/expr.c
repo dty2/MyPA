@@ -115,7 +115,7 @@ static bool make_token(char *e) {
 			case TK_NUM:
 					  tokens[nr_token].str = 0;
 					  for(i = 0; i < substr_len; i ++)
-						  tokens[nr_token].str = tokens[nr_token].str * 10 + *(substr_start + i);
+						  tokens[nr_token].str = tokens[nr_token].str * 10 + (int)(*(substr_start + i));
 					  tokens[nr_token ++].type = TK_NUM;
 					  break;
           default: TODO();
