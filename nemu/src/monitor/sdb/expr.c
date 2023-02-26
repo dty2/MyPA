@@ -168,7 +168,7 @@ word_t expr(char *e, bool *success) {
 			printf("%c", (char)tokens[i].type);
 		}
 	}
-    //change();
+    change();
 	printf("\n");
 
   return 0;
