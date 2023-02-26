@@ -174,8 +174,8 @@ int cal(Token* ex, int r)
 			printf("%d", num[i].str);
 		else
 		{
-			if(num[i].type != TK_NOTYPE)
-			printf("%c", (char)num[i].type);
+			if(ex[i].type == '+' || ex[i].type == '-')
+				printf("%c", (char)num[i].type);
 		}
 	}
 	printf("\n");
