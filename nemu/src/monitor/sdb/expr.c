@@ -161,7 +161,7 @@ int cal(Token* ex)
 				stack[j].str = ex[i].str;
 				stack[j].type = TK_NUM;
 			}
-			else stack[j].type = tokens[i].type;
+			else stack[j].type = ex[i].type;
 		}
 	}
 	for(i = 1; i < (int)(sizeof(stack) / sizeof(stack[0])); i ++)
