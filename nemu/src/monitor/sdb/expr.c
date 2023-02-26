@@ -156,7 +156,11 @@ int cal(Token* ex)
 		}
 		else
 		{
-			if(tokens[i].type == TK_NUM) stack[j].str = tokens[i].str;
+			if(tokens[i].type == TK_NUM)
+			{
+				stack[j].str = tokens[i].str;
+				stack[j].type = TK_NUM;
+			}
 			else stack[j].type = tokens[i].type;
 		}
 	}
