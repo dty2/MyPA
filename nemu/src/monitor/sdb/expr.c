@@ -164,9 +164,9 @@ int cal(Token* ex)
 			else stack[j].type = tokens[i].type;
 		}
 	}
-	for(i = 1; i < (int)(sizeof(stack) / sizeof(stack[0])); i += 2)
-		stack[i + 1].str = rn(ex[i - 1].str, ex[i + 1].str, ex[i].type);
-	return stack[i - 1].str;
+	for(i = 1; i < (int)(sizeof(stack) / sizeof(stack[0])); i ++)
+		if(stack[i].type != TK_NUM) stack[i + 1].str = rn(ex[i - 1].str, ex[i + 1].str, ex[i].type);
+	return stack[i].str;
 }
 
 int divs(int l, int r)
