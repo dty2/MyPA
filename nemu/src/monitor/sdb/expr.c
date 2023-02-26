@@ -133,6 +133,16 @@ static bool make_token(char *e) {
   return true;
 }
 
+int stack[50];
+
+void cal1(int q, int p)
+{
+	
+}
+void cal2(int l, int r)
+{
+
+}
 
 word_t expr(char *e, bool *success) {
 	int i = 0;
@@ -147,13 +157,14 @@ word_t expr(char *e, bool *success) {
 	for(i = 0; i < nr_token; i ++)
 	{
 		if(tokens[i].type == TK_NUM)
-			printf("%s ", tokens[i].str);
+			printf("%s", tokens[i].str);
 		else
 		{
 			if(tokens[i].type != TK_NOTYPE)
-			printf("%c ", (char)tokens[i].type);
+			printf("%c", (char)tokens[i].type);
 		}
 		printf("\n");
 	}
+
   return 0;
 }
