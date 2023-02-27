@@ -235,7 +235,7 @@ Token* cal(Token* ex, int level, int r)
 		}
 		else j --;
 	}
-	if(level != 4)
+	if(level != 3)
 	{
 		point = cal(num, level + 1, j);
 		free(num);
