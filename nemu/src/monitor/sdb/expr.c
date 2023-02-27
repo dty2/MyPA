@@ -169,10 +169,10 @@ struct Lev{
 	int size;
 	int sym[8];
 }lev[] = {
-	{1, 2, {'*', '/'}},
-	{2, 2, {'+', '-'}},
-	{3, 5, {'>', '<', TK_BE, TK_SE, TK_EQ}},
-	{4, 3, {'!', TK_LAND, TK_LOR}},
+	{1, 2, {'*', '/', '#'}},
+	{2, 2, {'+', '-', '#'}},
+	{3, 5, {'>', '<', TK_BE, TK_SE, TK_EQ, '#'}},
+	{4, 3, {'!', TK_LAND, TK_LOR, '#'}},
 };
 //add funtion
 int rn(int a, int b, int c)
@@ -203,13 +203,13 @@ int rn(int a, int b, int c)
 Token* cal(Token* ex, int level, int r)
 {
 	int i = 0, j, sum = 0;
-	int k = 0;
+	int k = -1;
 	Token* num = (Token*)malloc(sizeof(Token) * 32);
 	Token* point = NULL;
 	for(i = 0; i < r; i ++)
 	{
-		while((ex[i].type != TK_NUM && k < lev[level].size) && ex[i].type != lev[level].sym[k]) k ++;
-		if(k != lev[level].size && k != 0)
+		while((ex[i].type != TK_NUM && k < lev[level].size) && ex[i].type != lev[level].sym[++ k]);
+		if(k != lev[level].size && k != -1)
 		{
 			sum = rn(ex[i - 1].str, ex[i + 1].str, ex[i].type);
 			if(sum == 0xfffff)
@@ -221,7 +221,7 @@ Token* cal(Token* ex, int level, int r)
 			ex[i - 1].type = -1;
 			ex[i].type = -1;
 		}
-		k = 0;
+		k = -1;
 	}
 	for(j = 0, i = 0; i < r; i ++, j ++)
 	{
