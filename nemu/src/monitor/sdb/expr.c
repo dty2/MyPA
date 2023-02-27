@@ -376,7 +376,7 @@ word_t expr(char *e, bool *success) {
     /* TODO: Insert codes to evaluate the expression. */
 //add code
     //TODO();
-	//sum = divs(0, nr_token);
+	sum = divs(0, nr_token);
 	init_tokens();
 	if(sign == error_1 || sign == error_2) return sign;
 	else return sum;
