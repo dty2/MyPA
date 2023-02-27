@@ -348,8 +348,8 @@ int divs(int l, int r)
 			printf("%c", (char)stack[i].type);
 		}
 	}
-	*/
 	printf("\n");
+	*/
 	point = cal(stack, 0, j);
 	free(stack);
 	return point->str;
