@@ -259,14 +259,14 @@ void init_tokens()
 word_t expr(char *e, bool *success) {
 	//int i = 0;
 	int sum = 0;
-  if (!make_token(e)) {
-    *success = false;
-    return 0;
-  }
+	if (!make_token(e)) {
+	  *success = false;
+	  return 0;
+	}
 
-  /* TODO: Insert codes to evaluate the expression. */
+    /* TODO: Insert codes to evaluate the expression. */
 //add code
-  //TODO();
+    //TODO();
 	/*
 	for(i = 0; i < nr_token; i ++)
 	{
