@@ -50,8 +50,8 @@ static struct rule {
   {"\\(", '('},
   {"\\)", ')'},
   {"[0-9]+", TK_NUM},
-  {"&&", TK_LAND},
-  {"||", TK_LOR},
+  //{"&&", TK_LAND},
+  //{"||", TK_LOR},
   {"!", '!'},
   {"<", '>'},
   {">", '<'},
@@ -129,10 +129,10 @@ static bool make_token(char *e) {
 					tokens[nr_token].str = tokens[nr_token].str * 10 + (int)(*(substr_start + p) - '0');
 			    tokens[nr_token ++].type = TK_NUM;
 			    break;
-			case TK_LAND: tokens[nr_token ++].type = TK_LAND; break;
-			case TK_LOR: tokens[nr_token ++].type = TK_LOR; break;
+			//case TK_LAND: tokens[nr_token ++].type = TK_LAND; break;
+			//case TK_LOR: tokens[nr_token ++].type = TK_LOR; break;
 			case TK_BE: tokens[nr_token ++].type = TK_BE; break;
-			case '!': tokens[nr_token ++].type = '!'; break;
+			//case '!': tokens[nr_token ++].type = '!'; break;
 			case '<': tokens[nr_token ++].type = '<'; break;
 			case '>': tokens[nr_token ++].type = '>'; break;
 			case TK_SE: tokens[nr_token ++].type = TK_SE; break;
@@ -188,8 +188,8 @@ int rn(int a, int b, int c)
 		case '*': return a * b;	break;
 		case '/': return b ? a / b : 0xfffff;
 		case '!': return !a; break;	
-		case TK_LAND: return a && b; break;	
-		case TK_LOR: return a || b; break;	
+		//case TK_LAND: return a && b; break;	
+		//case TK_LOR: return a || b; break;	
 		case TK_EQ: return a == b; break;
 		case '<': return a < b; break;
 		case '>': return a > b; break;
