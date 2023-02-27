@@ -335,7 +335,7 @@ int divs(int l, int r)
 	}
 	printf("\n");
 	*/
-	sum = cal(stack, 0, j);
+	//sum = cal(stack, 0, j);
 	free(stack);
 	return sum;
 }
