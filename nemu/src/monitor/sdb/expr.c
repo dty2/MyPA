@@ -337,7 +337,6 @@ int divs(int l, int r)
 			else stack[j].type = tokens[i].type;
 		}
 	}
-	/*
 	for(i = 0; i < j; i ++)
 	{
 		if(stack[i].type == TK_NUM)
@@ -349,7 +348,6 @@ int divs(int l, int r)
 		}
 	}
 	printf("\n");
-	*/
 	//point = cal(stack, 0, j);
 	free(stack);
 	return point->str;
