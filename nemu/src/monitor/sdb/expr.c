@@ -209,6 +209,7 @@ int divs(int l, int r)
 					break;
 				}
 			}
+			if(f == r && p == 1) return 0xffff; 
 			stack[j].str = divs(i + 1, temp);
 			stack[j].type = TK_NUM;
 			i = temp;
@@ -254,6 +255,7 @@ void init_tokens()
 
 word_t expr(char *e, bool *success) {
 	//int i = 0;
+	int sum = 0;
   if (!make_token(e)) {
     *success = false;
     return 0;
@@ -274,8 +276,9 @@ word_t expr(char *e, bool *success) {
 		}
 	}
 	*/
-	printf("%d", divs(0, nr_token));
-	printf("\n");
+	sum = divs(0, nr_token);
+	if(sum == 0xffff) printf("Error!\n");
+	else printf("%d\n", sum);
 	init_tokens();
 	return 0;
 }
