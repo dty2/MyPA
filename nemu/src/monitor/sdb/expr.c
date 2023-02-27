@@ -161,7 +161,9 @@ static bool make_token(char *e) {
 }
 
 //add type
+int sign = 0;
 enum { level1 = 1, level2, level3, level4 };
+enum { error_1 = 1, error_2 }; // 1 division 0, 2 can't match brackets
 struct Lev{
 	int level_;
 	int size;
@@ -184,7 +186,7 @@ int rn(int a, int b, int c)
 		case '+': return a + b;	break;
 		case '-': return a - b;	break;
 		case '*': return a * b;	break;
-		case '/': return b == 0 ? 0xffff : a / b; break;
+		case '/': return b ? a / b : 0xfffff;
 		case '!': return !a; break;	
 		case TK_LAND: return a && b; break;	
 		case TK_LOR: return a || b; break;	
@@ -198,19 +200,24 @@ int rn(int a, int b, int c)
 	return 0;
 }
 //add funtion
-int cal(Token* ex, int level, int r)
+Token* cal(Token* ex, int level, int r)
 {
 	int i = 0, j, sum = 0;
 	int k = 0;
 	level --;
 	Token* num = (Token*)malloc(sizeof(Token) * 32);
+	Token* point = NULL;
 	for(i = 0; i < r; i ++)
 	{
 		while((ex[i].type != TK_NUM && k < lev[level].size) && ex[i].type != lev[level].sym[k]) k ++;
 		if(k != lev[level].size)
 		{
 			sum = rn(ex[i - 1].str, ex[i + 1].str, ex[i].type);
-			if(sum == 0xfffff) return 0xfffff;
+			if(sum == 0xfffff)
+			{
+				sign = error_1;
+				return NULL;
+			}
 			ex[i + 1].str = sum;
 			ex[i - 1].type = -1;
 			ex[i].type = -1;
@@ -230,8 +237,12 @@ int cal(Token* ex, int level, int r)
 		else j --;
 	}
 	if(level != 4)
-		cal(num, level + 1, j);
-	return num[j - 1].str;
+	{
+		point = cal(num, level + 1, j);
+		free(num);
+		num = point;
+	}
+	return num;
 }
 /*
 //add funtion
@@ -291,8 +302,8 @@ int divs(int l, int r)
 {
 	int i = 0, j = 0;
 	int p = 0, f = 0, temp = 0;
-	int sum = 0;
 	Token* stack = (Token*)malloc(sizeof(Token) * 32);
+	Token* point = NULL;
 	for(i = l, j = 0; i < r; i ++, j ++)
 	{
 		if(tokens[i].type == '(')
@@ -307,7 +318,11 @@ int divs(int l, int r)
 					break;
 				}
 			}
-			if(f == r && p == 1) return 0xffff; 
+			if(f == r && p == 1)
+			{
+				sign = error_2;
+				return 0;
+			}
 			stack[j].str = divs(i + 1, temp);
 			stack[j].type = TK_NUM;
 			i = temp;
@@ -335,9 +350,9 @@ int divs(int l, int r)
 	}
 	printf("\n");
 	*/
-	sum = cal(stack, 0, j);
+	point = cal(stack, 0, j);
 	free(stack);
-	return sum;
+	return point->str;
 }
 
 //add funtion
@@ -363,6 +378,7 @@ word_t expr(char *e, bool *success) {
     //TODO();
 	sum = divs(0, nr_token);
 	init_tokens();
-	return sum;
+	if(sign == error_1 || sign == error_2) return sign;
+	else return sum;
 	return 0;
 }
