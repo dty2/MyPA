@@ -19,6 +19,7 @@
  * Type 'man regex' for more information about POSIX regex functions.
  */
 #include <regex.h>
+#include <math.h>
 
 enum {
   TK_NOTYPE = 256, TK_EQ,
@@ -52,10 +53,12 @@ static struct rule {
   {"&&", TK_LAND},
   {"||", TK_LOR},
   {"!", '!'},
+  {"<", '>'},
+  {">", '<'},
   {"<=", TK_BE},
   {">=", TK_SE},
-  {"0x", TK_HEX},
-  {"$", '$'},
+  {"0x[0-9]+", TK_HEX},
+  {"$[0-9,a-z,A-Z]+", '$'},
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -121,18 +124,26 @@ static bool make_token(char *e) {
 			case '(': tokens[nr_token ++].type = '('; break;
 			case ')': tokens[nr_token ++].type = ')'; break;
 			case TK_NUM:
-					  int p = 0;
-					  for(; p < substr_len; p ++)
-						  tokens[nr_token].str = tokens[nr_token].str * 10 + (int)(*(substr_start + p) - '0');
-					  tokens[nr_token ++].type = TK_NUM;
-					  break;
+				int p = 0;
+				for(; p < substr_len; p ++)
+					tokens[nr_token].str = tokens[nr_token].str * 10 + (int)(*(substr_start + p) - '0');
+			    tokens[nr_token ++].type = TK_NUM;
+			    break;
 			case TK_LAND: tokens[nr_token ++].type = TK_LAND; break;
 			case TK_LOR: tokens[nr_token ++].type = TK_LOR; break;
 			case TK_BE: tokens[nr_token ++].type = TK_BE; break;
 			case '!': tokens[nr_token ++].type = '!'; break;
+			case '<': tokens[nr_token ++].type = '<'; break;
+			case '>': tokens[nr_token ++].type = '>'; break;
 			case TK_SE: tokens[nr_token ++].type = TK_SE; break;
-			case TK_HEX: tokens[nr_token ++].type = TK_HEX; break;
-			case '$': tokens[nr_token ++].type = '$'; break;
+			case TK_HEX:
+				int i = 2;
+				long sum = 0;
+				for(; i < substr_len; i ++)	
+					sum += (int)(*(substr_start + i) - '0') * pow(16, substr_len - 3); 
+				sum = (int)sum;
+				tokens[nr_token ++].str = sum;
+			case '$': 
           default: TODO();
         }
 
@@ -149,17 +160,80 @@ static bool make_token(char *e) {
   return true;
 }
 
+//add type
+enum { level1 = 1, level2, level3, level4 };
+struct Lev{
+	int level_;
+	int size;
+	int sym[8];
+}lev[] = {
+	{1, 2, {'*', '/'}},
+	{2, 2, {'+', '-'}},
+	{3, 5, {'>', '<', TK_BE, TK_SE, TK_EQ}},
+	{4, 3, {'!', TK_LAND, TK_LOR}},
+};
 //add funtion
 int rn(int a, int b, int c)
 {
-	if(c == '+') return a + b;	
-	if(c == '-') return a - b;	
-	if(c == '*') return a * b;	
-	if(c == '/' && b != 0) return a / b;	
-	if(c == '/' && b == 0) return 0xfffff;
+	//1.()
+	//2.*/
+	//3.+-
+	//4.>=,==,<=,>,<
+	//5.&&,||,!
+	switch (c) {
+		case '+': return a + b;	break;
+		case '-': return a - b;	break;
+		case '*': return a * b;	break;
+		case '/': return b == 0 ? 0xffff : a / b; break;
+		case '!': return !a; break;	
+		case TK_LAND: return a && b; break;	
+		case TK_LOR: return a || b; break;	
+		case TK_EQ: return a == b; break;
+		case '<': return a < b; break;
+		case '>': return a > b; break;
+		case TK_BE: return a <= b; break;	
+		case TK_SE: return a >= b; break;	
+	  default: return 0xffff;
+	}
 	return 0;
 }
-
+//add funtion
+int cal(Token* ex, int level, int r)
+{
+	int i = 0, j, sum = 0;
+	int k = 0;
+	level --;
+	Token* num = (Token*)malloc(sizeof(Token) * 32);
+	for(i = 0; i < r; i ++)
+	{
+		while((ex[i].type != TK_NUM && k < lev[level].size) && ex[i].type != lev[level].sym[k]) k ++;
+		if(k != lev[level].size)
+		{
+			sum = rn(ex[i - 1].str, ex[i + 1].str, ex[i].type);
+			if(sum == 0xfffff) return 0xfffff;
+			ex[i + 1].str = sum;
+			ex[i - 1].type = -1;
+			ex[i].type = -1;
+		}
+	}
+	for(j = 0, i = 0; i < r; i ++, j ++)
+	{
+		if(ex[i].type != -1)
+		{
+			if(ex[i].type == TK_NUM)
+			{
+				num[j].str = ex[i].str;
+				num[j].type = ex[i].type;
+			}
+			else num[j].type = ex[i].type;
+		}
+		else j --;
+	}
+	if(level != 4)
+		cal(num, level + 1, j);
+	return num[j - 1].str;
+}
+/*
 //add funtion
 int cal(Token* ex, int r)
 {
@@ -187,7 +261,14 @@ int cal(Token* ex, int r)
 		}
 		else j --;
 	}
-	/*
+	for(i = 0; i < j; i ++)
+		if(ex[i].type == '+' || ex[i].type == '-')
+		{
+			ex[i + 1].str = rn(ex[i - 1].str, ex[i + 1].str, ex[i].type);
+			ex[i - 1].type = -1;
+			ex[i].type = -1;
+		}
+	
 	for(i = 0; i < j; i ++)
 	{
 		if(num[i].type == TK_NUM)
@@ -199,13 +280,12 @@ int cal(Token* ex, int r)
 		}
 	}
 	printf("\n");
-	*/
 	for(i = 0; i < j; i ++)
 		if(num[i].type == '+' || num[i].type == '-')
 			num[i + 1].str = rn(num[i - 1].str, num[i + 1].str, num[i].type);
 	return num[j - 1].str;
 }
-
+*/
 //add funtion
 int divs(int l, int r)
 {
@@ -255,7 +335,7 @@ int divs(int l, int r)
 	}
 	printf("\n");
 	*/
-	sum = cal(stack, j);
+	sum = cal(stack, 0, j);
 	free(stack);
 	return sum;
 }
@@ -272,7 +352,6 @@ void init_tokens()
 }
 
 word_t expr(char *e, bool *success) {
-	//int i = 0;
 	int sum = 0;
 	if (!make_token(e)) {
 	  *success = false;
@@ -282,18 +361,6 @@ word_t expr(char *e, bool *success) {
     /* TODO: Insert codes to evaluate the expression. */
 //add code
     //TODO();
-	/*
-	for(i = 0; i < nr_token; i ++)
-	{
-		if(tokens[i].type == TK_NUM)
-			printf("%d", tokens[i].str);
-		else
-		{
-			if(tokens[i].type != TK_NOTYPE)
-			printf("%c", (char)tokens[i].type);
-		}
-	}
-	*/
 	sum = divs(0, nr_token);
 	init_tokens();
 	return sum;
