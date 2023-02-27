@@ -303,7 +303,7 @@ int divs(int l, int r)
 	int i = 0, j = 0;
 	int p = 0, f = 0, temp = 0;
 	Token* stack = (Token*)malloc(sizeof(Token) * 32);
-	Token* point = NULL;
+	//Token* point = NULL;
 	for(i = l, j = 0; i < r; i ++, j ++)
 	{
 		if(tokens[i].type == '(')
@@ -350,7 +350,7 @@ int divs(int l, int r)
 	printf("\n");
 	//point = cal(stack, 0, j);
 	free(stack);
-	return point->str;
+	return 0;//point->str;
 }
 
 //add funtion
