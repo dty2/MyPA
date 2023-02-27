@@ -280,9 +280,7 @@ word_t expr(char *e, bool *success) {
 	}
 	*/
 	sum = divs(0, nr_token);
-	if(sum == 0xffff) printf("Error! Please enter again!\n");
-	else if(sum == 0xfffff) printf("Division 0! Please check the expression!\n");
-	else printf("%d\n", sum);
 	init_tokens();
+	return sum;
 	return 0;
 }
