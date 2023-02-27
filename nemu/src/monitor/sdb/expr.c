@@ -204,7 +204,6 @@ Token* cal(Token* ex, int level, int r)
 {
 	int i = 0, j, sum = 0;
 	int k = 0;
-	level --;
 	Token* num = (Token*)malloc(sizeof(Token) * 32);
 	Token* point = NULL;
 	for(i = 0; i < r; i ++)
