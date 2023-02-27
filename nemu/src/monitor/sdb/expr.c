@@ -143,6 +143,7 @@ int rn(int a, int b, int c)
 	if(c == '/') return a / b;	
 	return 0;
 }
+
 //add funtion
 int cal(Token* ex, int r)
 {
@@ -186,6 +187,7 @@ int cal(Token* ex, int r)
 			num[i + 1].str = rn(num[i - 1].str, num[i + 1].str, num[i].type);
 	return num[j - 1].str;
 }
+
 //add funtion
 int divs(int l, int r)
 {
@@ -238,6 +240,8 @@ int divs(int l, int r)
 	free(stack);
 	return sum;
 }
+
+//add funtion
 void init_tokens()
 {
 	int i = 0;
@@ -247,6 +251,7 @@ void init_tokens()
 		tokens[i].type = 0;
 	}
 }
+
 word_t expr(char *e, bool *success) {
 	//int i = 0;
   if (!make_token(e)) {
