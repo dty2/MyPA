@@ -22,10 +22,12 @@
 
 enum {
   TK_NOTYPE = 256, TK_EQ,
-
   /* TODO: Add more token types */
 //add code
-	TK_NUM
+	TK_NUM,
+	TK_LAND,TK_LOR,
+	TK_BE,TK_SE,
+	TK_HEX,
 };
 
 static struct rule {
@@ -47,6 +49,13 @@ static struct rule {
   {"\\(", '('},
   {"\\)", ')'},
   {"[0-9]+", TK_NUM},
+  {"&&", TK_LAND},
+  {"||", TK_LOR},
+  {"!", '!'},
+  {"<=", TK_BE},
+  {">=", TK_SE},
+  {"0x", TK_HEX},
+  {"$", '$'},
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -101,9 +110,8 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
-
-        switch (rules[i].token_type) {
 //add code
+        switch (rules[i].token_type) {
 			case TK_NOTYPE: break;
 			case TK_EQ: tokens[nr_token ++].type = TK_EQ; break;
 			case '+': tokens[nr_token ++].type = '+'; break;
@@ -118,6 +126,13 @@ static bool make_token(char *e) {
 						  tokens[nr_token].str = tokens[nr_token].str * 10 + (int)(*(substr_start + p) - '0');
 					  tokens[nr_token ++].type = TK_NUM;
 					  break;
+			case TK_LAND: tokens[nr_token ++].type = TK_LAND; break;
+			case TK_LOR: tokens[nr_token ++].type = TK_LOR; break;
+			case TK_BE: tokens[nr_token ++].type = TK_BE; break;
+			case '!': tokens[nr_token ++].type = '!'; break;
+			case TK_SE: tokens[nr_token ++].type = TK_SE; break;
+			case TK_HEX: tokens[nr_token ++].type = TK_HEX; break;
+			case '$': tokens[nr_token ++].type = '$'; break;
           default: TODO();
         }
 
