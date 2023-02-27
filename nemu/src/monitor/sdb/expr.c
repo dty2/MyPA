@@ -140,19 +140,22 @@ int rn(int a, int b, int c)
 	if(c == '+') return a + b;	
 	if(c == '-') return a - b;	
 	if(c == '*') return a * b;	
-	if(c == '/') return a / b;	
+	if(c == '/' && b != 0) return a / b;	
+	if(c == '/' && b == 0) return 0xfffff;
 	return 0;
 }
 
 //add funtion
 int cal(Token* ex, int r)
 {
-	int i = 0, j;
+	int i = 0, j, sum = 0;;
 	Token num[32];
 	for(i = 0; i < r; i ++)
 		if(ex[i].type == '*' || ex[i].type == '/')
 		{
-			ex[i + 1].str = rn(ex[i - 1].str, ex[i + 1].str, ex[i].type);
+			sum = rn(ex[i - 1].str, ex[i + 1].str, ex[i].type);
+			if(sum == 0xfffff) return 0xfffff;
+			ex[i + 1].str = sum;
 			ex[i - 1].type = -1;
 			ex[i].type = -1;
 		}
@@ -278,6 +281,7 @@ word_t expr(char *e, bool *success) {
 	*/
 	sum = divs(0, nr_token);
 	if(sum == 0xffff) printf("Error! Please enter again!\n");
+	else if(sum == 0xfffff) printf("Division 0! Please check the expression!\n");
 	else printf("%d\n", sum);
 	init_tokens();
 	return 0;
