@@ -277,7 +277,7 @@ word_t expr(char *e, bool *success) {
 	}
 	*/
 	sum = divs(0, nr_token);
-	if(sum == 0xffff) printf("Error!\n");
+	if(sum == 0xffff) printf("Error! Please enter again!\n");
 	else printf("%d\n", sum);
 	init_tokens();
 	return 0;
