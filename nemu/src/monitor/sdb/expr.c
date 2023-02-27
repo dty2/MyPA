@@ -209,7 +209,7 @@ Token* cal(Token* ex, int level, int r)
 	for(i = 0; i < r; i ++)
 	{
 		while((ex[i].type != TK_NUM && k < lev[level].size) && ex[i].type != lev[level].sym[k]) k ++;
-		if(k != lev[level].size)
+		if(k != lev[level].size && k != 0)
 		{
 			sum = rn(ex[i - 1].str, ex[i + 1].str, ex[i].type);
 			if(sum == 0xfffff)
@@ -221,6 +221,7 @@ Token* cal(Token* ex, int level, int r)
 			ex[i - 1].type = -1;
 			ex[i].type = -1;
 		}
+		k = 0;
 	}
 	for(j = 0, i = 0; i < r; i ++, j ++)
 	{
