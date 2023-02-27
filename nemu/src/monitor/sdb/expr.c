@@ -188,8 +188,8 @@ int rn(int a, int b, int c)
 		case '*': return a * b;	break;
 		case '/': return b ? a / b : 0xfffff;
 		case '!': return !a; break;	
-		//case TK_LAND: return a && b; break;	
-		//case TK_LOR: return a || b; break;	
+		case TK_LAND: return a && b; break;	
+		case TK_LOR: return a || b; break;	
 		case TK_EQ: return a == b; break;
 		case '<': return a < b; break;
 		case '>': return a > b; break;
