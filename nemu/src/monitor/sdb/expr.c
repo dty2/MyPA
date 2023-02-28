@@ -257,7 +257,6 @@ Token* cal(Token* ex, int level, int r)
 	return num;
 }
 /*
-//add funtion
 int cal(Token* ex, int r)
 {
 	int i = 0, j, sum = 0;;
