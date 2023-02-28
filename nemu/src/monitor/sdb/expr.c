@@ -212,16 +212,24 @@ Token* cal(Token* ex, int level, int r)
 		while((ex[i].type != TK_NUM && k < lev[level].size) && ex[i].type != lev[level].sym[++ k]);
 		if(k != lev[level].size && k != -1)
 		{
-			if(ex[i].type == '!') sum = rn(ex[i + 1].str, 0, ex[i].type);
-			else sum = rn(ex[i - 1].str, ex[i + 1].str, ex[i].type);
-			if(sum == 0xfffff)
+			if(ex[i].type == '!')
 			{
-				sign = error_1;
-				return NULL;
+				sum = rn(ex[i + 1].str, 0, ex[i].type);
+				ex[i + 1].str = sum;
+				ex[i].type = -1;
 			}
-			ex[i + 1].str = sum;
-			ex[i - 1].type = -1;
-			ex[i].type = -1;
+			else
+			{
+				sum = rn(ex[i - 1].str, ex[i + 1].str, ex[i].type);
+				if(sum == 0xfffff)
+				{
+					sign = error_1;
+					return NULL;
+				}
+				ex[i + 1].str = sum;
+				ex[i - 1].type = -1;
+				ex[i].type = -1;
+			}
 		}
 		k = -1;
 	}
