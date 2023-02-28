@@ -133,7 +133,7 @@ static bool make_token(char *e) {
 			case TK_LAND: tokens[nr_token ++].type = TK_LAND; break;
 			case TK_LOR: tokens[nr_token ++].type = TK_LOR; break;
 			case TK_BE: tokens[nr_token ++].type = TK_BE; break;
-			case '!': tokens[nr_token ++].type = '!'; printf("yes");break;
+			case '!': tokens[nr_token ++].type = '!'; break;
 			case '<': tokens[nr_token ++].type = '<'; break;
 			case '>': tokens[nr_token ++].type = '>'; break;
 			case TK_SE: tokens[nr_token ++].type = TK_SE; break;
