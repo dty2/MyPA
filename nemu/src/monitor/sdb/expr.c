@@ -27,7 +27,7 @@ enum {
 //add code
 	TK_NUM,
 	TK_LAND,TK_LOR,
-	TK_BE,TK_SE,
+	TK_BE,TK_SE,TK_NE,
 	TK_HEX,
 };
 
@@ -53,7 +53,7 @@ static struct rule {
   {"&&", TK_LAND},
   {"\\|\\|", TK_LOR},
   {"!", '!'},
-  {"![^=]", '!'},
+  {"![^=]", TK_NE},
   {"<[^=]", '<'},
   {">[^=]", '>'},
   {"<=", TK_BE},
@@ -172,7 +172,7 @@ struct Lev{
 }lev[] = {
 	{1, 2, {'*', '/', '#'}},
 	{2, 2, {'+', '-', '#'}},
-	{3, 6, {'>', '<', TK_BE, TK_SE, TK_EQ, '#'}},
+	{3, 6, {'>', '<', TK_BE, TK_SE, TK_EQ, TK_NE,'#'}},
 	{4, 3, {'!', TK_LAND, TK_LOR, '#'}},
 };
 //add funtion
@@ -196,6 +196,7 @@ int rn(int a, int b, int c)
 		case '>': return a > b; break;
 		case TK_BE: return a <= b; break;	
 		case TK_SE: return a >= b; break;	
+		case TK_NE: return a != b; break;	
 	  default: return 0xffff;
 	}
 	return 0;
