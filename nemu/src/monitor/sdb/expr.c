@@ -30,7 +30,7 @@ enum {
 	TK_BE,TK_SE,TK_NE,
 	TK_HEX,
 };
-
+//
 static struct rule {
   const char *regex;
   int token_type;
