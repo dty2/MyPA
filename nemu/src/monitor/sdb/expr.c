@@ -58,8 +58,8 @@ static struct rule {
   {">[^=]", '>'},
   {"<=", TK_BE},
   {">=", TK_SE},
-  {"0x[0-9]+", TK_HEX},
-  {"$[0-9,a-z,A-Z]+", '$'},
+  {"0[^.]x[^.][0-9]+", TK_HEX},
+  {"$[a-z,A-Z]+", '$'},
 };
 
 #define NR_REGEX ARRLEN(rules)
