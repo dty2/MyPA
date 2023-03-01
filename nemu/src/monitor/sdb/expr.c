@@ -142,7 +142,7 @@ static bool make_token(char *e) {
 				int i = 2;
 				long sum = 0;
 				for(; i < substr_len; i ++)	
-					sum += (int)(*(substr_start + i) - '0'); 
+					sum += (int)(*(substr_start + i) - '0') * pow(16, substr_len - 3); 
 				sum = (int)sum;
 				tokens[nr_token ++].str = sum;
 			case '$': 
@@ -373,7 +373,7 @@ void init_tokens()
 }
 
 word_t expr(char *e, bool *success) {
-	int sum = 0;
+	//int sum = 0;
 	if (!make_token(e)) {
 	  *success = false;
 	  return 0;
@@ -382,9 +382,9 @@ word_t expr(char *e, bool *success) {
     /* TODO: Insert codes to evaluate the expression. */
 //add code
     //TODO();
-	sum = divs(0, nr_token);
+	//sum = divs(0, nr_token);
 	init_tokens();
 	if(sign == error_1 || sign == error_2) return sign;
-	else return sum;
+	//else return sum;
 	return 0;
 }
