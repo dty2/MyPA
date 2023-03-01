@@ -105,8 +105,8 @@ static bool make_token(char *e) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
 
-        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-            i, rules[i].regex, position, substr_len, substr_len, substr_start);
+        //Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+            //i, rules[i].regex, position, substr_len, substr_len, substr_start);
 
         position += substr_len;
 
@@ -142,7 +142,7 @@ static bool make_token(char *e) {
 				int i = 2;
 				long sum = 0;
 				for(; i < substr_len; i ++)	
-					sum += (int)(*(substr_start + i) - '0') * pow(16, substr_len - 3); 
+					sum += (int)(*(substr_start + i) - '0'); 
 				sum = (int)sum;
 				tokens[nr_token ++].str = sum;
 			case '$': 
