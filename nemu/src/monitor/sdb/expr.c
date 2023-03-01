@@ -171,19 +171,14 @@ struct Lev{
 	int size;
 	int sym[8];
 }lev[] = {
-	{1, 2, {'*', '/', '#'}},
-	{2, 2, {'+', '-', '#'}},
-	{3, 6, {'>', '<', TK_BE, TK_SE, TK_EQ, TK_NE,'#'}},
-	{4, 3, {'!', TK_LAND, TK_LOR, '#'}},
+	{1, 2, {'*', '/', '#'}},                            //1.*/             
+	{2, 2, {'+', '-', '#'}},                            //2.+-             
+	{3, 6, {'>', '<', TK_BE, TK_SE, TK_EQ, TK_NE,'#'}}, //3.>=,==,<=,>,<,!=
+	{4, 3, {'!', TK_LAND, TK_LOR, '#'}},                //4.&&,||,!
 };
 //add funtion
 int rn(int a, int b, int c)
 {
-	//1.()
-	//2.*/
-	//3.+-
-	//4.>=,==,<=,>,<,!=
-	//5.&&,||,!
 	switch (c) {
 		case '+': return a + b;	break;
 		case '-': return a - b;	break;
