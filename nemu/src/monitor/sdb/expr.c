@@ -142,7 +142,7 @@ static bool make_token(char *e) {
 				int i = 2;
 				long sum = 0;
 				for(; i < substr_len; i ++)	
-					sum += (int)(*(substr_start + i) - '0') * pow(16, substr_len - 3); 
+					sum += (int)(*(substr_start + i) - '0') * pow(16, substr_len - (i + 1)); 
 				sum = (int)sum;
 				tokens[nr_token].str = sum;
 			    tokens[nr_token ++].type = TK_NUM;
