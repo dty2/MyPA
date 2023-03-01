@@ -145,6 +145,7 @@ static bool make_token(char *e) {
 					sum += (int)(*(substr_start + i) - '0') * pow(16, substr_len - 3); 
 				sum = (int)sum;
 				tokens[nr_token ++].str = sum;
+			    tokens[nr_token ++].type = TK_NUM;
 				break;
 			case '$': 
           default: TODO();
