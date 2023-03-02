@@ -126,6 +126,7 @@ static bool make_token(char *e) {
 			case '+': tokens[nr_token ++].type = '+'; break;
 			case '-': tokens[nr_token ++].type = '-'; break;
 			case '*':
+				printf("%d",nr_token);
 				if(tokens[nr_token - 1].type != TK_NUM)
 					tokens[nr_token ++].type = TK_PS;
 				else tokens[nr_token ++].type = '*';
