@@ -181,7 +181,7 @@ struct Lev{
 	int size;
 	int sym[8];
 }lev[] = {
-	{1, 1, {TK_PS, '#'}},
+	{1, 2, {TK_PS, '#'}},
 	{2, 2, {'*', '/', '#'}},
 	{3, 2, {'+', '-', '#'}},
 	{4, 6, {'>', '<', TK_BE, TK_SE, TK_EQ, TK_NE,'#'}},
@@ -219,7 +219,6 @@ Token* cal(Token* ex, int level, int r)
 	Token* point = NULL;
 	for(i = 0; i < r; i ++)
 	{
-		printf("iiii");
 		while((ex[i].type != TK_NUM && k < lev[level].size) && ex[i].type != lev[level].sym[++ k]);
 		if(k != lev[level].size && k != -1)
 		{
