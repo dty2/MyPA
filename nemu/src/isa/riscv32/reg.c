@@ -27,8 +27,8 @@ void isa_reg_display() {
 	int i = 0;
 	for(; i < ARRLEN(regs); i ++)
 	{
-	printf("%s = %d ", *(regs + i), cpu.gpr[i]);
-	if(!((i + 1) % 8)) printf("\n");
+		printf("%s = %x ", *(regs + i), gpr(i));
+		if(!((i + 1) % 8)) printf("\n");
 	}
 }
 
