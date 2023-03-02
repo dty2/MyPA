@@ -80,4 +80,5 @@ void check()
 			nemu_state.state = NEMU_STOP;
 		}
 	}
+	printf("\nhelloword\n");
 }
