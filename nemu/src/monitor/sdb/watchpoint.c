@@ -26,6 +26,7 @@ typedef struct watchpoint {
 
   /* TODO: Add more members if necessary */
 	int value;
+	char *p;
 } WP;
 
 static WP wp_pool[NR_WP] = {};
@@ -43,10 +44,11 @@ void init_wp_pool() {
 }
 
 /* TODO: Implement the functionality of watchpoint */
-void new_wp(int v)
+void new_wp(char *v)
 {
 	WP* temp = free_;
-	free_->value = v;
+	free_->p = v;
+	free_->value = paddr_read(expr(v, NULL), 4);
 	free_->next = head;
 	free_ = temp->next;
 	head = temp;
@@ -54,9 +56,7 @@ void new_wp(int v)
 
 void free_wp(int n)
 {
-	WP* i;
-	WP* k;
-	WP* j;
+	WP* i, *k, *j;
 	for(i = head; i != NULL; i = i->next)
 	{
 		if(i->next->NO == n)
@@ -66,7 +66,18 @@ void free_wp(int n)
 			free_ = i->next;
 			i->next->next = j;
 			i->next = k;
-			free_->value = 0;
+		}
+	}
+}
+
+void check()
+{
+	WP* i;
+    for(i = head; i != NULL; i = i->next)
+	{
+		if(i->value != paddr_read(expr(i->p, NULL), 4))
+		{
+			nemu_state.state = NEMU_STOP;
 		}
 	}
 }

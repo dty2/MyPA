@@ -19,9 +19,6 @@
 #include <readline/history.h>
 #include "sdb.h"
 
-//addheadfile
-#include <memory/paddr.h>
-
 static int is_batch_mode = false;
 
 void init_regex();
@@ -90,7 +87,7 @@ static int cmd_info(char *args) {
 static int cmd_x(char *args) {
     int i = 0, op_num = 0;//op_num operation number 
 	char *argument;
-    int argu_num = 0x80000000;
+    int argu_num = 0;
     bool sign = 1;
     if(args != 0)
     {
@@ -121,7 +118,7 @@ static int cmd_x(char *args) {
 
 //dtyy addfuntion
 static int cmd_p(char *args) {
-	int sum = expr(args, NULL);
+	word_t sum = expr(args, NULL);
 	if(sum == 0xffff) printf("Error! Please enter again!\n");
 	else if(sum == 0xfffff) printf("Division 0! Please check the expression!\n");
 	else printf("%d\n", sum);
@@ -130,7 +127,7 @@ static int cmd_p(char *args) {
 
 //dtyy addfuntion
 static int cmd_w(char *args) {
-	new_wp(expr(args, NULL));
+	new_wp(args);
     return 0;
 }
 

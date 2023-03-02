@@ -134,7 +134,7 @@ static bool make_token(char *e) {
 			case '(': tokens[nr_token ++].type = '('; break;
 			case ')': tokens[nr_token ++].type = ')'; break;
 			case TK_NUM:
-				word_t p = 0;
+				int p = 0;
 				for(; p < substr_len; p ++)
 					tokens[nr_token].str = tokens[nr_token].str * 10 + (int)(*(substr_start + p) - '0');
 			    tokens[nr_token ++].type = TK_NUM;
@@ -148,7 +148,7 @@ static bool make_token(char *e) {
 			case '>': tokens[nr_token ++].type = '>'; break;
 			case TK_SE: tokens[nr_token ++].type = TK_SE; break;
 			case TK_HEX:
-				word_t i = 2;
+				int i = 2;
 				word_t sum = 0;
 				for(; i < substr_len; i ++)	
 					sum += (word_t)(*(substr_start + i) - '0') * pow(16, substr_len - (i + 1)); 
@@ -212,7 +212,7 @@ word_t rn(int a, int b, int c)
 //add funtion
 Token* cal(Token* ex, int level, int r)
 {
-	word_t i = 0, j;
+	int i = 0, j;
 	word_t sum = 0;
 	int k = -1;
 	Token* num = (Token*)malloc(sizeof(Token) * 32);
@@ -319,8 +319,8 @@ int cal(Token* ex, int r)
 //add funtion
 word_t divs(int l, int r)
 {
-	word_t i = 0, j = 0;
-	word_t p = 0, f = 0, temp = 0;
+	int i = 0, j = 0;
+	int p = 0, f = 0, temp = 0;
 	Token* stack = (Token*)malloc(sizeof(Token) * 32);
 	Token* point = NULL;
 	for(i = l, j = 0; i < r; i ++, j ++)
@@ -386,7 +386,7 @@ void init_tokens()
 }
 
 word_t expr(char *e, bool *success) {
-	int sum = 0;
+	word_t sum = 0;
 	if (!make_token(e)) {
 	  *success = false;
 	  return 0;

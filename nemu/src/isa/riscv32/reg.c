@@ -27,7 +27,8 @@ void isa_reg_display() {
 	int i = 0;
 	for(; i < ARRLEN(regs); i ++)
 	{
-		printf("%s = %x ", *(regs + i), gpr(i)); //said bt dtyy:if not right, check reg.h
+		printf("%s = %x ", *(regs + i), gpr(i));
+		//said bt dtyy:if not right, check reg.h
 		if(!((i + 1) % 8)) printf("\n");
 	}
 }
