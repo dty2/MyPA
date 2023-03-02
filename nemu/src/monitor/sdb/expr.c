@@ -21,6 +21,9 @@
 #include <regex.h>
 #include <math.h>
 
+//addheadfile
+#include <memory/paddr.h>
+
 enum {
   TK_NOTYPE = 256, TK_EQ,
   /* TODO: Add more token types */
@@ -29,6 +32,7 @@ enum {
 	TK_LAND,TK_LOR,
 	TK_BE,TK_SE,TK_NE,
 	TK_HEX,
+	TK_PS,
 };
 
 static struct rule {
@@ -121,7 +125,11 @@ static bool make_token(char *e) {
 			case TK_EQ: tokens[nr_token ++].type = TK_EQ; break;
 			case '+': tokens[nr_token ++].type = '+'; break;
 			case '-': tokens[nr_token ++].type = '-'; break;
-			case '*': tokens[nr_token ++].type = '*'; break;
+			case '*':
+				if(tokens[nr_token - 1].type != TK_NUM)
+					tokens[nr_token ++].type = TK_PS;
+				else tokens[nr_token ++].type = '*';
+				break;
 			case '/': tokens[nr_token ++].type = '/'; break;
 			case '(': tokens[nr_token ++].type = '('; break;
 			case ')': tokens[nr_token ++].type = ')'; break;
@@ -174,10 +182,11 @@ struct Lev{
 	int size;
 	int sym[8];
 }lev[] = {
-	{1, 2, {'*', '/', '#'}},                            //1.*/
-	{2, 2, {'+', '-', '#'}},                            //2.+-
-	{3, 6, {'>', '<', TK_BE, TK_SE, TK_EQ, TK_NE,'#'}}, //3.>=,==,<=,>,<,!=
-	{4, 3, {'!', TK_LAND, TK_LOR, '#'}},                //4.&&,||,!
+	{1, 1, {TK_PS, '#'}},
+	{2, 2, {'*', '/', '#'}},
+	{3, 2, {'+', '-', '#'}},
+	{4, 6, {'>', '<', TK_BE, TK_SE, TK_EQ, TK_NE,'#'}},
+	{5, 3, {'!', TK_LAND, TK_LOR, '#'}},
 };
 //add funtion
 int rn(int a, int b, int c)
@@ -187,15 +196,16 @@ int rn(int a, int b, int c)
 		case '-': return a - b;	break;
 		case '*': return a * b;	break;
 		case '/': return b ? a / b : 0xfffff;
-		case '!': return !a; break;	
-		case TK_LAND: return a && b; break;	
-		case TK_LOR: return a || b; break;	
+		case '!': return !a; break;
+		case TK_LAND: return a && b; break;
+		case TK_LOR: return a || b; break;
 		case TK_EQ: return a == b; break;
 		case '<': return a < b; break;
 		case '>': return a > b; break;
-		case TK_BE: return a <= b; break;	
-		case TK_SE: return a >= b; break;	
-		case TK_NE: return a != b; break;	
+		case TK_BE: return a <= b; break;
+		case TK_SE: return a >= b; break;
+		case TK_NE: return a != b; break;
+		case TK_PS: return paddr_read(a, 4); break;	
 	  default: return 0xffff;
 	}
 	return 0;
@@ -212,7 +222,7 @@ Token* cal(Token* ex, int level, int r)
 		while((ex[i].type != TK_NUM && k < lev[level].size) && ex[i].type != lev[level].sym[++ k]);
 		if(k != lev[level].size && k != -1)
 		{
-			if(ex[i].type == '!')
+			if(ex[i].type == '!' || ex[i].type == TK_PS)
 			{
 				sum = rn(ex[i + 1].str, 0, ex[i].type);
 				ex[i + 1].str = sum;
@@ -246,7 +256,7 @@ Token* cal(Token* ex, int level, int r)
 		}
 		else j --;
 	}
-	if(level != 3)
+	if(level != 4)
 	{
 		point = cal(num, level + 1, j);
 		free(num);

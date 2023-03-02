@@ -15,6 +15,9 @@
 
 #include "sdb.h"
 
+//addheadfile
+#include <memory/paddr.h>
+
 #define NR_WP 32
 
 typedef struct watchpoint {
@@ -22,7 +25,7 @@ typedef struct watchpoint {
   struct watchpoint *next;
 
   /* TODO: Add more members if necessary */
-
+	int value;
 } WP;
 
 static WP wp_pool[NR_WP] = {};
@@ -40,4 +43,30 @@ void init_wp_pool() {
 }
 
 /* TODO: Implement the functionality of watchpoint */
+void new_wp(int v)
+{
+	WP* temp = free_;
+	free_->value = v;
+	free_->next = head;
+	free_ = temp->next;
+	head = temp;
+}
 
+void free_wp(int n)
+{
+	WP* i;
+	WP* k;
+	WP* j;
+	for(i = head; i != NULL; i = i->next)
+	{
+		if(i->next->NO == n)
+		{
+			j = free_;
+			k = i->next->next;
+			free_ = i->next;
+			i->next->next = j;
+			i->next = k;
+			free_->value = 0;
+		}
+	}
+}

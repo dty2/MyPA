@@ -19,7 +19,7 @@
 #include <readline/history.h>
 #include "sdb.h"
 
-//dtyy addheadfile
+//addheadfile
 #include <memory/paddr.h>
 
 static int is_batch_mode = false;
@@ -128,6 +128,12 @@ static int cmd_p(char *args) {
     return 0;
 }
 
+//dtyy addfuntion
+static int cmd_w(char *args) {
+	new_wp(expr(args, NULL));
+    return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -144,6 +150,7 @@ static struct {
   { "info", "printf register", cmd_info },
   { "x", "calculate the expression value and output the content", cmd_x },
   { "p", "print value of expression", cmd_p },
+  { "w", "set the watch point", cmd_w },
 
 };
 
