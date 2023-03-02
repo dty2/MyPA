@@ -267,7 +267,7 @@ Token* cal(Token* ex, int level, int r)
 /*
 int cal(Token* ex, int r)
 {
-	int i = 0, j, sum = 0;;
+	int i = 0, j, sum = 0;
 	Token num[32];
 	for(i = 0; i < r; i ++)
 		if(ex[i].type == '*' || ex[i].type == '/')
