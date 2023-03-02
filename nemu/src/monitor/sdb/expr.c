@@ -219,7 +219,6 @@ Token* cal(Token* ex, int level, int r)
 	Token* point = NULL;
 	for(i = 0; i < r; i ++)
 	{
-		printf("iiii");
 		while((ex[i].type != TK_NUM && k < lev[level].size) && ex[i].type != lev[level].sym[++ k]);
 		if(k != lev[level].size && k != -1)
 		{
