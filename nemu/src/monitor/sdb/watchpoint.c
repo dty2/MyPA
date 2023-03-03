@@ -15,6 +15,9 @@
 
 #include "sdb.h"
 
+//addheadfile
+#include <memory/paddr.h>
+
 #define NR_WP 32
 
 typedef struct watchpoint {
@@ -22,7 +25,8 @@ typedef struct watchpoint {
   struct watchpoint *next;
 
   /* TODO: Add more members if necessary */
-
+	int value;
+	char *p;
 } WP;
 
 static WP wp_pool[NR_WP] = {};
@@ -40,4 +44,41 @@ void init_wp_pool() {
 }
 
 /* TODO: Implement the functionality of watchpoint */
+void new_wp(char *v)
+{
+	WP* temp = free_;
+	free_->p = v;
+	free_->value = paddr_read(expr(v, NULL), 4);
+	free_->next = head;
+	free_ = temp->next;
+	head = temp;
+}
 
+void free_wp(int n)
+{
+	WP* i, *k, *j;
+	for(i = head; i != NULL; i = i->next)
+	{
+		if(i->next->NO == n)
+		{
+			j = free_;
+			k = i->next->next;
+			free_ = i->next;
+			i->next->next = j;
+			i->next = k;
+		}
+	}
+}
+
+void check()
+{
+	WP* i;
+    for(i = head; i != NULL; i = i->next)
+	{
+		if(i->value != paddr_read(expr(i->p, NULL), 4))
+		{
+			nemu_state.state = NEMU_STOP;
+		}
+	}
+	printf("\nhelloword\n");
+}
