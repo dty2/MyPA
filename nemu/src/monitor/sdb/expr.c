@@ -25,7 +25,8 @@ enum {
 
   /* TODO: Add more token types */
 //add code
-	TK_NUM
+	TK_NUM,
+	TK_LAND,TK_LOR,TK_LNOT,
 };
 
 static struct rule {
@@ -47,6 +48,10 @@ static struct rule {
   {"\\(", '('},
   {"\\)", ')'},
   {"[0-9]+", TK_NUM},
+  {"&&", TK_LAND},
+  {"||", },
+  {"\\)", ')'},
+  {"\\)", ')'},
 };
 
 #define NR_REGEX ARRLEN(rules)
