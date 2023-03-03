@@ -48,7 +48,7 @@ void new_wp(char *v)
 {
 	WP* temp = free_;
 	free_->p = v;
-	free_->value = paddr_read(expr(v, NULL), 4);
+	free_->value = expr(v, NULL);
 	free_->next = head;
 	free_ = temp->next;
 	head = temp;
@@ -75,7 +75,7 @@ void check()
 	WP* i;
     for(i = head; i != NULL; i = i->next)
 	{
-		if(i->value != paddr_read(expr(i->p, NULL), 4))
+		if(i->value != expr(i->p, NULL))
 		{
 			nemu_state.state = NEMU_STOP;
 		}
