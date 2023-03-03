@@ -73,6 +73,7 @@ void free_wp(int n)
 void check()
 {
 	WP* i;
+	printf("\nhelloword\n");
     for(i = head; i != NULL; i = i->next)
 	{
 		if(i->value != paddr_read(expr(i->p, NULL), 4))
