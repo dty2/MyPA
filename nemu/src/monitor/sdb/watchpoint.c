@@ -52,11 +52,8 @@ void new_wp(char *v)
 	free_->p = v;
 	free_->value = expr(v, NULL);
 	free_ = free_->next;
-	printf("%s", temp_free->p);
 	head = temp_free;
-	printf("%s", head->p);
 	head->next = temp_head;
-	printf("%s", head->p);
 }
 
 void free_wp(int n)
@@ -79,7 +76,7 @@ void display_wp()
 {
 	WP* i;
 	for(i = head; i != NULL; i = i->next)
-		printf("%s %d %x\n", i->p, i->value, i->value);
+		printf("%s %d %x\n", head->p, head->value, head->value);
 }
 
 void check()
