@@ -40,10 +40,12 @@ word_t isa_reg_str2val(const char *s, bool *success) {
 	printf("%d\n", str_len);
 	for(; k < ARRLEN(regs); k ++)
 	{
+		/*
 		if(!strcmp(regs[k], s))
 		{
 			return gpr(k);
 		}
+		*/
 	}
   return 0;
 }
