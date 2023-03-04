@@ -48,11 +48,11 @@ void init_wp_pool() {
 void new_wp(char *v)
 {
 	WP* temp = free_;
-	//free_->p = v;
+	free_->p = v;
 	free_->value = expr(v, NULL);
-	free_->next = head;
-	head = temp;
+	free_->next = head->next;
 	free_ = temp->next;
+	head = temp;
 }
 
 void free_wp(int n)
