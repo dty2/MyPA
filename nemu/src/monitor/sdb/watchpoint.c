@@ -70,6 +70,13 @@ void free_wp(int n)
 	}
 }
 
+void display_wp()
+{
+	WP* i;
+	for(i = head; i != NULL; i = i->next)
+		printf("$%s %d %x\n", i->p, i->value, i->value);
+}
+
 void check()
 {
 	WP* i;

@@ -24,4 +24,7 @@
 word_t expr(char *e, bool *success);
 void new_wp(char* v);
 void free_wp(int n);
+void display_wp();
+void check();
+
 #endif
