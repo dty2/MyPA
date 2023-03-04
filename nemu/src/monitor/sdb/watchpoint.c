@@ -50,7 +50,8 @@ void new_wp(char *v)
 	WP* temp = free_->next;
 	//free_->p = v;
 	//free_->value = expr(v, NULL);
-	free_->next = head->next;
+	if(!head) free_->next = head->next;
+	else free_->next = head;
 	head = free_;
 	free_ = temp;
 }
