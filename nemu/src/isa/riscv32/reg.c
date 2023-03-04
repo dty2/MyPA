@@ -35,22 +35,13 @@ void isa_reg_display() {
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
-	/*
 	int k = 0;
-	if(substr_len == 2)
+	for(; k < ARRLEN(regs); k ++)
 	{
-		for(k = 0; k < ARRLEN(regs); k ++)
-			if(!memcpy(s, regs[k], 2) && (k != 26 && k != 27))
-				return gpr(k);
+		if(!strcmp(regs[k], s))
+		{
+			return gpr(k);
+		}
 	}
-	else
-	{
-		if(!memcpy(s, regs[26], 3))
-			return gpr(26);
-		else if(!memcpy(s, regs[27], 3))
-			return gpr(27);
-		else return 0;
-	}
-	*/
   return 0;
 }
