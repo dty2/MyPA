@@ -121,7 +121,7 @@ static int cmd_p(char *args) {
 	word_t sum = expr(args, NULL);
 	if(sum == 0xffff) printf("Error! Please enter again!\n");
 	else if(sum == 0xfffff) printf("Division 0! Please check the expression!\n");
-	else printf("%d %x\n", sum, sum);
+	else printf("%d 0x%x\n", sum, sum);
     return 0;
 }
 
