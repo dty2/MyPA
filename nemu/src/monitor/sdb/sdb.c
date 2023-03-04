@@ -77,7 +77,7 @@ static int cmd_si(char *args) {
 }  
 //dtyy addfuntion
 static int cmd_info(char *args) {
-    if(args != 0 && *args == 'r' && *(args + 1) == 0) isa_reg_display();
+    if(args != 0 && *args == 'r') isa_reg_display();
 	else if(args == 0) printf("argument fault! Please enter the argument!\n");
     else printf("argument fault! Please enter the right argument!\n");
     return 0;
@@ -106,7 +106,7 @@ static int cmd_x(char *args) {
     }
     else printf("argument fault! Please enter the argument!\n");
     if(sign == 0)
-        printf("argument fault! Please enter the right argument!\n");
+        printf("argument fault! Please nter the right argument!\n");
     else 
     {
         int j = 0;
@@ -130,6 +130,16 @@ static int cmd_w(char *args) {
 	new_wp(args);
     return 0;
 }
+//dtyy addfuntion
+static int cmd_n(char *args) {
+	if(strlen(args) > 2 || *args < '0' || *args > '9')
+	{
+		printf("Argument error, please enter again!\n");
+		return 0;
+	}
+	free_wp(*args - '0');
+    return 0;
+}
 
 static int cmd_help(char *args);
 
@@ -148,6 +158,7 @@ static struct {
   { "x", "calculate the expression value and output the content", cmd_x },
   { "p", "print value of expression", cmd_p },
   { "w", "set the watch point", cmd_w },
+  { "n", "delete the watch point", cmd_n },
 
 };
 
