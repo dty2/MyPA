@@ -52,7 +52,7 @@ void new_wp(char *v)
 	free_->next = head;
 	free_ = temp->next;
 	head = temp;
-	printf("%s", free_->p);
+	//printf("%s", free_->p);
 }
 
 void free_wp(int n)
