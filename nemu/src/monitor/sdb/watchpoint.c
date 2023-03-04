@@ -49,7 +49,7 @@ void new_wp(char *v)
 {
 	WP* temp_free = free_;
 	WP* temp_head = head;
-	free_->p = v;
+	strcpy(free_->p , v);
 	free_->value = expr(v, NULL);
 	free_ = free_->next;
 	head = temp_free;
