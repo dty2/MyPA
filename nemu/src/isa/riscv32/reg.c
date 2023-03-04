@@ -43,6 +43,5 @@ word_t isa_reg_str2val(const char *s, bool *success) {
 			return gpr(k);
 		}
 	}
-	printf("hello\n");
   return 0;
 }

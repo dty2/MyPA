@@ -64,7 +64,7 @@ static struct rule {
   {"0x[0-9]+", TK_HEX},
   {"[0-9]+", TK_NUM},
   {"\\$[a-z,0-9]+", '$'},
-  //Said by dtyy:something must be said! The order of the symbol is not haphazard . oppositely speaking , it can avoid a bad condition. if you don't believe , you can swap (55 + i)line and (58 + i)line , then you can try to use this "<=" , you will find something is going wrong !
+  //said by dtyy:something must be said! The order of the symbol is not haphazard . oppositely speaking , it can avoid a bad condition. if you don't believe , you can swap (55 + i)line and (58 + i)line , then you can try to use this "<=" , you will find something is going wrong !
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -156,6 +156,8 @@ static bool make_token(char *e) {
 			    tokens[nr_token ++].type = TK_NUM;
 				break;
 			case '$': 
+				if(substr_len >= 4)
+					return 0;//said by dtyy : If execute this statement, I don't know what will happend! I don't care! Maybe it will lead to a disaster! So, what I want to say is if you input the Irregular or wrong input, and get error, please check this satement, maybe it caused them...
 				tokens[nr_token].str = isa_reg_str2val(substr_start + 1, NULL);
 				if(tokens[nr_token].str == 0) return false;
 			    tokens[nr_token ++].type = TK_NUM;
