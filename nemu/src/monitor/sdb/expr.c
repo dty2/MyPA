@@ -63,7 +63,7 @@ static struct rule {
   {">", '>'},
   {"0x[0-9]+", TK_HEX},
   {"[0-9]+", TK_NUM},
-  {"$[a-z,0-9]+", '$'},
+  {"\\$[a-z,0-9]+", '$'},
   //Said by dtyy:something must be said! The order of the symbol is not haphazard . oppositely speaking , it can avoid a bad condition. if you don't believe , you can swap (55 + i)line and (58 + i)line , then you can try to use this "<=" , you will find something is going wrong !
 };
 
