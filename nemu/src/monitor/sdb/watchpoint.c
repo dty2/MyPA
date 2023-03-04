@@ -74,10 +74,6 @@ void check()
 {
 	WP* i;
     for(i = head; i != NULL; i = i->next)
-	{
-		if(i->value != expr(i->p, NULL)
-		{
+		if(i->value != expr(i->p, NULL))
 			nemu_state.state = NEMU_STOP;
-		}
-	}
 }

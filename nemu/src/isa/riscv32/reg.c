@@ -15,6 +15,7 @@
 
 #include <isa.h>
 #include "local-include/reg.h"
+#include <string.h>
 
 const char *regs[] = {
   "$0", "ra", "sp", "gp", "tp", "t0", "t1", "t2",
@@ -34,5 +35,22 @@ void isa_reg_display() {
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
+	/*
+	int k = 0;
+	if(substr_len == 2)
+	{
+		for(k = 0; k < ARRLEN(regs); k ++)
+			if(!memcpy(s, regs[k], 2) && (k != 26 && k != 27))
+				return gpr(k);
+	}
+	else
+	{
+		if(!memcpy(s, regs[26], 3))
+			return gpr(26);
+		else if(!memcpy(s, regs[27], 3))
+			return gpr(27);
+		else return 0;
+	}
+	*/
   return 0;
 }
