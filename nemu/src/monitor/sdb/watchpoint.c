@@ -27,7 +27,7 @@ typedef struct watchpoint {
 
   /* TODO: Add more members if necessary */
 	int value;
-	char *p;
+	char p[50];
 } WP;
 
 static WP wp_pool[NR_WP] = {};
