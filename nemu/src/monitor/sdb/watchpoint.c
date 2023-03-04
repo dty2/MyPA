@@ -48,8 +48,7 @@ void init_wp_pool() {
 void new_wp(char *v)
 {
 	WP* temp_free = free_->next;
-	//free_->p = v;
-	strcpy(free_->p, v);
+	free_->p = v;
 	free_->value = expr(v, NULL);
 	if(head) free_->next = head->next;
 	else free_->next = head;
