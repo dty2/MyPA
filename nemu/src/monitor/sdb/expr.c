@@ -156,9 +156,7 @@ static bool make_token(char *e) {
 			    tokens[nr_token ++].type = TK_NUM;
 				break;
 			case '$': 
-					//return 0;//said by dtyy : If execute this statement, I don't know what will happend! I don't care! Maybe it will lead to a disaster! So, what I want to say is if you input the Irregular or wrong input, and get error, please check this satement, maybe it caused them...
 				tokens[nr_token].str = isa_reg_str2val(substr_start + 1, NULL);
-				//if(tokens[nr_token].str == 0) return false;
 				//said by dtyy : If execute this statement, I don't know what will happend! I don't care! Maybe it will lead to a disaster! So, what I want to say is if you input the Irregular or wrong input, and get error, please check this satement, maybe it caused them...
 			    tokens[nr_token ++].type = TK_NUM;
 				break;

@@ -37,11 +37,7 @@ void isa_reg_display() {
 word_t isa_reg_str2val(const char *s, bool *success) {
 	int k = 0;
 	for(; k < ARRLEN(regs); k ++)
-	{
 		if(!strcmp(regs[k], s))
-		{
 			return gpr(k);
-		}
-	}
   return 0;
 }
