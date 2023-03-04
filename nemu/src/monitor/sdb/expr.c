@@ -159,7 +159,7 @@ static bool make_token(char *e) {
 				//if(substr_len >= 4)
 					//return 0;//said by dtyy : If execute this statement, I don't know what will happend! I don't care! Maybe it will lead to a disaster! So, what I want to say is if you input the Irregular or wrong input, and get error, please check this satement, maybe it caused them...
 				tokens[nr_token].str = 0;//isa_reg_str2val(substr_start + 1, NULL);
-				if(tokens[nr_token].str == 0) return false;
+				//if(tokens[nr_token].str == 0) return false;
 			    tokens[nr_token ++].type = TK_NUM;
 				break;
           default: TODO();
