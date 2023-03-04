@@ -49,13 +49,15 @@ void new_wp(char *v)
 {
 	WP* temp_free = free_;
 	WP* temp_head = head;
-	printf("%s", v);
 	free_->p = v;
-	printf("%s", free_->p);
 	free_->value = expr(v, NULL);
+	printf("%s", free_->p);
 	free_ = free_->next;
+	printf("%s", free_->p);
 	head = temp_free;
+	printf("%s", free_->p);
 	head->next = temp_head;
+	printf("%s", free_->p);
 }
 
 void free_wp(int n)
