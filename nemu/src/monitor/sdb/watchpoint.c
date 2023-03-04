@@ -28,6 +28,7 @@ typedef struct watchpoint {
   /* TODO: Add more members if necessary */
 	int value;
 	char p[50];
+	//Said by dtyy : so , why not use char *p ? You must know this : If you choose a pointer to receive a string in array or which pointed by pointer, in some case , the disater must befalls you. Because the pointer is only a address value , it can't contain any another useful infomation in it .so whatever you copied, you must know the origin string type clearly, if the origin string is const, well , everything is ok, but if not , believe me choose array which can save you !
 } WP;
 
 static WP wp_pool[NR_WP] = {};
@@ -47,7 +48,7 @@ void init_wp_pool() {
 /* TODO: Implement the functionality of watchpoint */
 void new_wp(char *v)
 {
-	WP* temp_free = free_;
+	WP* temp_free = free_;//Said by dtyy : so what can pointer do ? only torment you! try to draw "state machine" to avoid it!
 	WP* temp_head = head;
 	strcpy(free_->p , v);
 	free_->value = expr(v, NULL);
