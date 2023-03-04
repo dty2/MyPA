@@ -132,7 +132,7 @@ static int cmd_w(char *args) {
     return 0;
 }
 //dtyy addfuntion
-static int cmd_n(char *args) {
+static int cmd_d(char *args) {
 	if(strlen(args) > 2 || *args < '0' || *args > '9')
 	{
 		printf("Argument error, please enter again!\n");
@@ -159,7 +159,7 @@ static struct {
   { "x", "calculate the expression value and output the content", cmd_x },
   { "p", "print value of expression", cmd_p },
   { "w", "set the watch point", cmd_w },
-  { "n", "delete the watch point", cmd_n },
+  { "d", "delete the watch point", cmd_d },
 
 };
 
