@@ -278,9 +278,9 @@ Token* cal(Token* ex, int level, int r)
 	{
 		point = cal(num, level + 1, j);
 		free(num);
-		//num = point;
+		num = point;
 	}
-	return point;
+	return num;
 }
 /*
 int cal(Token* ex, int r)
@@ -339,6 +339,7 @@ word_t divs(int l, int r)
 {
 	int i = 0, j = 0;
 	int p = 0, f = 0, temp = 0;
+	word_t sum = 0;
 	Token* stack = (Token*)malloc(sizeof(Token) * 32);
 	Token* point = NULL;
 	for(i = l, j = 0; i < r; i ++, j ++)
@@ -389,7 +390,9 @@ word_t divs(int l, int r)
 	*/
 	point = cal(stack, 0, j);
 	free(stack);
-	return point->str;
+	sum = point->str;
+	free(point);
+	return sum;
 }
 
 //add funtion
