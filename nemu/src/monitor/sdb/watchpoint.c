@@ -55,6 +55,7 @@ void init_wp_pool() {
 /* TODO: Implement the functionality of watchpoint */
 void new_wp(char *v)
 {
+	/*
 	WP* temp_free = free_;
 	//Said by dtyy : so what can pointer do ? 
 	//only torment you! try to draw "state machine" to avoid it!
@@ -64,20 +65,23 @@ void new_wp(char *v)
 	free_ = free_->next;
 	head = temp_free;
 	head->next = temp_head;
+	*/
+	WP* temp = free_;
+	free_ = free_->next;
+	temp->next = head;
+	head = temp;
 }
 
 void free_wp(int n)
 {
-	WP* i, *k, *j;
+	WP *i, *temp;
 	for(i = head; i != NULL; i = i->next)
 	{
 		if(i->next->NO == n)
 		{
-			j = free_;
-			k = i->next->next;
-			free_ = i->next;
-			i->next->next = j;
-			i->next = k;
+			temp = i->next;
+			i->next = i->next->next;
+			temp->next = free_;
 		}
 	}
 }
