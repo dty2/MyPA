@@ -76,6 +76,7 @@ void new_wp(char *v)
 
 void free_wp(int n)
 {
+	/*
 	WP *i, *temp;
 	for(i = head; i != NULL; i = i->next)
 		if(i->next->NO == n)
@@ -85,6 +86,7 @@ void free_wp(int n)
 			temp->next = free_;
 			free_ = temp;
 		}
+	*/
 }
 
 void display_wp()
