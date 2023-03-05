@@ -45,7 +45,9 @@ static struct rule {
    */
 
   {" +", TK_NOTYPE},    // spaces
-  {"\\+", '+'},         // plus //by dtyy: '\\' means '\' in regex and '\+' means symbol "+"
+  {"\\+", '+'},         // plus 
+						// Said by dtyy:
+						// '\\' means '\' in regex and '\+' means symbol "+"
   {"==", TK_EQ},        // equal
 //add code 
   {"\\-", '-'},
@@ -64,7 +66,12 @@ static struct rule {
   {"0x[0-9]+", TK_HEX},
   {"[0-9]+", TK_NUM},
   {"\\$[a-z,0-9]+", '$'},
-  //said by dtyy:something must be said! The order of the symbol is not haphazard . oppositely speaking , it can avoid a bad condition. if you don't believe , you can swap (55 + i)line and (58 + i)line , then you can try to use this "<=" , you will find something is going wrong !
+  //said by dtyy: something must be said!
+  //The order of the symbol is not haphazard .
+  //oppositely speaking , it can avoid a bad condition.
+  //if you don't believe , you can swap (55 + i)line and (58 + i)line ,
+  //then you can try to use this "<=" ,
+  //you will find something is going wrong !
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -157,7 +164,12 @@ static bool make_token(char *e) {
 				break;
 			case '$': 
 				tokens[nr_token].str = isa_reg_str2val(substr_start + 1, NULL);
-				//said by dtyy : If execute this statement, I don't know what will happend! I don't care! Maybe it will lead to a disaster! So, what I want to say is if you input the Irregular or wrong input, and get error, please check this satement, maybe it caused them...
+				//said by dtyy : If execute this statement,
+				//I don't know what will happend! I don't care!
+				//Maybe it will lead to a disaster!
+				//So, what I want to say is if you input the Irregular or
+				//wrong input, and get error, please check this satement,
+				//maybe it caused them...
 			    tokens[nr_token ++].type = TK_NUM;
 				break;
           default: TODO();
