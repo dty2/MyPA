@@ -79,7 +79,7 @@ void free_wp(int n)
 	WP *i, *temp;
 	for(i = head; i != NULL; i = i->next)
 	{
-		if(i->next->NO == n)
+		if(i->next != NULL && i->next->NO == n)
 		{
 			temp = i->next;
 			i->next = i->next->next;
