@@ -160,7 +160,7 @@ static bool make_token(char *e) {
 				for(; i < substr_len; i ++)	
 					if(*(substr_start + i) >= '0' && *(substr_start + i) <= '9')
 						sum += (int)(*(substr_start + i) - '0') * pow(16, substr_len - (i + 1));
-					else sum += (int)(*(substr_start + i) - '7') * pow(16, substr_len - (i + 1));
+					else sum += (int)(*(substr_start + i) - 'W') * pow(16, substr_len - (i + 1));
 				tokens[nr_token].str = sum;
 			    tokens[nr_token ++].type = TK_NUM;
 				break;
