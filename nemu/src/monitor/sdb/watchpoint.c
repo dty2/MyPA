@@ -83,6 +83,7 @@ void free_wp(int n)
 			temp = i->next;
 			i->next = i->next->next;
 			temp->next = free_;
+			free_ = temp;
 		}
 }
 
