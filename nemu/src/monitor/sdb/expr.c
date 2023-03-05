@@ -278,9 +278,9 @@ Token* cal(Token* ex, int level, int r)
 	{
 		point = cal(num, level + 1, j);
 		free(num);
-		num = point;
+		//num = point;
 	}
-	return num;
+	return point;
 }
 /*
 int cal(Token* ex, int r)
