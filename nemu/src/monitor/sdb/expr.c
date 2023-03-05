@@ -63,7 +63,7 @@ static struct rule {
   {"!", '!'},
   {"<", '<'},
   {">", '>'},
-  {"0x[0-9]+", TK_HEX},
+  {"0x[0-9,a-z]+", TK_HEX},
   {"[0-9]+", TK_NUM},
   {"\\$[a-z,0-9]+", '$'},
   //said by dtyy: something must be said!
@@ -158,7 +158,9 @@ static bool make_token(char *e) {
 				int i = 2;
 				word_t sum = 0;
 				for(; i < substr_len; i ++)	
-					sum += (int)(*(substr_start + i) - '0') * pow(16, substr_len - (i + 1)); 
+					if(*(substr_start + i) >= '0' && *(substr_start + i) <= '9')
+						sum += (int)(*(substr_start + i) - '0') * pow(16, substr_len - (i + 1));
+					else sum += (int)(*(substr_start + i) - '7') * pow(16, substr_len - (i + 1));
 				tokens[nr_token].str = sum;
 			    tokens[nr_token ++].type = TK_NUM;
 				break;
