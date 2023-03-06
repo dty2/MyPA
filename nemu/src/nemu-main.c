@@ -33,3 +33,8 @@ int main(int argc, char *argv[]) {
 
   return is_exit_status_bad();
 }
+//Said bt dtyy: not define CONFIG_TARGET_AM before pa1
+//init_monitor: src/monitor/moitor.c
+//engine_start: src/engine/interpreter/init.c
+//is_exit_status_bad: src/utils/state.c
+

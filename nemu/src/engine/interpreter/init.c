@@ -25,3 +25,5 @@ void engine_start() {
   sdb_mainloop();
 #endif
 }
+//Said bt dtyy: not define CONFIG_TARGET_AM before pa1
+//sdb_mainloop(): src/montior/sdb/sdb.c
