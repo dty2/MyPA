@@ -2,6 +2,7 @@
 *
 !*/
 !Makefile
+!yemu
 !*.mk
 !*.[cSh]
 !*.cc
