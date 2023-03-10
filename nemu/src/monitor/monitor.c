@@ -102,13 +102,13 @@ void init_monitor(int argc, char *argv[]) {
   /* Perform some global initialization. */
 
   /* Parse arguments. */
-  parse_args(argc, argv);
+  parse_args(argc, argv); //said by dtyy : in this file
 
   /* Set random seed. */
-  init_rand();
+  init_rand(); //said by dtyy : in utils
 
   /* Open the log file. */
-  init_log(log_file);
+  init_log(log_file); //said by dtyy : in utils
 
   /* Initialize memory. */
   init_mem();
