@@ -25,7 +25,7 @@
  */
 #define MAX_INST_TO_PRINT 10
 
-CPU_state cpu = {};
+CPU_state cpu = {}; // said by dtyy: cpu in isa/riscv32/include/isa-def.h
 uint64_t g_nr_guest_inst = 0;
 static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
@@ -46,9 +46,14 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 static void exec_once(Decode *s, vaddr_t pc) {
   s->pc = pc;
   s->snpc = pc;
-  isa_exec_once(s);//isa_exec_once: isa/riscv32/inst.c
+  isa_exec_once(s); //isa_exec_once: isa/riscv32/inst.c
   cpu.pc = s->dnpc;
+
 #ifdef CONFIG_ITRACE
+  //said by dtyy : not by me, but by tutorial, the tutorial said ignore it !!!
+  //what a wonderful thing! Maybe it's the best message which is in turtorial
+  //that I have been heard until now! 
+
   char *p = s->logbuf;
   p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
   int ilen = s->snpc - s->pc;
@@ -57,7 +62,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   for (i = ilen - 1; i >= 0; i --) {
     p += snprintf(p, 4, " %02x", inst[i]);
   }
-  int ilen_max = MUXDEF(CONFIG_ISA_x86, 8, 4);//MUXDEF: include/common.h
+  int ilen_max = MUXDEF(CONFIG_ISA_x86, 8, 4); //MUXDEF: include/common.h
   int space_len = ilen_max - ilen;
   if (space_len < 0) space_len = 0;
   space_len = space_len * 3 + 1;

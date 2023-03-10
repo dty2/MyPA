@@ -22,6 +22,7 @@ typedef struct {
   word_t gpr[32];
   vaddr_t pc;
 } riscv32_CPU_state;
+// said by dtyy: riscv32_CPU_state == CPU_state (see typedef in include/isa.h)
 
 // decode
 typedef struct {

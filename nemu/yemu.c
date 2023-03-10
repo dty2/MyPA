@@ -75,3 +75,27 @@ int main() {
 	return 0;
 		
 }
+//my note
+execute -> exec_once -> isa_exec_once
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
