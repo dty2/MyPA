@@ -102,7 +102,7 @@ void init_monitor(int argc, char *argv[]) {
   /* Perform some global initialization. */
 
   /* Parse arguments. */
-  parse_args(argc, argv); //said by dtyy : in this file
+  parse_args(argc, argv);
 
   /* Set random seed. */
   init_rand(); //said by dtyy : in utils
@@ -111,7 +111,7 @@ void init_monitor(int argc, char *argv[]) {
   init_log(log_file); //said by dtyy : in utils
 
   /* Initialize memory. */
-  init_mem();
+  init_mem(); //said by dtyy : in paddr.c
 
   /* Initialize devices. */
   IFDEF(CONFIG_DEVICE, init_device());

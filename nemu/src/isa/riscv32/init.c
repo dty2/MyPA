@@ -36,6 +36,7 @@ static void restart() {
 void init_isa() {
   /* Load built-in image. */
   memcpy(guest_to_host(RESET_VECTOR), img, sizeof(img));
+  // guest_to_host : include/memory/paddr.h
 
   /* Initialize this virtual computer system. */
   restart();
