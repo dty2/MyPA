@@ -9,6 +9,6 @@
 !README.md
 !.gitignore
 !init.sh
-!/notebook/*
-/fceux-am
-/am-kernels
+!/notebook
+!/fceux-am
+!/am-kernels
