@@ -1,9 +1,4 @@
 *.*
 *
 !.gitignore
-!pa0/*
-!pa1/*
-!pa2/*
-!pa3/*
-!pa4/*
-!riscv/*
+!*/
