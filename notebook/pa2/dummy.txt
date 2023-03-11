@@ -1,1 +1,3 @@
-愚蠢
+make ARCH=$ISA-nemu ALL=dummy run
+when I got there, I didn't really understand the meaning of command, so I chose copy and paste directly, then guess what? I got the error.
+The ISA need be replace to your own ISA, like riscv32. And I don't realize it
