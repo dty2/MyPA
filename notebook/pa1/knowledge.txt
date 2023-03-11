@@ -1,0 +1,4 @@
+makefile
+shell
+gdb
+gcc

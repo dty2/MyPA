@@ -1,0 +1,7 @@
+https://www.jianshu.com/p/31cbbbc5f9fa/
+1.ssh-keygen -t rsa -C "your_email@example.com" #输入之后遇到等待请求输入enter就行，这些请求输入（好像）是用来确定密码的，默认enter设定为无密码
+2.eval "$(ssh-agent -s)"
+3.ssh-add ~/.ssh/id_rsa
+4.进入.ssh目录下，打开id_rsa.pub,复制其内容
+5.进入github，打开个人信息下面的settings，然后进入SSH and GPG keys
+6.New SSH key，并将复制的内容放入其中即可

@@ -1,0 +1,37 @@
+gdb的tui显示不出源代码，list命令也不显示源代码
+gdb不在tui中用list命令也不显示源代码
+
+原因：
+编译的时候没有-g
+解决：
+我们无法去加-g在文件中手动地（好像是，猜测，网上看到的--->makefile文件是靠config文件生成的，因此我们改makefile文件没啥用）
+真正的解决办法是：
+make menuconfig（其实这个问题在pa1的RTFSC中的配置系统kconfig隐晦地提到了！！！详细见下面原文）
+选中Build Options ->Enable debug information
+！！！注意，选中，仔细看上面的说明，怎么选中，那个"*"不是敲上去的！！！
+选中后记得保存！！！
+
+##################----------------摘抄自RTFSC---------------###########################
+在NEMU项目中, "配置描述文件"的文件名都为Kconfig, 如nemu/Kconfig. 当你键入make menuconfig的时候, 背后其实发生了如下事件:
+								      ↑↑↑
+检查nemu/tools/kconfig/build/mconf程序是否存在, 若不存在, 则编译并生成mconf
+检查nemu/tools/kconfig/build/conf程序是否存在, 若不存在, 则编译并生成conf
+运行命令mconf nemu/Kconfig, 此时mconf将会解析nemu/Kconfig中的描述, 以菜单树的形式展示各种配置选项, 供开发者进行选择
+退出菜单时, mconf会把开发者选择的结果记录到nemu/.config文件中
+运行命令conf --syncconfig nemu/Kconfig, 此时conf将会解析nemu/Kconfig中的描述, 并读取选择结果nemu/.config, 结合两者来生成如下文件:
+可以被包含到C代码中的宏定义(nemu/include/generated/autoconf.h), 这些宏的名称都是形如CONFIG_xxx的形式
+可以被包含到Makefile中的变量定义(nemu/include/config/auto.conf)
+可以被包含到Makefile中的, 和"配置描述文件"相关的依赖规则(nemu/include/config/auto.conf.cmd), 为了阅读代码, 我们可以不必关心它
+通过时间戳来维护配置选项变化的目录树nemu/include/config/, 它会配合另一个工具nemu/tools/fixdep来使用, 用于在更新配置选项后节省不必要的文件编译, 为了阅读代码, 我们可以不必关心它
+所以, 目前我们只需要关心配置系统生成的如下文件:
+
+nemu/include/generated/autoconf.h, 阅读C代码时使用
+nemu/include/config/auto.conf, 阅读Makefile时使用
+############################################################################
+
+回忆：我当时咋知道的在make menuconfig里设置呢？
+其实不知道，实在没招了，上网找，不知道咋搞的，找到了一生一芯的官网，从里面的ppt知道了需要用make menuconfig配置一下
+
+
+回忆2.0：再次阅读RTFSC，发现了在优美的退出前面的一个选作，为NEMU编译时添加GDB调试信息！！！
+所以，什么选作，什么必做，通通必做！！！

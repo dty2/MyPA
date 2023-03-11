@@ -1,0 +1,24 @@
+条件：操作”新机“，可以有vmtools
+######################################################################################
+sudo bash -c "cat << EOF > /etc/apt/sources.list && apt update 
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-security main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-security main restricted universe multiverse
+EOF"
+######################################################################################
+sudo apt-get update（别忘了！）
+接下来执行所有讲义中的命令
+
+下载libsdl2-dev时不用apt-get下载，改用aptitude，否则会报错
+aptitude需要安装
+sudo apt-get install aptitude
+sudo aptitude install libsdl2-dev
+期间会出现选项，一直 y就行
+
+后记：上清华镜像复制一下apt的资源即可
+https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/
