@@ -10,5 +10,3 @@
 !.gitignore
 !init.sh
 !/notebook/*
-!/fceux-am/*
-!/am-kernels/*
