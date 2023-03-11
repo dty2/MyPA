@@ -9,5 +9,6 @@
 !README.md
 !.gitignore
 !init.sh
+!notebook
 /fceux-am
 /am-kernels
