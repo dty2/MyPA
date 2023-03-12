@@ -1,3 +1,12 @@
 make ARCH=$ISA-nemu ALL=dummy run
 when I got there, I didn't really understand the meaning of command, so I chose copy and paste directly, then guess what? I got the error.
 The ISA need be replace to your own ISA, like riscv32. And I don't realize it
+
+well, if you chose the riscv32 as your own ISA, you will meet the error again.
+Don't worry, the solution is in tutorial.
+The error which I meet is 
+/usr/riscv64-linux-gnu/include/gnu/stubs.h:8:11: fatal error: gnu/stubs-ilp32.h: No such file or directory
+Just follow the tutorial, it tell you how to solve it.
+Maybe you can't understand what to do before you saw the solution which it told.
+Just relex, - means remove something, and + means add something.
+So, you only need to add "//" before #include <gnu/stubs-ilp32.h>.
