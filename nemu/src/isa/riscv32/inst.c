@@ -23,7 +23,7 @@
 #define Mw vaddr_write
 
 enum {
-  TYPE_I, TYPE_U, TYPE_S, TYPE_J, TYPE_R,
+  TYPE_I, TYPE_U, TYPE_S, TYPE_J, TYPE_R, TYPE_B,
   TYPE_N, // none
 };
 
@@ -35,6 +35,7 @@ enum {
 
 //add code
 #define immJ() do { *imm = SEXT((BITS(i, 30, 21) + (BITS(i, 20, 20) << 10) + (BITS(i, 19, 12) << 11) + (BITS(i, 31, 31) << 19)) << 1, 20);/*printf("\n%x\n", *imm);*/ } while(0)
+#define immB() do { *imm = SEXT((BITS(i, 11, 8) + (BITS(i, 30, 25) << 4) + (BITS(i, 7, 7) << 10) + (BITS(i, 31, 31) << 11)) << 1, 12); } while(0)
 
 static void decode_operand(Decode *s, int *dest, word_t *src1, word_t *src2, word_t *imm, int type) {
   uint32_t i = s->isa.inst.val;
@@ -49,6 +50,7 @@ static void decode_operand(Decode *s, int *dest, word_t *src1, word_t *src2, wor
 	//add code 
     case TYPE_J:                   immJ(); break;
     case TYPE_R: src1R(); src2R();         break;
+    case TYPE_B: src1R(); src2R(); immB(); break;
   }
 }
 
@@ -83,10 +85,11 @@ static int decode_exec(Decode *s) {
   INSTPAT("0000000 ????? ????? 000 ????? 01100 11", add    , R, R(dest) = src1 + src2);
   INSTPAT("0100000 ????? ????? 000 ????? 01100 11", sub    , R, R(dest) = src1 - src2);
   INSTPAT("0000000 ????? ????? 010 ????? 01100 11", slt    , R, R(dest) = src1 < src2 ? 1 : 0);
-  INSTPAT("0000000 ????? ????? 011 ????? 01100 11", sltu   , R, R(dest) = src1 < src2 ? 1 : 0);//attention ! unsigned!
+  INSTPAT("0000000 ????? ????? 011 ????? 01100 11", sltu   , R, R(dest) = (unsigned)src1 < src2 ? 1 : 0);//attention ! unsigned!
   INSTPAT("??????? ????? ????? 010 ????? 00100 11", slti   , I, R(dest) = src1 < imm ? 1 : 0);
-  INSTPAT("??????? ????? ????? 010 ????? 00100 11", seqz   , I, R(dest) = src1 < imm ? 1 : 0);//attention ! unsigned!
-  INSTPAT("??????? ????? ????? 011 ????? 00100 11", sltiu  , I, R(dest) = src1 < 0 ? 1 : 0);//attention ! unsigned!
+  INSTPAT("??????? ????? ????? 010 ????? 00100 11", seqz   , I, R(dest) = (unsigned)src1 < imm ? 1 : 0);//attention ! unsigned!
+  INSTPAT("??????? ????? ????? 011 ????? 00100 11", sltiu  , I, R(dest) = (unsigned)src1 < 0 ? 1 : 0);//attention ! unsigned!
+  INSTPAT("??????? ????? ????? 000 ????? 11000 11", beq    , B, s->dnpc = imm + s->pc;);
 																				  
   //add code for other.c for second time
   /*
