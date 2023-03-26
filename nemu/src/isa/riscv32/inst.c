@@ -34,7 +34,7 @@ enum {
 #define immS() do { *imm = (SEXT(BITS(i, 31, 25), 7) << 5) | BITS(i, 11, 7); } while(0)
 
 //add code
-#define immJ() do { *imm = SEXT((BITS(i, 30, 21) + (BITS(i, 20, 20) << 10) + (BITS(i, 19, 12) << 11) + (BITS(i, 31, 31) << 19)), 20) << 1;/*printf("\n%x\n", *imm);*/ } while(0)
+#define immJ() do { *imm = SEXT((BITS(i, 30, 21) + (BITS(i, 20, 20) << 10) + (BITS(i, 19, 12) << 11) + (BITS(i, 31, 31) << 19)), 20) << 1; } while(0)
 #define immB() do { *imm = SEXT((BITS(i, 11, 8) + (BITS(i, 30, 25) << 4) + (BITS(i, 7, 7) << 10) + (BITS(i, 31, 31) << 11)), 12) << 1; } while(0)
 
 static void decode_operand(Decode *s, int *dest, word_t *src1, word_t *src2, word_t *imm, int type) {
@@ -93,7 +93,7 @@ static int decode_exec(Decode *s) {
   //add code for bit-longlong
   INSTPAT("??????? ????? ????? 001 ????? 01000 11", sh     , S, Mw(src1 + imm, 4, src2 << 16 >> 16));
   INSTPAT("0100000 ????? ????? 101 ????? 00100 11", srai   , I, R(dest) = (int)src1 >> imm);
-  INSTPAT("??????? ????? ????? 100 ????? 00000 11", lbu    , I, R(dest) = Mr(src1 + imm, 4));
+  INSTPAT("??????? ????? ????? 100 ????? 00000 11", lbu    , I, R(dest) = Mr(src1 + imm, 1));
   INSTPAT("??????? ????? ????? 111 ????? 00100 11", andi   , I, R(dest) = src1 && imm);
   INSTPAT("0000000 ????? ????? 001 ????? 01100 11", sll    , R, R(dest) = (unsigned)src1 << src2);
   INSTPAT("0000000 ????? ????? 111 ????? 01100 11", and    , R, R(dest) = src1 && src2);
