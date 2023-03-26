@@ -35,7 +35,7 @@ enum {
 
 //add code
 #define immJ() do { *imm = SEXT((BITS(i, 30, 21) + (BITS(i, 20, 20) << 10) + (BITS(i, 19, 12) << 11) + (BITS(i, 31, 31) << 19)), 20) << 1;/*printf("\n%x\n", *imm);*/ } while(0)
-#define immB() do { *imm = SEXT((BITS(i, 11, 8) + (BITS(i, 30, 25) << 4) + (BITS(i, 7, 7) << 10) + (BITS(i, 31, 31) << 11)) << 1, 12); } while(0)
+#define immB() do { *imm = SEXT((BITS(i, 11, 8) + (BITS(i, 30, 25) << 4) + (BITS(i, 7, 7) << 10) + (BITS(i, 31, 31) << 11)), 12) << 1; } while(0)
 
 static void decode_operand(Decode *s, int *dest, word_t *src1, word_t *src2, word_t *imm, int type) {
   uint32_t i = s->isa.inst.val;
