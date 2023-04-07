@@ -6,7 +6,7 @@ well, if you chose the riscv32 as your own ISA, you will meet the error again.
 Don't worry, the solution is in tutorial.
 The error which I meet is 
 /usr/riscv64-linux-gnu/include/gnu/stubs.h:8:11: fatal error: gnu/stubs-ilp32.h: No such file or directory
-Just follow the tutorial, it tell you how to solve it.
+Just follow the tutorial, it tells you how to solve it.
 Maybe you can't understand what to do before you saw the solution which it told.
 Just relex, - means remove something, and + means add something.
 So, you only need to add "//" before #include <gnu/stubs-ilp32.h>.
