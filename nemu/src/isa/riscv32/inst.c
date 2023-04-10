@@ -111,7 +111,7 @@ static int decode_exec(Decode *s) {
 
   //add code for if-else
   INSTPAT("??????? ????? ????? 100 ????? 11000 11", blt    , B, s->dnpc = (int)src1 < (int)src2 ? imm + s->pc : s->dnpc);
-  INSTPAT("0000000 ????? ????? 010 ????? 01100 11", slt    , R, R(dest) = src1 < src2);
+  INSTPAT("0000000 ????? ????? 010 ????? 01100 11", slt    , R, R(dest) = (int)src1 < (int)src2);
   //here I find something interesting, if I remove "(int)", it will go wrong. because without (int), the src value is unsigned! So, I don't know should I add "(int)" in each signed operation like add or sub. but from now on, I don't meet any error, except if-else.c. So I decide add "(int)" when I got error! Avoid I forgot the thing that I have know, hereby I note it here.
   
   //add code for other.c 
