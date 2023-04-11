@@ -115,7 +115,7 @@ static int decode_exec(Decode *s) {
   //Here I find something interesting, if I remove "(int)", it will go wrong. because without (int), the src value is unsigned! So, I don't know should I add "(int)" in each signed operation like add or sub. but until now, I don't meet any error, except if-else.c. So I decide add "(int)" in the future when I got error! In order to avoid I forgot the thing that I have know, hereby I note it here.
   
   //add code for load-store
-  INSTPAT("??????? ????? ????? 001 ????? 00000 11", lh     , I, R(dest) = Mr(src1 + imm, 4));
+  INSTPAT("??????? ????? ????? 001 ????? 00000 11", lh     , I, R(dest) = Mr(src1 + imm, 2));
 
   //add code for other.c 
   /*
