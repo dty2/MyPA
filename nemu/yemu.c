@@ -77,25 +77,3 @@ int main() {
 }
 //my note
 execute -> exec_once -> isa_exec_once
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
