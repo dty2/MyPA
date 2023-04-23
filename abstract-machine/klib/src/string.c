@@ -10,7 +10,7 @@ size_t strlen(const char *s) {
 
 char *strcpy(char *dst, const char *src) {
 	int i = 0;
-	for(; *(src + i) != '\0'; i ++)
+	for(; *(src + i); i ++)
 		*(dst + i) = *(src + i);
 	*(dst + i) = '\0';
 	return dst;
@@ -24,7 +24,7 @@ char *strncpy(char *dst, const char *src, size_t n) {
 char *strcat(char *dst, const char *src) {
 	int i = 0, j = 0;
 	while(*(dst + j)) j ++;
-	for(; *(src + i) != '\0'; i ++, j ++)
+	for(; *(src + i); i ++, j ++)
 		*(dst + j) = *(src + i);
 	*(dst + j) = '\0';
 	return dst;
