@@ -61,9 +61,9 @@ void *memcpy(void *out, const void *in, size_t n) {
 
 int memcmp(const void *s1, const void *s2, size_t n) {
 	int i = 0;
-	while(*((int *)s1 + i) == *((int *)s2 + i) && i < n) i ++;
-	if((*((int *)s1 + i)) > (*((int *)s2 + i)) && i != n) return 1;
-	else if(*((int *)s1 + i) < (*((int *)s2 + i)) && i != n) return -1;
+	while(*((char *)s1 + i) == *((char *)s2 + i) && i < n) i ++;
+	if((*((char *)s1 + i)) > (*((char *)s2 + i)) && i != n) return 1;
+	else if(*((char *)s1 + i) < (*((char *)s2 + i)) && i != n) return -1;
 	else return 0;
   //panic("Not implemented");
 }
