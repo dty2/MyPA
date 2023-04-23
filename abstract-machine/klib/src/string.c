@@ -43,7 +43,7 @@ int strncmp(const char *s1, const char *s2, size_t n) {
 
 void *memset(void *s, int c, size_t n) {
 	for(int i = 0; i < n; i ++)
-		*((int *)s + i) = c;
+		*((char *)s + i) = c;
 	return s;
   //panic("Not implemented");
 }
