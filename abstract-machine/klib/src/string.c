@@ -9,8 +9,7 @@ size_t strlen(const char *s) {
 }
 
 char *strcpy(char *dst, const char *src) {
-	int i = 0;
-	for(; *(dst + i); i ++)
+	for(int i = 0; *(dst + i); i ++)
 		*(dst + i) = *(src + i);
 	return dst;
   //panic("Not implemented");
@@ -25,7 +24,6 @@ char *strcat(char *dst, const char *src) {
 	while(*(dst + j)) j ++;
 	for(; *(src + i); i ++, j ++)
 		*(dst + j) = *(src + i);
-	*(dst + j) = '\0';
 	return dst;
   //panic("Not implemented");
 }
