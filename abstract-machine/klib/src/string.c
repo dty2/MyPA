@@ -10,8 +10,9 @@ size_t strlen(const char *s) {
 
 char *strcpy(char *dst, const char *src) {
 	int i = 0;
-	for(; *(dst + i) != '\0'; i ++)
+	for(; *(src + i) != '\0'; i ++)
 		*(dst + i) = *(src + i);
+	*(dst + i) = '\0';
 	return dst;
   //panic("Not implemented");
 }
@@ -25,7 +26,7 @@ char *strcat(char *dst, const char *src) {
 	while(*(dst + j) != '\0') j ++;
 	for(; *(src + i) != '\0'; i ++, j ++)
 		*(dst + j) = *(src + i);
-	*(dst + i) = '\0';
+	*(dst + j) = '\0';
 	return dst;
   //panic("Not implemented");
 }
