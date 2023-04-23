@@ -9,8 +9,10 @@ size_t strlen(const char *s) {
 }
 
 char *strcpy(char *dst, const char *src) {
-	for(int i = 0; *(dst + i); i ++)
+	int i = 0;
+	for(; *(src + i); i ++)
 		*(dst + i) = *(src + i);
+	*(dst + i) = '\0';
 	return dst;
   //panic("Not implemented");
 }
@@ -24,6 +26,7 @@ char *strcat(char *dst, const char *src) {
 	while(*(dst + j)) j ++;
 	for(; *(src + i); i ++, j ++)
 		*(dst + j) = *(src + i);
+	*(dst + i) = '\0';
 	return dst;
   //panic("Not implemented");
 }
@@ -58,9 +61,9 @@ void *memcpy(void *out, const void *in, size_t n) {
 
 int memcmp(const void *s1, const void *s2, size_t n) {
 	int i = 0;
-	while(*((char *)s1 + i) == *((char *)s2 + i) && i < n) i ++;
-	if((*((char *)s1 + i)) > (*((char *)s2 + i)) && i != n) return 1;
-	else if(*((char *)s1 + i) < (*((char *)s2 + i)) && i != n) return -1;
+	while(*((int *)s1 + i) == *((int *)s2 + i) && i < n) i ++;
+	if((*((int *)s1 + i)) > (*((int *)s2 + i)) && i != n) return 1;
+	else if(*((int *)s1 + i) < (*((int *)s2 + i)) && i != n) return -1;
 	else return 0;
   //panic("Not implemented");
 }
