@@ -30,7 +30,6 @@ int sprintf(char *out, const char *fmt, ...) {
 					char *p = va_arg(valist, char *);
 					for(int j = 0; *(p + j) != '\0'; j ++, i ++)
 						*(out + i) = *(p + j);
-				default :;
 			}
 		}
 		else *(out + i) = *(fmt + i);
