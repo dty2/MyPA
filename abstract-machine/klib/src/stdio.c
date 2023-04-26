@@ -27,9 +27,10 @@ int sprintf(char *out, const char *fmt, ...) {
 					*(out + i) = (char)(va_arg(valist, int) + '0');
 					i ++;
 				case 's':
-					char *p = va_arg(valist, char *);
-					for(int j = 0; *(p + j) != '\0'; j ++, i ++)
-						*(out + i) = *(p + j);
+					char p = va_arg(valist, int);
+					char *pp = &p;
+					for(int j = 0; *(pp + j) != '\0'; j ++, i ++)
+						*(out + i) = *(pp + j);
 			}
 		}
 		else *(out + i) = *(fmt + i);
