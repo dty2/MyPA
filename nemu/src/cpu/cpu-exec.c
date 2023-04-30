@@ -43,6 +43,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   //add code
 #ifdef CONFIG_WATCHPOINT
   check();
+  printf("hello");
 #endif
 }
 
