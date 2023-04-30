@@ -112,13 +112,4 @@ void check()
     for(i = head; i != NULL; i = i->next)
 		if(i->value != expr(i->p, NULL))
 			nemu_state.state = NEMU_STOP;
-	printf("hello");
-	printf("hello");
-	printf("hello");
-	printf("hello");
-	printf("hello");
-	printf("hello");
-	printf("hello");
-	printf("hello");
-	printf("hello");
 }
