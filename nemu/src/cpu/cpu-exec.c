@@ -31,6 +31,7 @@ static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
 
 void device_update();
+//add code
 void check();// by dtyy : why can connect to the check funtion at this file? The check funtion is at watchpoint !
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
