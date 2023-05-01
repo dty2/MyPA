@@ -74,6 +74,7 @@ static void imringbuf(char *str)
 {
 	rb.pi(str);
 }
+
 //add code end
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
