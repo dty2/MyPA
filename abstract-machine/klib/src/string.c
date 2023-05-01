@@ -22,15 +22,13 @@ char *strncpy(char *dst, const char *src, size_t n) {
 }
 
 char *strcat(char *dst, const char *src) {
-	/*
 	int i = 0, j = 0;
 	while(*(dst + j) != '\0') j ++;
 	for(; *(src + i) != '\0'; i ++, j ++)
 		*(dst + j) = *(src + i);
 	*(dst + j) = '\0';
 	return dst;
-	*/
-  panic("Not implemented");
+  //panic("Not implemented");
 }
 
 int strcmp(const char *s1, const char *s2) {
