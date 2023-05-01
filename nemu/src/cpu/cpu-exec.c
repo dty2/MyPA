@@ -95,6 +95,9 @@ static void exec_once(Decode *s, vaddr_t pc) {
   isa_exec_once(s); //isa_exec_once: isa/riscv32/inst.c
   cpu.pc = s->dnpc;
 
+	//add code
+	iput(s->logbuf);
+
 #ifdef CONFIG_ITRACE
   //said by dtyy : not by me, but by tutorial, the tutorial said ignore it !!!
   //what a wonderful thing! Maybe it's the best message which is in turtorial
