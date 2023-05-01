@@ -35,7 +35,7 @@ void device_update();
 //add code
 void check();//function at watchpoint
 
-//add code for trace
+/*//add code for trace
 static void iput(char *str);
 static void oput();
 extern int erri_getbool();
@@ -74,20 +74,20 @@ static void imringbuf(char *str)
 {
 	rb.pi(str);
 }
-//add code end
+//add code end*/
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
   if (ITRACE_COND) { log_write("%s\n", _this->logbuf); }
 #endif
-  //if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
+  if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
 
   //add code
 #ifdef CONFIG_WATCHPOINT
   check();
 #endif
-  imringbuf(_this->logbuf);
+  //imringbuf(_this->logbuf);
 }
 
 static void exec_once(Decode *s, vaddr_t pc) {
@@ -162,7 +162,7 @@ void cpu_exec(uint64_t n) {
   execute(n);
   
   //add code
-  rb.po();
+//  rb.po();
 
   uint64_t timer_end = get_time();
   g_timer += timer_end - timer_start;
