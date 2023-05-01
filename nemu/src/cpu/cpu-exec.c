@@ -96,8 +96,6 @@ static void exec_once(Decode *s, vaddr_t pc) {
   s->snpc = pc;
   isa_exec_once(s); //isa_exec_once: isa/riscv32/inst.c
   cpu.pc = s->dnpc;
-	//add code
-	//rb.pi(s->logbuf);
 
 #ifdef CONFIG_ITRACE
   //said by dtyy : not by me, but by tutorial, the tutorial said ignore it !!!
@@ -122,6 +120,8 @@ static void exec_once(Decode *s, vaddr_t pc) {
   void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
+	//add code
+	rb.pi(s->logbuf);
 #endif
 }
 
