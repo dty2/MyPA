@@ -57,8 +57,10 @@ static void iput(char *str)
 
 static void oput()
 {
-	for(int i = rb.left; i != rb.right; i = (i + 1) % NUM_rb)
+	int i = rb.left;
+	for(; i != rb.right; i = (i + 1) % NUM_rb)
 		log_write("\n%s\n", rb.ringbuffer[i]);
+	log_write("\n%s\n", rb.ringbuffer[i]);
 }
 static void iringbuf(char *str)
 {
