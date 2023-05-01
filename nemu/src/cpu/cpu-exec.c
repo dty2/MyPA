@@ -164,6 +164,7 @@ void cpu_exec(uint64_t n) {
   
   //add code
   rb.po();
+  printf("%d", rb.mem_error);
 
   uint64_t timer_end = get_time();
   g_timer += timer_end - timer_start;
