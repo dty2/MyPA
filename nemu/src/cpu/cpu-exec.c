@@ -40,7 +40,7 @@ static void oput();
 
 static struct
 {
-	char *ringbuffer[20];
+	char ringbuffer[20][120];
 	int size;
 	int left;
 	int right;
@@ -51,7 +51,7 @@ static struct
 static void iput(char *str)
 {
 	if(rb.size != 20) rb.size ++;
-	rb.ringbuffer[rb.right] = str;
+	strcat(rb.ringbuffer[rb.right], str);
 	rb.right = (rb.right + 1) % 20;
 	if(rb.left == rb.right) rb.left = (rb.left + 1) % 20;
 }
