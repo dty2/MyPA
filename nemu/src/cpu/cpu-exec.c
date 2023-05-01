@@ -59,7 +59,7 @@ static void oput()
 {
 	log_write("\n");
 	for(int i = rb.left; i != rb.right; i = (i + 1) % NUM_rb)
-		log_write("%s\n", rb.ringbuffer[i]);
+		log_write("%s\n\n", rb.ringbuffer[i]);
 	log_write("\n");
 }
 static void iringbuf(char *str)
