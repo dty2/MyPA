@@ -62,7 +62,7 @@ static void iput(char *str)
 static void oput()
 {
 	int i = rb.left;
-	printf("\n\n");
+	printf("\n");
 	for(; i != rb.right; i = (i + 1) % NUM_rb)
 	{
 		if(i == rb.mem_error) printf("mem -> %s\n", rb.ringbuffer[i]);
