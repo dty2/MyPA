@@ -67,7 +67,7 @@ void oput()
 	printf("\n");
 	for(; i != rb.right; i = (i + 1) % NUM_rb)
 		printf("       %s\n", rb.ringbuffer[i]);
-	printf("      memory out of bound\n\n");
+	printf("       memory out of bound\n\n");
 }
 
 //add code end
