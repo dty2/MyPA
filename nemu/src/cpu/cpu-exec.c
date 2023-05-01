@@ -40,7 +40,7 @@ static void iput(char *str);
 static void oput();
 extern int erri_getbool();
 
-#define NUM_rb 20
+#define NUM_rb 600
 static struct
 {
 	char ringbuffer[NUM_rb][120];
