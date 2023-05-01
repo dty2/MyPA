@@ -68,7 +68,7 @@ static void oput()
 		if(i == rb.mem_error) printf("mem -> %s\n", rb.ringbuffer[i]);
 		else printf("      %s\n", rb.ringbuffer[i]);
 	}
-	printf("%s\n\n", rb.ringbuffer[i]);
+	printf("      %s\n\n", rb.ringbuffer[i]);
 }
 static void imringbuf(char *str)
 {
