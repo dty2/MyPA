@@ -73,7 +73,7 @@ static void oput()
 		else printf("      %s\n", rb.ringbuffer[i]);
 	}
 	printf("      %s\n\n", rb.ringbuffer[i]);
-	printf("%d", rb.mem_error);
+	printf("%d %d %d", rb.left, rb.right, rb.mem_error);
 }
 
 //add code end
