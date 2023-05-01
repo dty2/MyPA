@@ -38,7 +38,7 @@ void check();//function at watchpoint
 static void iput(char *str);
 static void oput();
 
-#define NUM_rb 5
+#define NUM_rb 20
 static struct
 {
 	char ringbuffer[NUM_rb][120];
