@@ -97,7 +97,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   isa_exec_once(s); //isa_exec_once: isa/riscv32/inst.c
   cpu.pc = s->dnpc;
 	//add code
-	rb.pi(s->logbuf);
+	//rb.pi(s->logbuf);
 
 #ifdef CONFIG_ITRACE
   //said by dtyy : not by me, but by tutorial, the tutorial said ignore it !!!
