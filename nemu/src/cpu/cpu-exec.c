@@ -60,10 +60,7 @@ static void oput()
 {
 	log_write("\n");
 	for(int i = rb.left; i != rb.right; i = (i + 1) % 20)
-	{
 		log_write("%s\n", rb.ringbuffer[i]);
-		puts(rb.ringbuffer[i]);
-	}
 	log_write("\n");
 }
 static void iringbuf(char *str)
