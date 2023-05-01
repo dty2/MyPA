@@ -31,9 +31,42 @@ static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
 
 void device_update();
-//add code
-void check();// by dtyy : why can connect to the check funtion at this file? The check funtion is at watchpoint !
 
+//add code
+void check();//function at watchpoint
+
+static void iput(char *str);
+static void oput();
+
+static struct
+{
+	char *ringbuffer[20];
+	int size;
+	int left;
+	int right;
+	void (*pi)(char*);
+	void (*po)();
+} rb = {.size = 0, .left = 0, .right = 0, .pi = &iput, .po = &oput};
+
+static void iput(char *str)
+{
+	if(rb.size != 20) rb.size ++;
+	rb.ringbuffer[rb.right] = str;
+	rb.right = (rb.right + 1) % 20;
+	if(rb.left == rb.right) rb.left = (rb.left + 1) % 20;
+}
+
+static void oput()
+{
+	log_write("\n");
+	for(int i = rb.left; i != rb.right; i = (i + 1) % 20)
+		log_write("%s\n", rb.ringbuffer[i]);
+	log_write("\n");
+}
+static void iringbuf(char *str)
+{
+	rb.pi(str);
+}
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
   if (ITRACE_COND) { log_write("%s\n", _this->logbuf); }
@@ -45,6 +78,8 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_WATCHPOINT
   check();
 #endif
+
+  iringbuf(_this->logbuf);
 }
 
 static void exec_once(Decode *s, vaddr_t pc) {
@@ -117,6 +152,9 @@ void cpu_exec(uint64_t n) {
   uint64_t timer_start = get_time();
 
   execute(n);
+  
+  //add code
+  oput();
 
   uint64_t timer_end = get_time();
   g_timer += timer_end - timer_start;
