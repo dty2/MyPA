@@ -36,34 +36,32 @@ void device_update();
 void check();//function at watchpoint
 
 //add code for trace
-static void iput(char *str);
-static void oput();
+void iput(char *str);
+void oput();
 
 #define NUM_rb 20
-struct
+static struct
 {
 	char ringbuffer[NUM_rb][120];
 	int left;
 	int right;
 	int mem_error;
-	void (*pi)(char*);
-	void (*po)();
-} rb = { .left = 0, .right = 0, .mem_error = -1, .pi = &iput, .po = &oput};
+} rb = { .left = 0, .right = 0, .mem_error = -1 };
 
 void geterr()
 {
 	rb.mem_error = rb.right;
-	rb.po();
+	oput();
 }
 
-static void iput(char *str)
+void iput(char *str)
 {
 	strcpy(rb.ringbuffer[rb.right], str);
 	rb.right = (rb.right + 1) % NUM_rb;
 	if(rb.left == rb.right) rb.left = (rb.left + 1) % NUM_rb;
 }
 
-static void oput()
+void oput()
 {
 	int i = rb.left;
 	printf("\n");
@@ -120,8 +118,6 @@ static void exec_once(Decode *s, vaddr_t pc) {
   void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
-	//add code
-	rb.pi(s->logbuf);
 #endif
 }
 
