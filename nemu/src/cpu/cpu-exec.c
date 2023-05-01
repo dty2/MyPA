@@ -54,7 +54,7 @@ static struct
 static void iput(char *str)
 {
 	if(erri_getbool()) rb.mem_error = rb.right;
-	strcat(rb.ringbuffer[rb.right], str);
+	strcpy(rb.ringbuffer[rb.right], str);
 	rb.right = (rb.right + 1) % NUM_rb;
 	if(rb.left == rb.right) rb.left = (rb.left + 1) % NUM_rb;
 }
