@@ -62,13 +62,13 @@ static void iput(char *str)
 static void oput()
 {
 	int i = rb.left;
-	log_write("\n\n");
+	printf("\n\n");
 	for(; i != rb.right; i = (i + 1) % NUM_rb)
 	{
-		if(i == rb.mem_error) log_write("mem -> %s\n", rb.ringbuffer[i]);
-		else log_write("      %s\n", rb.ringbuffer[i]);
+		if(i == rb.mem_error) printf("mem -> %s\n", rb.ringbuffer[i]);
+		else printf("      %s\n", rb.ringbuffer[i]);
 	}
-	log_write("%s\n\n", rb.ringbuffer[i]);
+	printf("%s\n\n", rb.ringbuffer[i]);
 }
 static void imringbuf(char *str)
 {
