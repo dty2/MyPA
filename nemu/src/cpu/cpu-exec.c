@@ -35,8 +35,10 @@ void device_update();
 //add code
 void check();//function at watchpoint
 
+//add code for trace
 static void iput(char *str);
 static void oput();
+extern int erri_getbool();
 
 #define NUM_rb 20
 static struct
@@ -44,6 +46,7 @@ static struct
 	char ringbuffer[NUM_rb][120];
 	int left;
 	int right;
+	int error;
 	void (*pi)(char*);
 	void (*po)();
 } rb = { .left = 0, .right = 0, .pi = &iput, .po = &oput};
@@ -62,10 +65,13 @@ static void oput()
 		log_write("\n%s\n", rb.ringbuffer[i]);
 	log_write("\n%s\n", rb.ringbuffer[i]);
 }
-static void iringbuf(char *str)
+static void imringbuf(char *str)
 {
 	rb.pi(str);
+	rb.error = erri_getbool();
 }
+//add code end
+
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
   if (ITRACE_COND) { log_write("%s\n", _this->logbuf); }
@@ -78,7 +84,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   check();
 #endif
 
-  iringbuf(_this->logbuf);
+  imringbuf(_this->logbuf);
 }
 
 static void exec_once(Decode *s, vaddr_t pc) {
