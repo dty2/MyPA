@@ -23,7 +23,7 @@
  * This is useful when you use the `si' command.
  * You can modify this value as you want.
  */
-#define MAX_INST_TO_PRINT 50
+#define MAX_INST_TO_PRINT 300
 
 CPU_state cpu = {}; // said by dtyy: cpu in isa/riscv32/include/isa-def.h
 uint64_t g_nr_guest_inst = 0;
