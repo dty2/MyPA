@@ -22,10 +22,6 @@
 #define Mr vaddr_read
 #define Mw vaddr_write
 
-//add code for trace
-extern void iput();
-//add end
-
 enum {
   TYPE_I, TYPE_U, TYPE_S, TYPE_J, TYPE_R, TYPE_B,
   TYPE_N, // none
