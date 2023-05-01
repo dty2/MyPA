@@ -46,13 +46,14 @@ static struct
 	char ringbuffer[NUM_rb][120];
 	int left;
 	int right;
-	int error;
+	int mem_error;
 	void (*pi)(char*);
 	void (*po)();
-} rb = { .left = 0, .right = 0, .pi = &iput, .po = &oput};
+} rb = { .left = 0, .right = 0, .mem_error = -1, .pi = &iput, .po = &oput};
 
 static void iput(char *str)
 {
+	if(erri_getbool()) rb.mem_error = rb.right;
 	strcat(rb.ringbuffer[rb.right], str);
 	rb.right = (rb.right + 1) % NUM_rb;
 	if(rb.left == rb.right) rb.left = (rb.left + 1) % NUM_rb;
@@ -61,14 +62,17 @@ static void iput(char *str)
 static void oput()
 {
 	int i = rb.left;
+	log_write("\n\n");
 	for(; i != rb.right; i = (i + 1) % NUM_rb)
-		log_write("\n%s\n", rb.ringbuffer[i]);
-	log_write("\n%s\n", rb.ringbuffer[i]);
+	{
+		if(i == rb.mem_error) log_write("mem -> %s\n", rb.ringbuffer[i]);
+		else log_write("      %s\n", rb.ringbuffer[i]);
+	}
+	log_write("%s\n\n", rb.ringbuffer[i]);
 }
 static void imringbuf(char *str)
 {
 	rb.pi(str);
-	rb.error = erri_getbool();
 }
 //add code end
 
@@ -83,7 +87,6 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_WATCHPOINT
   check();
 #endif
-
   imringbuf(_this->logbuf);
 }
 
@@ -159,7 +162,7 @@ void cpu_exec(uint64_t n) {
   execute(n);
   
   //add code
-  oput();
+  rb.po();
 
   uint64_t timer_end = get_time();
   g_timer += timer_end - timer_start;
