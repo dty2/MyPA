@@ -38,10 +38,9 @@ void check();//function at watchpoint
 //add code for trace
 static void iput(char *str);
 static void oput();
-extern int erri_getbool();
 
 #define NUM_rb 20
-static struct
+struct
 {
 	char ringbuffer[NUM_rb][120];
 	int left;
@@ -51,9 +50,14 @@ static struct
 	void (*po)();
 } rb = { .left = 0, .right = 0, .mem_error = -1, .pi = &iput, .po = &oput};
 
+void geterr()
+{
+	rb.mem_error = rb.right;
+	rb.po();
+}
+
 static void iput(char *str)
 {
-	if(erri_getbool()) rb.mem_error = rb.right;
 	strcpy(rb.ringbuffer[rb.right], str);
 	rb.right = (rb.right + 1) % NUM_rb;
 	if(rb.left == rb.right) rb.left = (rb.left + 1) % NUM_rb;
@@ -163,8 +167,7 @@ void cpu_exec(uint64_t n) {
   execute(n);
   
   //add code
-  rb.po();
-  printf("\n%d\n", rb.mem_error);
+  //if(rb.erri_getbool) rb.po();
 
   uint64_t timer_end = get_time();
   g_timer += timer_end - timer_start;

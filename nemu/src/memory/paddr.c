@@ -31,15 +31,7 @@ static uint8_t pmem[CONFIG_MSIZE] PG_ALIGN = {};
 #endif
 
 //add code for trace (pa2)
-
-static int sign_trace = 0;
-
-int erri_getbool()
-{
-	if(sign_trace) return 1;
-	else return 0;
-}
-
+extern void geterr();
 //add code end
 
 uint8_t* guest_to_host(paddr_t paddr) { return pmem + paddr - CONFIG_MBASE; }
@@ -82,9 +74,8 @@ word_t paddr_read(paddr_t addr, int len) {
 }
 
 void paddr_write(paddr_t addr, int len, word_t data) {
-	if(addr < 0x80000000 || addr > 0x88000000)
-		sign_trace = 1;
   if (likely(in_pmem(addr))) { pmem_write(addr, len, data); return; }
   IFDEF(CONFIG_DEVICE, mmio_write(addr, len, data); return);
+  geterr();
   out_of_bound(addr);
 }
