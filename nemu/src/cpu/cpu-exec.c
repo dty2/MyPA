@@ -74,7 +74,6 @@ static void oput()
 	}
 	if(i == rb.mem_error) printf("mem -> %s\n", rb.ringbuffer[i]);
 	else printf("      %s\n\n", rb.ringbuffer[i]);
-	printf("%d %d %d %d", rb.left, rb.right, rb.mem_error, i);
 }
 
 //add code end
@@ -128,9 +127,9 @@ static void execute(uint64_t n) {
   Decode s;
   for (;n > 0; n --) {
     exec_once(&s, cpu.pc);
+    g_nr_guest_inst ++;
 	//add code
 	rb.pi(s.logbuf);
-    g_nr_guest_inst ++;
     trace_and_difftest(&s, cpu.pc);
     if (nemu_state.state != NEMU_RUNNING) break;
     IFDEF(CONFIG_DEVICE, device_update());
