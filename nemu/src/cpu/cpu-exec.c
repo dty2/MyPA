@@ -38,9 +38,10 @@ void check();//function at watchpoint
 static void iput(char *str);
 static void oput();
 
+#define NUM_rb 3
 static struct
 {
-	char ringbuffer[20][120];
+	char ringbuffer[NUM_rb][120];
 	int size;
 	int left;
 	int right;
@@ -50,16 +51,16 @@ static struct
 
 static void iput(char *str)
 {
-	if(rb.size != 20) rb.size ++;
+	if(rb.size != NUM_rb) rb.size ++;
 	strcat(rb.ringbuffer[rb.right], str);
-	rb.right = (rb.right + 1) % 20;
-	if(rb.left == rb.right) rb.left = (rb.left + 1) % 20;
+	rb.right = (rb.right + 1) % NUM_rb;
+	if(rb.left == rb.right) rb.left = (rb.left + 1) % NUM_rb;
 }
 
 static void oput()
 {
 	log_write("\n");
-	for(int i = rb.left; i != rb.right; i = (i + 1) % 20)
+	for(int i = rb.left; i != rb.right; i = (i + 1) % NUM_rb)
 		log_write("%s\n", rb.ringbuffer[i]);
 	log_write("\n");
 }
