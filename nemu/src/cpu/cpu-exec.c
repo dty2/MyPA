@@ -42,16 +42,14 @@ static void oput();
 static struct
 {
 	char ringbuffer[NUM_rb][120];
-	int size;
 	int left;
 	int right;
 	void (*pi)(char*);
 	void (*po)();
-} rb = {.size = 0, .left = 0, .right = 0, .pi = &iput, .po = &oput};
+} rb = { .left = 0, .right = 0, .pi = &iput, .po = &oput};
 
 static void iput(char *str)
 {
-	if(rb.size != NUM_rb) rb.size ++;
 	strcat(rb.ringbuffer[rb.right], str);
 	rb.right = (rb.right + 1) % NUM_rb;
 	if(rb.left == rb.right) rb.left = (rb.left + 1) % NUM_rb;
