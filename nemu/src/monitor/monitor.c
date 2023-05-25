@@ -84,7 +84,7 @@ static int parse_args(int argc, char *argv[]) {
     {0          , 0                , NULL,  0 },
   };
   int o;
-  while ( (o = getopt_long(argc, argv, "-bhl:d:f:p:", table, NULL)) != -1) {
+  while ( (o = getopt_long(argc, argv, "-bhl:d:p:f:", table, NULL)) != -1) {
     switch (o) {
       case 'b': sdb_set_batch_mode(); break;
       case 'p': sscanf(optarg, "%d", &difftest_port); break;
@@ -111,7 +111,7 @@ static int parse_args(int argc, char *argv[]) {
 }
 void init_elf()
 {
-	;
+	printf("\n%s\n",elf);
 }
 
 void init_monitor(int argc, char *argv[]) {
@@ -128,8 +128,6 @@ void init_monitor(int argc, char *argv[]) {
 
   /* Open the elf file. */
   init_elf();
-  printf("%d",argc);
-  printf("\n%s\n%s\n%s\n%s\n%s\n%s\n",argv[0],argv[1],argv[2],argv[3],argv[4],argv[5]);
 
   /* Initialize memory. */
   init_mem(); //said by dtyy : in paddr.c
