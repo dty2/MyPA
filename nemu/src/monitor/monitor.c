@@ -109,6 +109,10 @@ static int parse_args(int argc, char *argv[]) {
   }
   return 0;
 }
+void init_elf()
+{
+	printf("\n%s\n",elf);
+}
 
 void init_monitor(int argc, char *argv[]) {
   /* Perform some global initialization. */
@@ -121,6 +125,8 @@ void init_monitor(int argc, char *argv[]) {
 
   /* Open the log file. */
   init_log(log_file); //at utils
+
+  init_elf();
 
   /* Initialize memory. */
   init_mem(); //said by dtyy : in paddr.c
