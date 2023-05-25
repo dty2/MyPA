@@ -111,7 +111,7 @@ static int parse_args(int argc, char *argv[]) {
 }
 void init_elf()
 {
-	printf("\n%s\n",elf);
+	printf("%s\n",elf);
 }
 
 void init_monitor(int argc, char *argv[]) {
