@@ -111,7 +111,7 @@ static int parse_args(int argc, char *argv[]) {
 }
 void init_elf()
 {
-	printf("\n%s\n",elf);
+	;
 }
 
 void init_monitor(int argc, char *argv[]) {
@@ -128,6 +128,7 @@ void init_monitor(int argc, char *argv[]) {
 
   /* Open the elf file. */
   init_elf();
+  printf("%s%s%s",argv[0],argv[1],argv[2]);
 
   /* Initialize memory. */
   init_mem(); //said by dtyy : in paddr.c
