@@ -43,7 +43,7 @@ void sdb_set_batch_mode();
 
 static char *log_file = NULL;
 //add code 
-static char *elf_file = NULL;
+static char *elf = NULL;
 //add end
 static char *diff_so_file = NULL;
 static char *img_file = NULL;
@@ -76,7 +76,7 @@ static int parse_args(int argc, char *argv[]) {
     {"batch"    , no_argument      , NULL, 'b'},
     {"log"      , required_argument, NULL, 'l'},
 	//add code
-    {"elf_file" , required_argument, NULL, 'f'},
+    {"elf"      , required_argument, NULL, 'f'},
 	//add end
     {"diff"     , required_argument, NULL, 'd'},
     {"port"     , required_argument, NULL, 'p'},
@@ -90,7 +90,7 @@ static int parse_args(int argc, char *argv[]) {
       case 'p': sscanf(optarg, "%d", &difftest_port); break;
       case 'l': log_file = optarg; break;
 	  //add code
-      case 'f': elf_file = optarg; break;
+      case 'f': elf = optarg; break;
 	  //add end
       case 'd': diff_so_file = optarg; break;
       case 1: img_file = optarg; return 0;
