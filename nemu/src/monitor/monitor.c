@@ -128,7 +128,7 @@ void init_monitor(int argc, char *argv[]) {
 
   /* Open the elf file. */
   init_elf();
-  printf("\n%s\n%s\n%s\n",argv[0],argv[1],argv[2]);
+  printf("\n%s\n%s\n%s\n%s\n",argv[0],argv[1],argv[2],argv[3]);
 
   /* Initialize memory. */
   init_mem(); //said by dtyy : in paddr.c
