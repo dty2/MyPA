@@ -76,7 +76,7 @@ static int parse_args(int argc, char *argv[]) {
     {"batch"    , no_argument      , NULL, 'b'},
     {"log"      , required_argument, NULL, 'l'},
 	//add code
-    {"elf"      , no_argument      , NULL, 'f'},
+    {"elf"      ,required_argument , NULL, 'f'},
 	//add end
     {"diff"     , required_argument, NULL, 'd'},
     {"port"     , required_argument, NULL, 'p'},
