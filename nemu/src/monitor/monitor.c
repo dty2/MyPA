@@ -90,7 +90,7 @@ static int parse_args(int argc, char *argv[]) {
       case 'p': sscanf(optarg, "%d", &difftest_port); break;
       case 'l': log_file = optarg; break;
 	  //add code
-      case 0: elf = optarg; break;
+      case 'f': elf = optarg; break;
 	  //add end
       case 'd': diff_so_file = optarg; break;
       case 1: img_file = optarg; return 0;
