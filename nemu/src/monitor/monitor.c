@@ -106,7 +106,15 @@ static int parse_args(int argc, char *argv[]) {
 }
 void init_elf()
 {
-	printf("\n%s\n",elf);
+	if (elf == NULL) Log("No elf is given.");
+	FILE *fp = fopen(elf, "rb");
+	Assert(fp, "Can not open '%s'", elf);
+
+	fseek(fp, 0, SEEK_END);
+	long size = ftell(fp);
+	Log("The image is %s, size = %ld", elf, size);
+	fseek(fp, 0, SEEK_SET);
+	fclose(fp);
 }
 
 void init_monitor(int argc, char *argv[]) {
@@ -121,10 +129,9 @@ void init_monitor(int argc, char *argv[]) {
   /* Open the log file. */
   init_log(log_file); //at utils
 
+  //add code
   /* Open the elf file. */
   init_elf();
-  //printf("%d",argc);
-  //printf("\n%s\n%s\n%s\n%s\n%s\n",argv[0],argv[1],argv[2],argv[3],argv[4]);
 
   /* Initialize memory. */
   init_mem(); //said by dtyy : in paddr.c
