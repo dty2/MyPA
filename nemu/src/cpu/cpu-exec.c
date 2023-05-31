@@ -83,10 +83,11 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_WATCHPOINT
 	check();
 #endif
+
 	iput(_this->logbuf);
 
 	//add code for ftrace
-	
+	printf("%s\n", _this->logbuf);
   
 }
 
