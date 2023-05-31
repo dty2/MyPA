@@ -87,7 +87,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 	iput(_this->logbuf);
 
 	//add code for ftrace
-	printf("%s\n", _this->logbuf + 23);
+	printf("%s\n", _this->logbuf + 24);
   
 }
 
