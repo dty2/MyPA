@@ -14,6 +14,7 @@
 ***************************************************************************************/
 
 #include <isa.h>
+#include <elf.h>
 #include <memory/paddr.h>
 
 void init_rand();
@@ -104,17 +105,53 @@ static int parse_args(int argc, char *argv[]) {
   }
   return 0;
 }
+//add code
+
+void handleelf(FILE *file)
+{
+	Elf32_Ehdr *ELF_header = NULL;
+	Elf32_Shdr *Section_header = NULL;
+	//Elf32_Sym *Symbol_tab = NULL;
+	
+	/** ELF head parsing **/
+	fseek(file, 0, SEEK_SET);
+	ELF_header = malloc(sizeof(Elf32_Ehdr));	
+	int x = fread(ELF_header, sizeof(Elf32_Ehdr), 1, file);
+	x += 1;
+
+	/** ELF section head parsing **/
+	fseek(file, ELF_header->e_shoff, SEEK_SET);
+	Section_header = malloc(sizeof(Elf32_Shdr) * ELF_header->e_shnum);	
+	int y = fread(Section_header, sizeof(Elf32_Shdr), ELF_header->e_shnum, file);
+	y += 1;
+
+	//the position of shstrtab
+	Elf32_Shdr *shstrtab = ELF_header->e_shstrndx + Section_header;
+	for(int i = 0; i < ELF_header->e_shnum; i ++)
+	{
+		//if(i == ELF_header->e_shstrndx) continue;
+		char shstrtabname[shstrtab->sh_size];
+		fseek(file, shstrtab->sh_offset + Section_header->sh_name, SEEK_SET);
+		int z = fread(shstrtabname, shstrtab->sh_size, 1, file);
+		z += 1;
+		Section_header ++;
+	}
+
+	printf("\n");
+
+	/** ELF section head parsing **/
+
+	/** Release memory **/
+	free(ELF_header);
+	//free(Section_header);
+	//free();
+}
+
 void init_elf()
 {
-	if (elf == NULL) Log("No elf is given.");
-	FILE *fp = fopen(elf, "rb");
-	Assert(fp, "Can not open '%s'", elf);
-
-	fseek(fp, 0, SEEK_END);
-	long size = ftell(fp);
-	Log("The image is %s, size = %ld", elf, size);
-	fseek(fp, 0, SEEK_SET);
-	fclose(fp);
+	FILE *Elf = fopen(elf, "rb");
+	handleelf(Elf);
+	fclose(Elf);
 }
 
 void init_monitor(int argc, char *argv[]) {
@@ -131,7 +168,7 @@ void init_monitor(int argc, char *argv[]) {
 
   //add code
   /* Open the elf file. */
-  init_elf();
+  //init_elf();
 
   /* Initialize memory. */
   init_mem(); //said by dtyy : in paddr.c
