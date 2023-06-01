@@ -162,7 +162,7 @@ void handleelf(FILE *file)
 	int num_fun = 0;
 	for(int i = 0; i < numofsym; i ++)
 	{
-			printf("%d ", STT_FUNC);
+			printf("%d ", STT_FUNC + STB_GLOBAL);
 		if(Symtab_header->st_info == STT_FUNC)
 		{
 			printf("\n abd \n");
