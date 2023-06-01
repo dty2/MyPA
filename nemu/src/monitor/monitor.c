@@ -162,7 +162,7 @@ void handleelf(FILE *file)
 	int num_fun = 0;
 	for(int i = 0; i < numofsym; i ++)
 	{
-		if(Symtab_header->st_info == STT_FUNC + STB_GLOBAL)
+		if(ELF32_ST_TYPE(Symtab_header->st_info) == STT_FUNC)
 		{
 			char strname[sizeof_fun_string];
 			arr_fun_elf[num_fun].fun_size = Symtab_header->st_size;
