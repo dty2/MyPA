@@ -155,6 +155,7 @@ void handleelf(FILE *file)
 		}
 		if(!strcmp(shstrtabname, ".strtab"))
 		{
+			printf("\n abd \n");
 			stroffset = Section_header->sh_offset;
 		}
 		Section_header ++;
