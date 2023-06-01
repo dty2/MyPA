@@ -176,7 +176,7 @@ void handleelf(FILE *file)
 		Symtab_header ++;
 	}
 	for(int i = 0; i < num_fun; i ++)
-		printf("%d %d %s \n", arr_fun_elf[i].fun_size, arr_fun_elf[i].fun_value, arr_fun_elf[i].funname);
+		printf("%x %x %s \n", arr_fun_elf[i].fun_size, arr_fun_elf[i].fun_value, arr_fun_elf[i].funname);
 
 	/** Release memory **/
 	free(ELF_header);
