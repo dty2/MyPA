@@ -146,6 +146,7 @@ void handleelf(FILE *file)
 		z += 1; //meaningless , just for warning
 		if(!strcmp(shstrtabname, ".symbol"))
 		{
+			printf("\n abd \n");
 			fseek(file, Section_header->sh_offset, SEEK_SET);
 			numofsym = Section_header->sh_size / sizeof(Elf32_Sym);
 			int gg = fread(Symtab_header, sizeof(Elf32_Sym), numofsym, file);
