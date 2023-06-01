@@ -146,7 +146,6 @@ void handleelf(FILE *file)
 		z += 1; //meaningless , just for warning
 		if(!strcmp(shstrtabname, ".symtab"))
 		{
-			printf("\n abd \n");
 			fseek(file, Section_header->sh_offset, SEEK_SET);
 			numofsym = Section_header->sh_size / sizeof(Elf32_Sym);
 			Symtab_header = malloc(Section_header->sh_size);
@@ -155,7 +154,6 @@ void handleelf(FILE *file)
 		}
 		if(!strcmp(shstrtabname, ".strtab"))
 		{
-			printf("\n abd \n");
 			stroffset = Section_header->sh_offset;
 		}
 		Section_header ++;
