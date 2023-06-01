@@ -161,8 +161,8 @@ void handleelf(FILE *file)
 	int num_fun = 0;
 	for(int i = 0; i < numofsym; i ++)
 	{
-		if(Symtab_header->st_info != STT_FUNC)
-		{
+		//if(Symtab_header->st_info != STT_FUNC)
+		//{
 			char strname[sizeof_fun_string];
 			arr_fun_elf[num_fun].fun_size = Symtab_header->st_size;
 			fseek(file, stroffset + Symtab_header->st_name, SEEK_SET);
@@ -171,7 +171,7 @@ void handleelf(FILE *file)
 			strcpy(arr_fun_elf[num_fun].funname, strname);
 			arr_fun_elf[num_fun].fun_value = Symtab_header->st_value;
 			num_fun ++;
-		}
+		//}
 		Symtab_header ++;
 	}
 	for(int i = 0; i < num_fun; i ++)
