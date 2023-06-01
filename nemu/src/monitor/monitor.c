@@ -106,40 +106,76 @@ static int parse_args(int argc, char *argv[]) {
   return 0;
 }
 //add code
+#define number_of_fun 100
+#define sizeof_fun_string 100
+struct Info_elf_function
+{
+	int fun_value;
+	int fun_size;
+	char funname[sizeof_fun_string];
+} arr_fun_elf[number_of_fun];
+
 
 void handleelf(FILE *file)
 {
 	Elf32_Ehdr *ELF_header = NULL;
 	Elf32_Shdr *Section_header = NULL;
-	//Elf32_Sym *Symbol_tab = NULL;
+	Elf32_Sym *Symtab_header= NULL;
 	
 	/** ELF head parsing **/
 	fseek(file, 0, SEEK_SET);
 	ELF_header = malloc(sizeof(Elf32_Ehdr));	
 	int x = fread(ELF_header, sizeof(Elf32_Ehdr), 1, file);
-	x += 1;
+	x += 1; //meaningless , just for warning
 
 	/** ELF section head parsing **/
 	fseek(file, ELF_header->e_shoff, SEEK_SET);
 	Section_header = malloc(sizeof(Elf32_Shdr) * ELF_header->e_shnum);	
 	int y = fread(Section_header, sizeof(Elf32_Shdr), ELF_header->e_shnum, file);
-	y += 1;
+	y += 1; //meaningless , just for warning
 
 	//the position of shstrtab
 	Elf32_Shdr *shstrtab = ELF_header->e_shstrndx + Section_header;
+	int numofsym = 0;
+	Elf32_Off stroffset = 0;
 	for(int i = 0; i < ELF_header->e_shnum; i ++)
 	{
-		//if(i == ELF_header->e_shstrndx) continue;
 		char shstrtabname[shstrtab->sh_size];
 		fseek(file, shstrtab->sh_offset + Section_header->sh_name, SEEK_SET);
 		int z = fread(shstrtabname, shstrtab->sh_size, 1, file);
-		z += 1;
+		z += 1; //meaningless , just for warning
+		if(!strcmp(shstrtabname, ".symbol"))
+		{
+			fseek(file, Section_header->sh_offset, SEEK_SET);
+			numofsym = Section_header->sh_size / sizeof(Elf32_Sym);
+			int gg = fread(Symtab_header, sizeof(Elf32_Sym), numofsym, file);
+			gg += 1;
+		}
+		if(!strcmp(shstrtabname, ".strtab"))
+		{
+			stroffset = Section_header->sh_offset;
+		}
 		Section_header ++;
 	}
 
-	printf("\n");
-
-	/** ELF section head parsing **/
+	int num_fun = 0;
+	for(int i = 0; i < numofsym; i ++)
+	{
+		if(Symtab_header->st_info == STT_FUNC)
+		{
+			char strname[sizeof_fun_string];
+			arr_fun_elf[num_fun].fun_size = Symtab_header->st_size;
+			fseek(file, stroffset + Symtab_header->st_name, SEEK_SET);
+			int gg = fread(strname, sizeof_fun_string, 1, file);
+			gg += 1;
+			strcpy(arr_fun_elf[num_fun].funname, strname);
+			arr_fun_elf[num_fun].fun_value = Symtab_header->st_value;
+			num_fun ++;
+		}
+		Symtab_header ++;
+	}
+	for(int i = 0; i < num_fun; i ++)
+		printf("%d %d %s \n", arr_fun_elf[i].fun_size, arr_fun_elf[i].fun_value, arr_fun_elf[i].funname);
 
 	/** Release memory **/
 	free(ELF_header);

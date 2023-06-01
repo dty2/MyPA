@@ -34,6 +34,7 @@ void device_update();
 
 //add code
 void check();//function at watchpoint
+extern char *elf_check();//function at monitor
 
 //add code for trace
 void iput(char *str);
@@ -72,6 +73,14 @@ void oput()
 
 //add code end
 
+void ftrace_get_jump(int now_pc, int jump_pc, int sign)
+{
+	/*
+	if(!sign) log_write("call : %s", elf_check());
+	else log_write("ret : %s", elf_check());
+	*/
+}
+
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
   if (ITRACE_COND) { log_write("%s\n", _this->logbuf); }
@@ -83,12 +92,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_WATCHPOINT
 	check();
 #endif
-
 	iput(_this->logbuf);
-
-	//add code for ftrace
-	printf("%s\n", _this->logbuf + 24);
-  
 }
 
 static void exec_once(Decode *s, vaddr_t pc) {
