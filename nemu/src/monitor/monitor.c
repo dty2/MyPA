@@ -186,7 +186,6 @@ void handleelf(FILE *file)
 
 void init_elf()
 {
-	printf("\nhello word\n");
 	FILE *Elf = fopen(elf, "rb");
 	handleelf(Elf);
 	fclose(Elf);
@@ -206,7 +205,7 @@ void init_monitor(int argc, char *argv[]) {
 
   //add code
   /* Open the elf file. */
-  //init_elf();
+  init_elf();
 
   /* Initialize memory. */
   init_mem(); //said by dtyy : in paddr.c
