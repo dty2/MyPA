@@ -144,7 +144,7 @@ void handleelf(FILE *file)
 		fseek(file, shstrtab->sh_offset + Section_header->sh_name, SEEK_SET);
 		int z = fread(shstrtabname, shstrtab->sh_size, 1, file);
 		z += 1; //meaningless , just for warning
-		if(!strcmp(shstrtabname, ".symbol"))
+		if(!strcmp(shstrtabname, ".symtab"))
 		{
 			printf("\n abd \n");
 			fseek(file, Section_header->sh_offset, SEEK_SET);
