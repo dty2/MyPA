@@ -158,7 +158,7 @@ void handleelf(FILE *file)
 		Section_header ++;
 	}
 
-	int num_fun = 0;
+	int num_fun = 1;
 	for(int i = 0; i < numofsym; i ++)
 	{
 		if(Symtab_header->st_info != STT_FUNC)
