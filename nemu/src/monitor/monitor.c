@@ -163,6 +163,7 @@ void handleelf(FILE *file)
 	{
 		if((int)Symtab_header->st_info == STT_FUNC)
 		{
+			printf("\n abd \n");
 			char strname[sizeof_fun_string];
 			arr_fun_elf[num_fun].fun_size = Symtab_header->st_size;
 			fseek(file, stroffset + Symtab_header->st_name, SEEK_SET);
