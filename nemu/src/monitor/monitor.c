@@ -176,6 +176,7 @@ void handleelf(FILE *file)
 	}
 	for(int i = 0; i < num_fun; i ++)
 		printf("%d %d %s \n", arr_fun_elf[i].fun_size, arr_fun_elf[i].fun_value, arr_fun_elf[i].funname);
+	printf("\nhello word\n");
 
 	/** Release memory **/
 	free(ELF_header);
