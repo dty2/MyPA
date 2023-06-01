@@ -158,10 +158,10 @@ void handleelf(FILE *file)
 		Section_header ++;
 	}
 
-	int num_fun = 1;
+	int num_fun = 0;
 	for(int i = 0; i < numofsym; i ++)
 	{
-		if(Symtab_header->st_info != STT_FUNC)
+		if((int)Symtab_header->st_info == STT_FUNC)
 		{
 			char strname[sizeof_fun_string];
 			arr_fun_elf[num_fun].fun_size = Symtab_header->st_size;
@@ -175,7 +175,7 @@ void handleelf(FILE *file)
 		Symtab_header ++;
 	}
 	for(int i = 0; i < num_fun; i ++)
-		printf(" abd %d %d %s \n", arr_fun_elf[i].fun_size, arr_fun_elf[i].fun_value, arr_fun_elf[i].funname);
+		printf("%d %d %s \n", arr_fun_elf[i].fun_size, arr_fun_elf[i].fun_value, arr_fun_elf[i].funname);
 
 	/** Release memory **/
 	free(ELF_header);
