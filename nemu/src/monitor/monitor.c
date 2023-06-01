@@ -186,6 +186,7 @@ void handleelf(FILE *file)
 
 void init_elf()
 {
+	printf("\nhello word\n");
 	FILE *Elf = fopen(elf, "rb");
 	handleelf(Elf);
 	fclose(Elf);
