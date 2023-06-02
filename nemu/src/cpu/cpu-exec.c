@@ -97,7 +97,7 @@ void ftrace_get_jump(int now_pc, int jump_pc, int sign)
 
 	for(int i = 0; i < num_fun; i ++)
 	{
-		if(jump_pc <= arr_fun_elf[i].fun_value + arr_fun_elf[i].fun_size && jump_pc >= arr_fun_elf[i].fun_value)
+		if(jump_pc < arr_fun_elf[i].fun_value + arr_fun_elf[i].fun_size && jump_pc >= arr_fun_elf[i].fun_value)
 			strcpy(nameoffun, arr_fun_elf[i].funname);
 	}
 	ftr_info[now_info].sign = sign;
