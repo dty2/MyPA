@@ -88,7 +88,7 @@ void ftrace_get_jump(int now_pc, int jump_pc, int sign)
 			if(jump_pc <= arr_fun_elf[i].fun_value + arr_fun_elf[i].fun_size && jump_pc >= arr_fun_elf[i].fun_value)
 				strcpy(nameoffun, arr_fun_elf[i].funname);
 		}
-		log_write("%x: call %s", now_pc, nameoffun);
+		//log_write("%x: call %s", now_pc, nameoffun);
 	}
 	else
 	{
@@ -97,7 +97,7 @@ void ftrace_get_jump(int now_pc, int jump_pc, int sign)
 			if(jump_pc <= arr_fun_elf[i].fun_value + arr_fun_elf[i].fun_size && jump_pc >= arr_fun_elf[i].fun_value)
 				strcpy(nameoffun, arr_fun_elf[i].funname);
 		}
-		log_write("%x: ret %s", now_pc, nameoffun);
+		//log_write("%x: ret %s", now_pc, nameoffun);
 	}
 }
 
