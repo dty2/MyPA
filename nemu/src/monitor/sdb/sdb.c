@@ -137,6 +137,7 @@ extern struct ftrace_info
 {
 	int sign;
 	int pc;
+	int fun_add;
 	char fun[100];
 } ftr_info[200];
 extern int now_info;
@@ -145,9 +146,9 @@ static int cmd_rf()
 	for(int i = 0; i < now_info; i ++)
 	{
 		if(!ftr_info[i].sign)
-			log_write("%x:Call %s\n", ftr_info[i].pc, ftr_info[i].fun);
+			log_write("%x:Call %s %x\n", ftr_info[i].pc, ftr_info[i].fun, ftr_info[i].fun_add);
 		else
-			log_write("%x:Ret %s\n", ftr_info[i].pc, ftr_info[i].fun);
+			log_write("%x:Ret %s %x\n", ftr_info[i].pc, ftr_info[i].fun, ftr_info[i].fun_add);
 	}
 	return 0;
 }
