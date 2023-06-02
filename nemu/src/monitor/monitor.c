@@ -183,7 +183,7 @@ void handleelf(FILE *file)
 void init_elf()
 {
 	FILE *Elf = fopen(elf, "rb");
-	//handleelf(Elf);
+	handleelf(Elf);
 	fclose(Elf);
 }
 
