@@ -91,7 +91,7 @@ struct ftrace_info
 } ftr_info[10000];
 int now_info = 0;
 
-char *arr_elf[1000];
+char *arr_elf[100000];
 int arr_now = 0;
 
 void ftrace_get_jump(int now_pc, int jump_pc)
