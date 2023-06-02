@@ -108,8 +108,14 @@ static int parse_args(int argc, char *argv[]) {
   return 0;
 }
 //add code
-info_elf_funciotn arr_fun_elf[100];
 int num_fun = 0;
+typedef struct Info_elf_function
+{
+	int fun_value;
+	int fun_size;
+	char funname[100];
+}info_elf_funciotn; 
+info_elf_funciotn arr_fun_elf[100];
 
 void handleelf(FILE *file)
 {
