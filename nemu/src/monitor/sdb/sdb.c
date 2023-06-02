@@ -145,9 +145,9 @@ static int cmd_rf()
 	for(int i = 0; i < now_info; i ++)
 	{
 		if(!ftr_info[i].sign)
-			log_write("%x:Call %s", ftr_info[i].pc, ftr_info[i].fun);
+			log_write("%x:Call %s\n", ftr_info[i].pc, ftr_info[i].fun);
 		else
-			log_write("%x:Ret %s", ftr_info[i].pc, ftr_info[i].fun);
+			log_write("%x:Ret %s\n", ftr_info[i].pc, ftr_info[i].fun);
 	}
 	return 0;
 }
