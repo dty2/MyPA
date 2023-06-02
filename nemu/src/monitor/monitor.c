@@ -155,7 +155,6 @@ void handleelf(FILE *file)
 		}
 		Section_header ++;
 	}
-
 	for(int i = 0; i < numofsym; i ++)
 	{
 		if(ELF32_ST_TYPE(Symtab_header->st_info) == STT_FUNC)
@@ -171,7 +170,7 @@ void handleelf(FILE *file)
 		}
 		Symtab_header ++;
 	}
-	//for(int i = 0; i < num_fun; i ++)
+	for(int i = 0; i < num_fun; i ++)
 		//printf("%d %x %s\n", arr_fun_elf[i].fun_size, arr_fun_elf[i].fun_value, arr_fun_elf[i].funname);
 
 	/** Release memory **/
@@ -183,7 +182,7 @@ void handleelf(FILE *file)
 void init_elf()
 {
 	FILE *Elf = fopen(elf, "rb");
-	//handleelf(Elf);
+	handleelf(Elf);
 	fclose(Elf);
 }
 
