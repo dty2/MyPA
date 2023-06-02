@@ -32,7 +32,7 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
 			printf("\n%d regeist Error!\n", i);
 			return false;
 		}
-	return false;
+	return true;
 }
 
 void isa_difftest_attach() {
