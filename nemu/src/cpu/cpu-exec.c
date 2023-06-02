@@ -74,10 +74,14 @@ void oput()
 
 //add code for elf
 extern int num_fun;
+extern struct Info_elf_function
+{
+	int fun_value;
+	int fun_size;
+	char funname[100];
+} arr_fun_elf[100];
 void ftrace_get_jump(int now_pc, int jump_pc, int sign)
 {
-	printf("\n%d\n", num_fun);
-	/*
 	char nameoffun[100];
 	if(!sign)
 	{
@@ -97,7 +101,6 @@ void ftrace_get_jump(int now_pc, int jump_pc, int sign)
 		}
 		log_write("%x: ret %s", now_pc, nameoffun);
 	}
-	*/
 }
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
