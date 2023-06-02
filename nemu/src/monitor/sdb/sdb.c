@@ -132,7 +132,6 @@ static int cmd_d(char *args) {
 	free_wp(*args - '0');
     return 0;
 }
-/*
 extern struct ftrace_info
 {
 	int sign;
@@ -153,7 +152,6 @@ static int cmd_rf()
 	return 0;
 }
 //add end
-*/
 
 static int cmd_help(char *args);
 
@@ -173,7 +171,7 @@ static struct {
   { "p", "print value of expression", cmd_p },
   { "w", "set the watch point", cmd_w },
   { "d", "delete the watch point", cmd_d },
-//  { "rf", "write ftrace to log.txt", cmd_rf },
+  { "rf", "write ftrace to log.txt", cmd_rf },
 
 };
 
