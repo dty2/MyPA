@@ -112,6 +112,7 @@ typedef struct Info_elf_function
 	int fun_size;
 	char funname[100];
 }info_elf_funciotn; 
+
 info_elf_funciotn arr_fun_elf[100];
 
 void handleelf(FILE *file)
