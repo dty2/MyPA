@@ -110,7 +110,6 @@ static int parse_args(int argc, char *argv[]) {
 //add code
 #define number_of_fun 100
 info_elf_funciotn arr_fun_elf[number_of_fun];
-
 int num_fun = 0;
 
 void handleelf(FILE *file)
