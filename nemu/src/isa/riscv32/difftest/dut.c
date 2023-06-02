@@ -18,7 +18,18 @@
 #include "../local-include/reg.h"
 
 bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
-  return false;
+	if(pc != ref_r->pc)
+	{
+		printf("\nPc Error!\n");
+		return false;
+	}
+	for(int i = 0; i < 32; i ++)
+		if(gpr(i) != ref_r->gpr[i])
+		{
+			printf("\n%d regeist Error!\n", i);
+			return false;
+		}
+	return false;
 }
 
 void isa_difftest_attach() {
