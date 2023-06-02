@@ -108,8 +108,7 @@ static int parse_args(int argc, char *argv[]) {
   return 0;
 }
 //add code
-#define number_of_fun 100
-info_elf_funciotn arr_fun_elf[number_of_fun];
+info_elf_funciotn arr_fun_elf[100];
 int num_fun = 0;
 
 void handleelf(FILE *file)
@@ -159,10 +158,10 @@ void handleelf(FILE *file)
 	{
 		if(ELF32_ST_TYPE(Symtab_header->st_info) == STT_FUNC)
 		{
-			char strname[sizeof_fun_string];
+			char strname[100];
 			arr_fun_elf[num_fun].fun_size = Symtab_header->st_size;
 			fseek(file, stroffset + Symtab_header->st_name, SEEK_SET);
-			int gg = fread(strname, sizeof_fun_string, 1, file);
+			int gg = fread(strname, Symtab_header->st_size, 1, file);
 			gg += 1;
 			strcpy(arr_fun_elf[num_fun].funname, strname);
 			arr_fun_elf[num_fun].fun_value = Symtab_header->st_value;
