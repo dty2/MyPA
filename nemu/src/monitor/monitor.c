@@ -146,7 +146,7 @@ void handleelf(FILE *file)
 			fseek(file, Section_header->sh_offset, SEEK_SET);
 			numofsym = Section_header->sh_size / sizeof(Elf32_Sym);
 			Symtab_header = malloc(Section_header->sh_size);
-			int gg = fread(Symtab_header, 100, numofsym, file);
+			int gg = fread(Symtab_header, sizeof(Elf32_Sym), numofsym, file);
 			gg += 1;
 		}
 		if(!strcmp(shstrtabname, ".strtab"))
@@ -162,7 +162,7 @@ void handleelf(FILE *file)
 			char strname[100];
 			arr_fun_elf[num_fun].fun_size = Symtab_header->st_size;
 			fseek(file, stroffset + Symtab_header->st_name, SEEK_SET);
-			int gg = fread(strname, Symtab_header->st_size, 1, file);
+			int gg = fread(strname, 100, 1, file);
 			gg += 1;
 			strcpy(arr_fun_elf[num_fun].funname, strname);
 			arr_fun_elf[num_fun].fun_value = Symtab_header->st_value;
