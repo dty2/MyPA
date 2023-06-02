@@ -76,7 +76,7 @@ void oput()
 extern int num_fun;
 void ftrace_get_jump(int now_pc, int jump_pc, int sign)
 {
-	printf("%d", num_fun);
+	printf("\n%d\n", num_fun);
 	/*
 	char nameoffun[100];
 	if(!sign)
