@@ -35,7 +35,8 @@ void device_update();
 //add code
 void check();//function at watchpoint
 
-//add code for trace
+
+//add code for itrace
 void iput(char *str);
 void oput();
 
@@ -114,7 +115,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_WATCHPOINT
 	check();
 #endif
-	iput(_this->logbuf);
+	//iput(_this->logbuf);
 }
 
 static void exec_once(Decode *s, vaddr_t pc) {
