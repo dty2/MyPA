@@ -91,7 +91,10 @@ struct ftrace_info
 } ftr_info[10000];
 int now_info = 0;
 
-void ftrace_get_jump(int now_pc, int jump_pc, int sign)
+char *arr_elf[1000];
+int arr_now = 0;
+
+void ftrace_get_jump(int now_pc, int jump_pc)
 {
 	char nameoffun[100];
 
@@ -100,10 +103,20 @@ void ftrace_get_jump(int now_pc, int jump_pc, int sign)
 		if(jump_pc < arr_fun_elf[i].fun_value + arr_fun_elf[i].fun_size && jump_pc >= arr_fun_elf[i].fun_value)
 			strcpy(nameoffun, arr_fun_elf[i].funname);
 	}
-	ftr_info[now_info].sign = sign;
 	ftr_info[now_info].pc = now_pc;
 	ftr_info[now_info].fun_add = jump_pc;
-	strcpy(ftr_info[now_info ++].fun, nameoffun);
+	strcpy(ftr_info[now_info].fun, nameoffun);
+	if(!strcmp(arr_elf[arr_now - 1], nameoffun))
+	{
+		arr_now --;
+		ftr_info[now_info].sign= 1;
+	}
+	else
+	{
+		ftr_info[now_info].sign = 0;
+		arr_elf[arr_now ++] = ftr_info[now_info].fun;
+	}
+	now_info ++;
 }
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
@@ -117,7 +130,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_WATCHPOINT
 	check();
 #endif
-	//iput(_this->logbuf);
+	iput(_this->logbuf);
 }
 
 static void exec_once(Decode *s, vaddr_t pc) {
