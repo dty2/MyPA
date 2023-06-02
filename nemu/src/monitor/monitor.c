@@ -176,7 +176,7 @@ void handleelf(FILE *file)
 	/** Release memory **/
 	free(ELF_header);
 	//free(Section_header);
-	//free(Symtab_header);
+	free(Symtab_header);
 }
 
 void init_elf()
