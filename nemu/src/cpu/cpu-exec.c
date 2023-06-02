@@ -75,7 +75,12 @@ void oput()
 
 //add code end
 
+void ftrace_get_jump(int now_pc, int jump_pc, int sign)
+{
+
+}
 //add code for elf
+/*
 extern int num_fun;
 extern info_elf_funciotn arr_fun_elf[100];
 void ftrace_get_jump(int now_pc, int jump_pc, int sign)
@@ -100,6 +105,7 @@ void ftrace_get_jump(int now_pc, int jump_pc, int sign)
 		//log_write("%x: ret %s", now_pc, nameoffun);
 	}
 }
+*/
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
