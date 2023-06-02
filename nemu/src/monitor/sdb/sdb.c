@@ -51,8 +51,7 @@ static int cmd_c(char *args) {
 static int cmd_q(char *args) {
   return -1;
 }
-
-//dtyy addfuntion
+//add code
 static int cmd_si(char *args) {
     int i = 0, op_num = 0;//op_num operation number 
     bool sign = 1;
@@ -75,7 +74,6 @@ static int cmd_si(char *args) {
     else cpu_exec(op_num);
     return 0;
 }  
-//dtyy addfuntion
 static int cmd_info(char *args) {
     if(args != 0 && *args == 'r') isa_reg_display();
 	else if(args != 0 && *args == 'w') display_wp();
@@ -83,8 +81,6 @@ static int cmd_info(char *args) {
     else printf("argument fault! Please enter the right argument!\n");
     return 0;
 }
-  
-//dtyy addfuntion
 static int cmd_x(char *args) {
     int i = 0, op_num = 0;//op_num operation number 
 	char *argument;
@@ -116,8 +112,6 @@ static int cmd_x(char *args) {
 	}
     return 0;
 }
-
-//dtyy addfuntion
 static int cmd_p(char *args) {
 	word_t sum = expr(args, NULL);
 	if(sum == 0xffff) printf("Error! Please enter again!\n");
@@ -125,13 +119,10 @@ static int cmd_p(char *args) {
 	else printf("%d 0x%x\n", sum, sum);
     return 0;
 }
-
-//dtyy addfuntion
 static int cmd_w(char *args) {
 	new_wp(args);
     return 0;
 }
-//dtyy addfuntion
 static int cmd_d(char *args) {
 	if(strlen(args) > 2 || *args < '0' || *args > '9')
 	{
@@ -141,6 +132,26 @@ static int cmd_d(char *args) {
 	free_wp(*args - '0');
     return 0;
 }
+
+extern struct ftrace_info
+{
+	int sign;
+	int pc;
+	char fun[100];
+} ftr_info[200];
+extern int now_info;
+static int cmd_rf()
+{
+	for(int i = 0; i < now_info; i ++)
+	{
+		if(!ftr_info[i].sign)
+			log_write("%x:Call %s", ftr_info[i].pc, ftr_info[i].fun);
+		else
+			log_write("%x:Ret %s", ftr_info[i].pc, ftr_info[i].fun);
+	}
+	return 0;
+}
+//add end
 
 static int cmd_help(char *args);
 
@@ -160,6 +171,7 @@ static struct {
   { "p", "print value of expression", cmd_p },
   { "w", "set the watch point", cmd_w },
   { "d", "delete the watch point", cmd_d },
+  { "rf", "write ftrace to log.txt", cmd_rf },
 
 };
 

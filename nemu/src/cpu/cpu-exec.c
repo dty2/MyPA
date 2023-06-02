@@ -81,27 +81,26 @@ extern struct Info_elf_function
 	int fun_size;
 	char funname[100];
 } arr_fun_elf[100];
+
+struct ftrace_info
+{
+	int sign;
+	int pc;
+	char fun[100];
+} ftr_info[200];
+int now_info = 0;
+
 void ftrace_get_jump(int now_pc, int jump_pc, int sign)
 {
 	char nameoffun[100];
-	if(!sign)
+	for(int i = 0; i < num_fun; i ++)
 	{
-		for(int i = 0; i < num_fun; i ++)
-		{
-			if(jump_pc <= arr_fun_elf[i].fun_value + arr_fun_elf[i].fun_size && jump_pc >= arr_fun_elf[i].fun_value)
-				strcpy(nameoffun, arr_fun_elf[i].funname);
-		}
-		log_write("%x: call %s", now_pc, nameoffun);
+		if(jump_pc <= arr_fun_elf[i].fun_value + arr_fun_elf[i].fun_size && jump_pc >= arr_fun_elf[i].fun_value)
+			strcpy(nameoffun, arr_fun_elf[i].funname);
 	}
-	else
-	{
-		for(int i = 0; i < num_fun; i ++)
-		{
-			if(jump_pc <= arr_fun_elf[i].fun_value + arr_fun_elf[i].fun_size && jump_pc >= arr_fun_elf[i].fun_value)
-				strcpy(nameoffun, arr_fun_elf[i].funname);
-		}
-		log_write("%x: ret %s", now_pc, nameoffun);
-	}
+	ftr_info[now_info].sign = sign;
+	ftr_info[now_info].pc = now_pc;
+	strcpy(ftr_info[now_info ++].fun, nameoffun);
 }
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
