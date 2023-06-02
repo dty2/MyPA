@@ -146,7 +146,7 @@ void handleelf(FILE *file)
 			fseek(file, Section_header->sh_offset, SEEK_SET);
 			numofsym = Section_header->sh_size / sizeof(Elf32_Sym);
 			Symtab_header = malloc(Section_header->sh_size);
-			int gg = fread(Symtab_header, sizeof(Elf32_Sym), numofsym, file);
+			int gg = fread(Symtab_header, 100, numofsym, file);
 			gg += 1;
 		}
 		if(!strcmp(shstrtabname, ".strtab"))
