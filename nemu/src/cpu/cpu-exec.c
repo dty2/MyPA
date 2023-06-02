@@ -87,7 +87,7 @@ struct ftrace_info
 	int sign;
 	int pc;
 	char fun[100];
-} ftr_info[500];
+} ftr_info[10000];
 int now_info = 0;
 
 void ftrace_get_jump(int now_pc, int jump_pc, int sign)
