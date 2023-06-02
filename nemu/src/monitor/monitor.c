@@ -16,7 +16,9 @@
 #include <isa.h>
 #include <elf.h>
 #include <memory/paddr.h>
-
+//add code 
+#include <common.h>
+//add end
 void init_rand();
 void init_log(const char *log_file);
 void init_mem();

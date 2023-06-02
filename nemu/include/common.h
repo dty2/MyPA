@@ -46,4 +46,12 @@ typedef uint16_t ioaddr_t;
 
 #include <debug.h>
 
+#define sizeof_fun_string 100
+typedef struct Info_elf_function
+{
+	int fun_value;
+	int fun_size;
+	char funname[sizeof_fun_string];
+}info_elf_funciotn; 
+
 #endif

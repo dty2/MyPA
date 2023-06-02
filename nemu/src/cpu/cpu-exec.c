@@ -18,7 +18,7 @@
 #include <cpu/difftest.h>
 #include <locale.h>
 //add code 
-#include <isa.h>
+#include <common.h>
 //add end
 
 /* The assembly code of instructions executed is only output to the screen
