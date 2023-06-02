@@ -17,6 +17,9 @@
 #include <cpu/decode.h>
 #include <cpu/difftest.h>
 #include <locale.h>
+//add code 
+#include <isa.h>
+//add end
 
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
@@ -34,7 +37,6 @@ void device_update();
 
 //add code
 void check();//function at watchpoint
-extern char *elf_check();//function at monitor
 
 //add code for trace
 void iput(char *str);
@@ -73,12 +75,30 @@ void oput()
 
 //add code end
 
+//add code for elf
+extern int num_fun;
+extern info_elf_funciotn arr_fun_elf[100];
 void ftrace_get_jump(int now_pc, int jump_pc, int sign)
 {
-	/*
-	if(!sign) log_write("call : %s", elf_check());
-	else log_write("ret : %s", elf_check());
-	*/
+	char nameoffun[100];
+	if(!sign)
+	{
+		for(int i = 0; i < num_fun; i ++)
+		{
+			if(jump_pc <= arr_fun_elf[i].fun_value + arr_fun_elf[i].fun_size && jump_pc >= arr_fun_elf[i].fun_value)
+				strcpy(nameoffun, arr_fun_elf[i].funname);
+		}
+		log_write("%x: call %s", now_pc, nameoffun);
+	}
+	else
+	{
+		for(int i = 0; i < num_fun; i ++)
+		{
+			if(jump_pc <= arr_fun_elf[i].fun_value + arr_fun_elf[i].fun_size && jump_pc >= arr_fun_elf[i].fun_value)
+				strcpy(nameoffun, arr_fun_elf[i].funname);
+		}
+		log_write("%x: ret %s", now_pc, nameoffun);
+	}
 }
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {

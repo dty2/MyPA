@@ -107,14 +107,9 @@ static int parse_args(int argc, char *argv[]) {
 }
 //add code
 #define number_of_fun 100
-#define sizeof_fun_string 100
-struct Info_elf_function
-{
-	int fun_value;
-	int fun_size;
-	char funname[sizeof_fun_string];
-} arr_fun_elf[number_of_fun];
+info_elf_funciotn arr_fun_elf[number_of_fun];
 
+int num_fun = 0;
 
 void handleelf(FILE *file)
 {
@@ -159,7 +154,6 @@ void handleelf(FILE *file)
 		Section_header ++;
 	}
 
-	int num_fun = 0;
 	for(int i = 0; i < numofsym; i ++)
 	{
 		if(ELF32_ST_TYPE(Symtab_header->st_info) == STT_FUNC)
@@ -175,13 +169,13 @@ void handleelf(FILE *file)
 		}
 		Symtab_header ++;
 	}
-	for(int i = 0; i < num_fun; i ++)
-		printf("%d %x %s\n", arr_fun_elf[i].fun_size, arr_fun_elf[i].fun_value, arr_fun_elf[i].funname);
+	//for(int i = 0; i < num_fun; i ++)
+		//printf("%d %x %s\n", arr_fun_elf[i].fun_size, arr_fun_elf[i].fun_value, arr_fun_elf[i].funname);
 
 	/** Release memory **/
 	free(ELF_header);
-	//free(Section_header);
-	//free();
+	free(Section_header);
+	free(Symtab_header);
 }
 
 void init_elf()

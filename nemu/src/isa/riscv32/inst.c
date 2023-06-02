@@ -23,8 +23,9 @@
 #define Mw vaddr_write
 
 //add code for elf
-
 extern void ftrace_get_jump(int, int, int);
+//add end
+
 enum {
   TYPE_I, TYPE_U, TYPE_S, TYPE_J, TYPE_R, TYPE_B,
   TYPE_N, // none

@@ -27,6 +27,13 @@ typedef concat(__GUEST_ISA__, _ISADecodeInfo) ISADecodeInfo;
 // monitor
 extern char isa_logo[];
 void init_isa();
+#define sizeof_fun_string 100
+typedef struct Info_elf_function
+{
+	int fun_value;
+	int fun_size;
+	char funname[sizeof_fun_string];
+}info_elf_funciotn; 
 
 // reg
 extern CPU_state cpu;
