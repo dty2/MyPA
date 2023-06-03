@@ -25,7 +25,7 @@ int printf(const char *fmt, ...) {
 	va_list valist;
 	va_start(valist, fmt);
 	int i = 0, sum = 0;
-	char out[100000];
+	char out[100];
 	for(int i = 0; *(out + i); i ++)
 		*(out + i) = '\0';
 	for(; *(fmt + i) != '\0'; i ++)
