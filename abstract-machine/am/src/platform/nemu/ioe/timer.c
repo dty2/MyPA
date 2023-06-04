@@ -6,6 +6,12 @@ void __am_timer_init() {
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
   uptime->us = 0;
+	  //putstr(rtc->year);
+	  //putstr(rtc->month);
+	  //putstr(rtc->day);
+	  //putstr(rtc->hour);
+	  //putstr(rtc->minute);
+	  //putstr(rtc->second);
 }
 
 void __am_timer_rtc(AM_TIMER_RTC_T *rtc) {
