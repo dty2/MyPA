@@ -22,6 +22,7 @@ void itoa_ten(int number, char *str)
 }
 
 int printf(const char *fmt, ...) {
+	putch('a');
 	va_list valist;
 	va_start(valist, fmt);
 	int i = 0, sum = 0;
