@@ -5,7 +5,7 @@ void __am_timer_init() {
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
-	//if(uptime->us >= 1000000) uptime->us = 0;
+	if(uptime->us >= 1000000) uptime->us = 0;
 	uptime->us += 500;
 }
 
