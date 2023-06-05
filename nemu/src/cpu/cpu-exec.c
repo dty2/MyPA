@@ -74,6 +74,7 @@ void oput()
 //add code end
 
 //add code for elf
+/*
 extern int num_fun;
 extern struct Info_elf_function
 {
@@ -118,6 +119,7 @@ void ftrace_get_jump(int now_pc, int jump_pc)
 	}
 	now_info ++;
 }
+*/
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
