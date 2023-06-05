@@ -1,12 +1,13 @@
 #include <am.h>
 #include <nemu.h>
+#include <stdio.h>
 
 void __am_timer_init() {
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
   uptime->us = 0;
-	  //putstr(rtc->year);
+  printf("%d",uptime->us);
 	  //putstr(rtc->month);
 	  //putstr(rtc->day);
 	  //putstr(rtc->hour);
