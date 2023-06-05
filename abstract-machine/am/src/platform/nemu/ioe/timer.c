@@ -7,7 +7,7 @@ void __am_timer_init() {
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
   uptime->us = 0;
-  printf("%d\n",uptime->us);
+  printf("%x\n",uptime->us);
 	  //putstr(rtc->month);
 	  //putstr(rtc->day);
 	  //putstr(rtc->hour);
