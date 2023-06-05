@@ -6,7 +6,7 @@ void __am_timer_init() {
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
 	int x = 0;
-	if(uptime->us / 1000000) x = uptime->us / 1000000;
+	if(uptime->us / 1000000) x = uptime->us / 100000;
 	uptime->us += x;
 }
 
