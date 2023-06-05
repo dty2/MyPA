@@ -5,7 +5,9 @@ void __am_timer_init() {
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
-	uptime->us += 10;
+	int x = 0;
+	if(uptime->us / 1000000) x = uptime->us / 1000000;
+	uptime->us += x;
 }
 
 void __am_timer_rtc(AM_TIMER_RTC_T *rtc) {
