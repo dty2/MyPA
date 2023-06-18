@@ -26,6 +26,7 @@ int main(int argc, char *argv[]) {
   am_init_monitor();
   printf("\nhello\n");
 #else
+  printf("\nhello\n");
   init_monitor(argc, argv);
 #endif
 
