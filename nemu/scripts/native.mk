@@ -34,7 +34,7 @@ NEMU_EXEC := $(BINARY) $(ARGS) $(IMG)
 run-env: $(BINARY) $(DIFF_REF_SO)
 
 run: run-env
-	@echo "\nIf you run into some problems like stopping and not continuing, please checkto see if you are using wsl, and if so, please check to see if you have the service from vcxsrv.exe \n"
+	@echo "\nIf you run into some problems like stopping and not continuing, please checkto see if you are using wsl, and if so, please check to see if you open the service about vcxsrv.exe \n"
 	$(call git_commit, "run NEMU")
 	$(NEMU_EXEC)
 
