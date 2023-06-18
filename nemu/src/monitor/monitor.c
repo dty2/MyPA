@@ -202,6 +202,7 @@ void init_monitor(int argc, char *argv[]) {
   /* Open the elf file. */
   //init_elf();
 
+  printf("\nhello\n");
   /* Initialize memory. */
   init_mem(); //said by dtyy : in paddr.c
 
