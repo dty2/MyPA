@@ -205,6 +205,7 @@ void init_monitor(int argc, char *argv[]) {
   printf("\nhello\n");
   /* Initialize memory. */
   init_mem(); //said by dtyy : in paddr.c
+  printf("\nhello\n");
 
   /* Initialize devices. */
   IFDEF(CONFIG_DEVICE, init_device());
