@@ -34,7 +34,7 @@ NEMU_EXEC := $(BINARY) $(ARGS) $(IMG)
 run-env: $(BINARY) $(DIFF_REF_SO)
 
 run: run-env
-	@echo "\nIf you meet some problem like stop with no continue execute soon when the process run at device , please check whether you use wsl or not, it you use it, please check have you start vcxsrcv.exe!\n"
+	@echo "\nIf you meet some problem like stop and not continue execute soonly when the process run at device , please check whether you use wsl or not, it you use it, please check have you start vcxsrcv.exe!\n"
 	$(call git_commit, "run NEMU")
 	$(NEMU_EXEC)
 
