@@ -43,6 +43,7 @@ static void check_bound(IOMap *map, paddr_t addr) {
 }
 
 static void invoke_callback(io_callback_t c, paddr_t offset, int len, bool is_write) {
+	printf("hello");
   if (c != NULL) { c(offset, len, is_write); }
   else printf("c is NULL");
 }
