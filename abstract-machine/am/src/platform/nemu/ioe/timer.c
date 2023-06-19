@@ -2,13 +2,19 @@
 #include <nemu.h>
 #include <stdio.h>
 
+static uint64_t boottime = 0;
+uint64_t gettime()
+{
+	uint64_t time1 = inl(AUDIO_ADDR);
+	uint64_t time2 = inl(AUDIO_ADDR + 1);
+	return time1 + (time2 << 32);
+}
 void __am_timer_init() {
+	boottime = gettime();
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
-	uint64_t time1 = inl(AUDIO_ADDR);
-	//uint64_t time2 = inl(AUDIO_ADDR + 1);
-	uptime->us = time1;// + (time2 << 32);
+	uptime->us = gettime() - boottime;
 }
 
 void __am_timer_rtc(AM_TIMER_RTC_T *rtc) {
