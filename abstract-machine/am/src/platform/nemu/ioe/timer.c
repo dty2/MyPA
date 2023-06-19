@@ -7,7 +7,7 @@ void __am_timer_init() {
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
 	uint64_t time1 = inl(AUDIO_ADDR);
-	uint64_t time2 = inl(AUDIO_ADDR + 1);
+	uint64_t time2 = inl(AUDIO_ADDR + 8);
 	uptime->us = time1 + (time2 << 32);
 }
 
