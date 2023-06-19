@@ -8,7 +8,7 @@ uint64_t gettime()
 {
 	uint64_t time1 = (uint64_t)inl(AUDIO_ADDR);
 	uint64_t time2 = (uint64_t)inl(AUDIO_ADDR + 4) << 32;
-	printf("%d %d", time1, time2);
+	printf("%d", time2 | time1);
 	return time2 | time1;
 }
 
