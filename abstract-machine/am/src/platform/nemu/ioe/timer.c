@@ -12,7 +12,8 @@ uint64_t gettime()
 }
 
 void __am_timer_init() {
-	boottime = 0;
+//	boottime = 0;
+static uint64_t boottime = 0;
 	printf("hello%dhello",boottime);
 	boottime = gettime();
 	printf("hello%dhello",boottime);
