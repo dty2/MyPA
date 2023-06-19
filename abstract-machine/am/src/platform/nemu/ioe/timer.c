@@ -8,14 +8,12 @@ uint64_t gettime()
 {
 	uint64_t time1 = (uint64_t)inl(AUDIO_ADDR);
 	uint64_t time2 = (uint64_t)inl(AUDIO_ADDR + 4) << 32;
+	printf("%d %d", time1, time2);
 	return time2 | time1;
 }
 
 void __am_timer_init() {
-	boottime = 0;
-	printf("hello_%d_%dhello",boottime, 0);
 	boottime = gettime();
-	printf("hello%dhello",boottime);
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
