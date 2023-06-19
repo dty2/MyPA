@@ -20,7 +20,7 @@
 static uint32_t *rtc_port_base = NULL;
 
 static void rtc_io_handler(uint32_t offset, int len, bool is_write) {
-  assert(1);//offset == 0 || offset == 4);
+  assert(0);//offset == 0 || offset == 4);
   if (!is_write && offset == 4) {
     uint64_t us = get_time();
 	printf("%ld ", us);
