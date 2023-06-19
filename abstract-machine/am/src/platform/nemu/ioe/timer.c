@@ -6,7 +6,7 @@ static uint64_t boottime = 0;
 uint64_t gettime()
 {
 	uint64_t time1 = inl(AUDIO_ADDR);
-	uint64_t time2 = inl(AUDIO_ADDR + 1);
+	uint64_t time2 = inl(AUDIO_ADDR + 4);
 	return time1 + (time2 << 32);
 }
 void __am_timer_init() {
