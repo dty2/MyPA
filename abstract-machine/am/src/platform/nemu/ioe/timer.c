@@ -6,7 +6,7 @@ static uint64_t boottime = 0;
 uint64_t gettime()
 {
 	uint64_t time1 = (uint64_t)inl(AUDIO_ADDR);
-	uint64_t time2 = (uint64_t)inl(AUDIO_ADDR + 4) << 32;
+	uint64_t time2 = (uint64_t)inl(AUDIO_ADDR + 32) << 32;
 	return time2 | time1;
 }
 
