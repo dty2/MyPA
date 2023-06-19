@@ -39,6 +39,7 @@ static void timer_intr() {
 #endif
 
 void init_timer() {
+  printf("hello");
   rtc_port_base = (uint32_t *)new_space(8);
 #ifdef CONFIG_HAS_PORT_IO
   printf("hello");
