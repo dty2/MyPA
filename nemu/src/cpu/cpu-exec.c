@@ -132,7 +132,10 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_WATCHPOINT
 	check();
 #endif
+
+#ifdef CONFIG_WATCHPOINT
 	iput(_this->logbuf);
+#endif
 }
 
 static void exec_once(Decode *s, vaddr_t pc) {
