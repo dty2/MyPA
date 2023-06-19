@@ -13,7 +13,7 @@ uint64_t gettime()
 
 void __am_timer_init() {
 	boottime = gettime();
-	printf("\nhello\n%d",boottime);
+	printf("\n%d\n",boottime);
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
