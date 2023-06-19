@@ -1,6 +1,5 @@
 #include <am.h>
 #include <nemu.h>
-#include <stdio.h>
 
 static uint64_t boottime = 0;
 
@@ -8,7 +7,6 @@ uint64_t gettime()
 {
 	uint64_t time1 = (uint64_t)inl(AUDIO_ADDR);
 	uint64_t time2 = (uint64_t)inl(AUDIO_ADDR + 4) << 32;
-	printf("%ld ", time2 | time1);
 	return time2 | time1;
 }
 
