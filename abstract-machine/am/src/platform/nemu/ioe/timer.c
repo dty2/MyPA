@@ -8,7 +8,6 @@ uint64_t gettime()
 	uint64_t time1 = (uint64_t)inl(RTC_ADDR);
 	uint64_t time2 = ((uint64_t)inl(RTC_ADDR + 4) << 32);
 	return time1 | time2;
-
 }
 
 void __am_timer_init() {
