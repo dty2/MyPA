@@ -30,7 +30,6 @@ static uint64_t get_time_internal() {
   struct timeval now;
   gettimeofday(&now, NULL);
   uint64_t us = now.tv_sec * 1000000 + now.tv_usec;
-  printf("\n%ld\n",us);
 #else
   struct timespec now;
   clock_gettime(CLOCK_MONOTONIC_COARSE, &now);
@@ -42,5 +41,6 @@ static uint64_t get_time_internal() {
 uint64_t get_time() {
   if (boot_time == 0) boot_time = get_time_internal();
   uint64_t now = get_time_internal();
+  printf("\n%ld\n",now);
   return now - boot_time;
 }
