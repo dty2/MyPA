@@ -5,7 +5,6 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
-/*
 void itoa_ten(int number, char *str)
 {
 	int i = 0;
@@ -22,9 +21,7 @@ void itoa_ten(int number, char *str)
 	}
 	*(str + i) = '\0';
 }
-*/
 
-/*
 int printf(const char *fmt, ...) {
 	va_list valist;
 	va_start(valist, fmt);
@@ -67,9 +64,7 @@ int printf(const char *fmt, ...) {
 int vsprintf(char *out, const char *fmt, va_list ap) {
   panic("Not implemented");
 }
-*/
 
-/*
 int sprintf(char *out, const char *fmt, ...) {
 	va_list valist;
 	va_start(valist, fmt);
@@ -115,8 +110,8 @@ int snprintf(char *out, size_t n, const char *fmt, ...) {
 int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {
   panic("Not implemented");
 }
-*/
 
+/*
 static char* get_int(char *p, va_list *ap) {
 	int d = va_arg(*ap, int);
 	char str[32];
@@ -203,5 +198,5 @@ int snprintf(char *out, size_t n, const char *fmt, ...) {
 int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {
   panic("Not implemented");
 }
-
+*/
 #endif
