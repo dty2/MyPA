@@ -30,7 +30,6 @@ enum {
   TYPE_I, TYPE_U, TYPE_S, TYPE_J, TYPE_R, TYPE_B,
   TYPE_N, // none
 };
-#define SEXT_MY(x, len) ({ struct { int32_t n : len; } __x = { .n = x }; (uint32_t)__x.n; })
 
 #define src1R() do { *src1 = R(rs1); } while (0)
 #define src2R() do { *src2 = R(rs2); } while (0)
@@ -39,8 +38,8 @@ enum {
 #define immS() do { *imm = (SEXT(BITS(i, 31, 25), 7) << 5) | BITS(i, 11, 7); } while(0)
 
 //add code
-#define immJ() do { *imm = SEXT((BITS(i, 30, 21) + (BITS(i, 20, 20) << 10) + (BITS(i, 19, 12) << 11) + (BITS(i, 31, 31) << 19)), 20) << 1; } while(0)
-#define immB() do { *imm = SEXT((BITS(i, 11, 8) + (BITS(i, 30, 25) << 4) + (BITS(i, 7, 7) << 10) + (BITS(i, 31, 31) << 11)), 12) << 1; } while(0)
+#define immJ() do { *imm = (SEXT(BITS(i, 31, 31), 1) << 20) | (BITS(i, 19, 12) << 12) | (BITS(i, 20, 20) << 11) | (BITS(i, 30, 21) << 1) | 0; } while(0)
+#define immB() do { *imm = (SEXT(BITS(i, 31, 31), 1) << 12) | (BITS(i, 30, 25) << 5) | (BITS(i, 11, 8) << 1) | (BITS(i, 7, 7) << 11); } while(0)
 
 static void decode_operand(Decode *s, int *dest, word_t *src1, word_t *src2, word_t *imm, int type) {
   uint32_t i = s->isa.inst.val;
@@ -94,12 +93,6 @@ static int decode_exec(Decode *s) {
 
   INSTPAT("??????? ????? ????? ??? ????? 11011 11", jal    , J, s->dnpc = imm + s->pc; R(dest) = s->pc + 4;);//assembler pseudoinstruction: j
 
-  INSTPAT("0000000 ????? ????? 000 ????? 01100 11", add    , R, R(dest) = src1 + src2);
-  INSTPAT("0100000 ????? ????? 000 ????? 01100 11", sub    , R, R(dest) = src1 - src2);//assembler pseudoinstruction:neg(negitive)
-  INSTPAT("0000000 ????? ????? 011 ????? 01100 11", sltu   , R, R(dest) = src1 < src2);
-  INSTPAT("0000000 ????? ????? 100 ????? 01100 11", xor    , R, R(dest) = src1 ^ src2);
-  INSTPAT("0000000 ????? ????? 110 ????? 01100 11", or     , R, R(dest) = src1 | src2);
-
   INSTPAT("??????? ????? ????? 001 ????? 11000 11", bne    , B, s->dnpc = src1 != src2 ? imm + s->pc : s->dnpc;);
   INSTPAT("??????? ????? ????? 000 ????? 11000 11", beq    , B, s->dnpc = src1 == src2 ? imm + s->pc : s->dnpc;); //assembler pseudoinstruction:beqz
   INSTPAT("??????? ????? ????? 101 ????? 11000 11", bge    , B, s->dnpc = (int)src1 >= (int)src2 ? imm + s->pc : s->dnpc;);//change!!!
@@ -123,6 +116,11 @@ static int decode_exec(Decode *s) {
   INSTPAT("0000001 ????? ????? 101 ????? 01100 11", divu   , R, R(dest) = src1 / src2);
   INSTPAT("0000001 ????? ????? 011 ????? 01100 11", mulhu  , R, R(dest) = ((long long)src1 * (long long)src2) >> 32);
   INSTPAT("0000001 ????? ????? 111 ????? 01100 11", remu   , R, R(dest) = src1 % src2);
+  INSTPAT("0000000 ????? ????? 000 ????? 01100 11", add    , R, R(dest) = src1 + src2);
+  INSTPAT("0100000 ????? ????? 000 ????? 01100 11", sub    , R, R(dest) = src1 - src2);//assembler pseudoinstruction:neg(negitive)
+  INSTPAT("0000000 ????? ????? 011 ????? 01100 11", sltu   , R, R(dest) = src1 < src2);
+  INSTPAT("0000000 ????? ????? 100 ????? 01100 11", xor    , R, R(dest) = src1 ^ src2);
+  INSTPAT("0000000 ????? ????? 110 ????? 01100 11", or     , R, R(dest) = src1 | src2);
 
   /*
   INSTPAT("??????? ????? ????? 000 ????? 00011 11", fence    , R, R(dest) = src1 + src2);
