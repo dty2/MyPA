@@ -3,7 +3,6 @@
 #include <stdint.h>
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
-/*
 size_t strlen(const char *s) {
   panic("Not implemented");
 }
@@ -68,7 +67,7 @@ int memcmp(const void *s1, const void *s2, size_t n) {
   //panic("Not implemented");
   return 0;
 }
-*/
+/*
 
 size_t strlen(const char *src) {
   int len = 0;
@@ -160,5 +159,5 @@ int memcmp(const void *dest, const void *src, size_t n) {
   else { return 0; }
   return a;
 }
-
+*/
 #endif
