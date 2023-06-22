@@ -4,6 +4,7 @@
 #include <stdarg.h>
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
+/*
 void itoa_ten(int number, char *str)
 {
 	int i = 0;
@@ -109,7 +110,7 @@ int snprintf(char *out, size_t n, const char *fmt, ...) {
 int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {
   panic("Not implemented");
 }
-/*
+*/
 char* itoa(int num, char* buf)
 {
   int i = 0;
@@ -250,5 +251,4 @@ int snprintf(char *out, size_t n, const char *fmt, ...) {
 int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {
   panic("Not implemented");
 }
-*/ 
 #endif
