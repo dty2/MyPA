@@ -240,6 +240,7 @@ static long load_img() {
 }
 
 void am_init_monitor() {
+	printf("\nhello\n");
   init_rand();
   init_mem();
   init_isa();
