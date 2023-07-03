@@ -140,7 +140,6 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 
 static void exec_once(Decode *s, vaddr_t pc) {
   s->pc = pc;
-  printf("%x", pc);
   s->snpc = pc;
   isa_exec_once(s); //isa_exec_once: isa/riscv32/inst.c
   cpu.pc = s->dnpc;
