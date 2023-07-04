@@ -35,11 +35,12 @@ static uint64_t get_time_internal() {
   clock_gettime(CLOCK_MONOTONIC_COARSE, &now);
   uint64_t us = now.tv_sec * 1000000 + now.tv_nsec / 1000;
 #endif
-  return us;
+  return us;//return the time in microseconds from 1970 to the present
 }
 
 uint64_t get_time() {
   if (boot_time == 0) boot_time = get_time_internal();
   uint64_t now = get_time_internal();
   return now - boot_time;
+  // return the time in microseconds from init_timer to the present
 }
