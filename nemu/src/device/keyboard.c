@@ -67,6 +67,7 @@ static uint32_t key_dequeue() {
 void send_key(uint8_t scancode, bool is_keydown) {
   if (nemu_state.state == NEMU_RUNNING && keymap[scancode] != _KEY_NONE) {
     uint32_t am_scancode = keymap[scancode] | (is_keydown ? KEYDOWN_MASK : 0);
+	printf("\nhello\n");
     key_enqueue(am_scancode);
   }
 }
@@ -74,7 +75,6 @@ void send_key(uint8_t scancode, bool is_keydown) {
 #define _KEY_NONE 0
 
 static uint32_t key_dequeue() {
-	printf("\nhello\n");
   AM_INPUT_KEYBRD_T ev = io_read(AM_INPUT_KEYBRD);
   uint32_t am_scancode = ev.keycode | (ev.keydown ? KEYDOWN_MASK : 0);
   return am_scancode;
