@@ -35,7 +35,7 @@ f(UP) f(DOWN) f(LEFT) f(RIGHT) f(INSERT) f(DELETE) f(HOME) f(END) f(PAGEUP) f(PA
 
 enum {
   _KEY_NONE = 0,
-  MAP(_KEYS, _KEY_NAME)
+  MAP(_KEYS, _KEY_NAME)//_KEYS(_KEY_NAME)
 };
 
 #define SDL_KEYMAP(k) keymap[concat(SDL_SCANCODE_, k)] = concat(_KEY_, k);
@@ -67,7 +67,6 @@ static uint32_t key_dequeue() {
 void send_key(uint8_t scancode, bool is_keydown) {
   if (nemu_state.state == NEMU_RUNNING && keymap[scancode] != _KEY_NONE) {
     uint32_t am_scancode = keymap[scancode] | (is_keydown ? KEYDOWN_MASK : 0);
-	printf("\nhello\n");
     key_enqueue(am_scancode);
   }
 }
