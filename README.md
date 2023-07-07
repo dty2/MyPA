@@ -17,4 +17,4 @@ The following subprojects/components are included. Some of them are not fully im
 * [Navy-apps](https://github.com/NJU-ProjectN/navy-apps)
 
 whisper BB:  
-It's awesome , now I'm at pa1 !  
+It's awesome , now I'm at pa2 !  
