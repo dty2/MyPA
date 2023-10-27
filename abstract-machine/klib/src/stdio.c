@@ -4,251 +4,142 @@
 #include <stdarg.h>
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
-/*
-void itoa_ten(int number, char *str)
-{
-	int i = 0;
-	char temp[100];
-	while(number)
-	{
-		*(temp + i) = (char)(number % 10 + '0');
-		number /= 10;
-		i ++;
+
+static char* get_int(char *p, va_list *ap) {
+	int d = va_arg(*ap, int);
+	char str[32];
+	int len = 0;
+	if (d == 0) {
+		*p++ = '0';
+		return p;
 	}
-	for(int j = i - 1, k = 0; j >= 0 ; j --, k ++)
-	{
-		*(str + k) = *(temp + j);
+	if (d < 0) {
+		*p++ = '-';
+		d *= -1;
 	}
-	*(str + i) = '\0';
+	while (d) {
+		str[len++] = d % 10 + '0';
+		d /= 10;
+	}
+	for (int i = len - 1; i >= 0; i--) {
+		*p++ = str[i];
+	}
+	return p;
+}
+
+static char* get_string(char* p, va_list *ap) {
+	char *str = va_arg(*ap, char*);
+	while(*str) {
+		*p++ = *str++;
+	}
+	return p;
+}
+
+static char* get_char(char* p, va_list *ap) {
+	char ch = (char)va_arg(*ap, int);
+	*p++ = ch;
+	return p;
+}
+
+static char* get_hex(char* p, va_list *ap) {
+	unsigned int value = va_arg(*ap, unsigned int);
+	if(value == 0){
+		*p++ = '0';
+		return p;
+	}
+	for (; value != 0; value /= 16) {
+		if (value % 16 < 10) {
+			*p++ = value % 16 + '0';
+		}
+		else {
+			*p++ = value % 16 - 10 + 'A';
+		}
+	}
+	return p;
+}
+
+static char* get_point(char* p, va_list *ap) {
+	uint32_t pointer = va_arg(*ap, uint32_t);
+	for (; pointer != 0; pointer /= 16) {
+		if (pointer % 16 < 10) {
+			*p++ = pointer % 16 + '0';
+		}
+		else {
+			*p++ = pointer % 16 - 10 + 'A';
+		}
+	}
+	return p;
+}
+
+int get_result(char *out, size_t n, const char *fmt, va_list ap) {
+	char* p = (char*)out;
+	while (*fmt) {
+		if (*fmt == '%') {
+			if ((uint32_t)p - (uint32_t)out >= n)
+				break;
+			fmt++;
+			switch (*fmt) {
+				case 'd': 
+					p = get_int(p, &ap);
+					break;
+				case 's': 
+					p = get_string(p, &ap);
+					break;
+				case 'c':
+					p = get_char(p, &ap);
+					break;
+				case 'p':
+					p = get_point(p, &ap);
+					break;
+				case 'x':
+					p = get_hex(p, &ap);
+					break;
+			}
+			fmt++;
+		}
+		else {
+			if ((uint32_t)p - (uint32_t)out >= n)
+				break;
+			*p++ = *fmt++;
+		}
+	}
+	*p++ = '\0';
+	return (uint32_t)p - (uint32_t)out - 1;
 }
 
 int printf(const char *fmt, ...) {
-	va_list valist;
-	va_start(valist, fmt);
-	int i = 0, sum = 0;
-	char out[100];
-	for(int i = 0; *(out + i); i ++)
-		*(out + i) = '\0';
-	for(; *(fmt + i) != '\0'; i ++)
-	{
-		if(*(fmt + i) == '%')
-		{
-			switch(*(fmt + i + 1))
-			{
-				case 'd':
-					char number[100];
-					itoa_ten(va_arg(valist, int), number);
-					strcat(out, number);
-					while(*(out + sum)) sum ++;
-					break;
-				case 's':
-					char *p = va_arg(valist, char *);
-					strcat(out, p);
-					while(*(out + sum)) sum ++;
-					break;
-			}
-			i ++;
-		}
-		else
-		{
-			*(out + sum) = *(fmt + i);
-			sum ++;
-		}
-	}
-	*(out + sum + 1) = '\0';
-	va_end(valist);
+	char out[4096];
+	va_list ap;
+	va_start(ap, fmt);
+	int len = get_result(out, -1, fmt, ap);
+	va_end(ap);
 	putstr(out);
-	return sum;
-	//panic("Not implemented");
+	return len;
 }
+
 int vsprintf(char *out, const char *fmt, va_list ap) {
-  panic("Not implemented");
+  	return get_result(out, -1, fmt, ap);
 }
 
 int sprintf(char *out, const char *fmt, ...) {
-	va_list valist;
-	va_start(valist, fmt);
-	int i = 0, sum = 0;
-	for(int i = 0; *(out + i); i ++)
-		*(out + i) = '\0';
-	for(; *(fmt + i) != '\0'; i ++)
-	{
-		if(*(fmt + i) == '%')
-		{
-			switch(*(fmt + i + 1))
-			{
-				case 'd':
-					char number[100];
-					itoa_ten(va_arg(valist, int), number);
-					strcat(out, number);
-					while(*(out + sum)) sum ++;
-					break;
-				case 's':
-					char *p = va_arg(valist, char *);
-					strcat(out, p);
-					while(*(out + sum)) sum ++;
-					break;
-			}
-			i ++;
-		}
-		else
-		{
-			*(out + sum) = *(fmt + i);
-			sum ++;
-		}
-	}
-	*(out + sum + 1) = '\0';
-	va_end(valist);
-	return sum;
-  //panic("Not implemented");
+	va_list ap;
+	va_start(ap, fmt);
+	int len = get_result(out, -1, fmt, ap);
+	va_end(ap);
+	return len;
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
-  panic("Not implemented");
+	va_list ap;
+	va_start(ap, fmt);
+	int len = get_result(out, n, fmt, ap);
+	va_end(ap);
+	return len;
 }
 
 int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {
-  panic("Not implemented");
-}
-*/
-char* itoa(int num, char* buf)
-{
-  int i = 0;
-  int len = 0;
-  int flag = 0;
-  char tmp;
-  if (num == 0) {
-    buf[i++] = '0';
-  }
-  if (num < 0) {
-    num *= -1;
-    flag = 1;
-  }
-  while (num) {
-    buf[i++] = num % 10 + '0';
-    num = num /10;
-  }
-  if (flag) {
-    buf[i++] = '-';
-  }
-  buf[i] = '\0';
-  len = i;
-  for (i = 0; i < len / 2; i++) {
-    tmp = buf[i];
-    buf[i] = buf[len-i-1];
-    buf[len-i-1] = tmp;
-  }
-  return buf;
+  	int len = get_result(out, n, fmt, ap);
+	return len;
 }
 
-char* xtoa(unsigned int num, char* buf)
-{
-  int i = 0;
-  if (num == 0) {
-    buf[i++] = '0';
-  }
-  while (num) {
-    if (num % 16 < 10) {
-      buf[i++] = num % 16 + '0';
-    }
-    else {
-      buf[i++] = num % 16 - 10 + 'A';
-    }
-    num = num / 16;
-  }
-  buf[i++] = 'x';
-  buf[i++] = '0';
-  buf[i] = '\0';
-  int len = i;
-
-  char tmp;
-  for (i = 0; i < len / 2; i++) {
-    tmp = buf[i];
-    buf[i] = buf[len-i-1];
-    buf[len-i-1] = tmp;
-  }
-  return buf;
-}
-
-///////////////////////////////////////////////////////////////////
-
-int printf(const char *fmt, ...) {
-  char buf[2048];
-  va_list vl_src;
-  va_start(vl_src, fmt);
-  // 可变参数的转发
-  int count = vsprintf(buf, fmt, vl_src);
-  putstr(buf);
-  va_end(vl_src);
-  return count;
-}
-
-int vsprintf(char *out, const char *fmt, va_list vl) {
-  int count = 0;
-  int i = 0;
-  while (*fmt != '\0') {
-    if (*fmt != '%') {
-      out[i++] = *fmt++;
-      count++;
-      //puts("hit");
-    }
-    else {
-      ++fmt;
-      if (*fmt == 's') {
-        char* src = va_arg(vl, char*);
-        while (*src != '\0') {
-          out[i++] = *src++;
-          count++;
-        }
-        ++fmt;
-        //puts("shit hit s");
-      }
-      else if (*fmt == 'd') {
-        char buf[33];
-        itoa(va_arg(vl, int), buf);
-        int index = 0;
-        while (buf[index] != '\0') {
-          out[i++] = buf[index++];
-          count++;
-        }
-        ++fmt;
-        //puts("shit hit d");
-      }
-      else if (*fmt == 'p') {
-        char buf[33];
-        xtoa(va_arg(vl, int), buf);
-        int index = 0;
-        while (buf[index] != '\0') {
-          out[i++] = buf[index++];
-          count++;
-        }
-        ++fmt;
-      }
-      else {
-        out[i++] = '%';
-        count += 1;
-      }
-    }
-  }
-  out[i] = '\0';
-  if (count == 0) return -1;
-  return count;
-}
-
-int sprintf(char *out, const char *fmt, ...) {
-  va_list vl;
-  va_start(vl, fmt);
-  int count = vsprintf(out, fmt, vl);
-  va_end(vl);
-  if (count == 0) return -1;
-  return count;
-}
-
-int snprintf(char *out, size_t n, const char *fmt, ...) {
-  panic("Not implemented");
-}
-
-int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {
-  panic("Not implemented");
-}
 #endif

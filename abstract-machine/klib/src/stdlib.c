@@ -54,28 +54,10 @@ void *malloc(size_t size) {
   // Therefore do not call panic() here, else it will yield a dead recursion:
   //   panic() -> putchar() -> (glibc) -> malloc() -> panic()
 #if !(defined(__ISA_NATIVE__) && defined(__NATIVE_USE_KLIB__))
-	/*
-	static char *hbrk = NULL;
-  if (hbrk == NULL) {
-    hbrk = heap.start;
-  }
-  size = (size_t)ROUNDUP(size, 8);
-  char *old = hbrk;
-  hbrk += size;
-  //assert((uintptr_t)heap.start <= (uintptr_t)hbrk && (uintptr_t)hbrk < (uintptr_t)heap.end);
-  for (uint64_t *p = (uint64_t *)old; p != (uint64_t *)hbrk; p ++) {
-    *p = 0;
-  }
-  //assert((uintptr_t)hbrk - (uintptr_t)heap.start <= setting->mlim);
-  return old;
-  //panic("Not implemented");
-#endif
-  return NULL;
-  */
   uint8_t *old_hbrk = mem_heap.hbrk;
   mem_heap.hbrk += size;
-  //printf("the alloced heap of [%x,%x] adress is %x with size %d", mem_heap.start, mem_heap.end ,old_hbrk, size);
-  //printf("\n");
+  printf("the alloced heap of [%x,%x] adress is %x with size %d", mem_heap.start, mem_heap.end ,old_hbrk, size);
+  printf("\n");
   assert( (mem_heap.hbrk >= mem_heap.start) && (mem_heap.hbrk < mem_heap.end) );
 #endif
   return (void*)old_hbrk;
